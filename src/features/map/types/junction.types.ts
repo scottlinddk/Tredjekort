@@ -8,7 +8,7 @@ export type JunctionStatus =
 export interface Junction {
   id: string
   name: string
-  description: string
+  description: Record<'da' | 'en', string>
   longitude: number
   latitude: number
   status: JunctionStatus

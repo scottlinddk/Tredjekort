@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import type { GeoJSONSource } from 'maplibre-gl'
 import { useMapInstance } from './MapInstanceContext'
 import { useRoadAlignment } from '../hooks/useRoadAlignment'
-import { LAYER_IDS } from '../constants/mapConfig'
+import { DOTTED_LINE_DASHARRAY, DOTTED_LINE_DASHARRAY_SPARSE, LAYER_IDS } from '../constants/mapConfig'
 
 const SOURCE_ID = 'road-alignment'
 
@@ -44,7 +44,14 @@ export function RoadAlignmentLayer() {
           /* other */ '#1d4ed8',
         ],
         'line-width': 3.5,
-        'line-dasharray': ['case', ['==', ['get', 'confidence'], 'schematic'], ['literal', [2, 2]], ['literal', [1, 0]]],
+        // Dotted everywhere: the whole motorway is a planned road, not an existing one.
+        // The schematic fjord-crossing placeholder gets sparser dots to read as less certain.
+        'line-dasharray': [
+          'case',
+          ['==', ['get', 'confidence'], 'schematic'],
+          ['literal', DOTTED_LINE_DASHARRAY_SPARSE],
+          ['literal', DOTTED_LINE_DASHARRAY],
+        ],
       },
     })
 

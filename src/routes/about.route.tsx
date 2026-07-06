@@ -1,32 +1,31 @@
+import { useI18n } from '../shared/i18n/I18nContext'
+
 export function AboutRoute() {
+  const { t } = useI18n()
+
   return (
     <article className="about-route">
-      <h1>About the 3. Limfjordsforbindelse</h1>
-      <p>
-        A planned 20 km, four-lane motorway running west of Aalborg via the island Egholm,
-        connecting a southern extension of the E39 to the E45 at a new interchange south of
-        Dall. The route runs from Aalborg to Egholm through a tunnel, and from Egholm to
-        Lindholm via a low bridge.
-      </p>
+      <h1>{t('about.title')}</h1>
+      <p>{t('about.intro')}</p>
       <dl className="about-route__facts">
-        <dt>Length</dt>
-        <dd>Approximately 20 km</dd>
-        <dt>Tunnel</dt>
-        <dd>Approximately 1.1 km, with 450 m ramp sections on each side</dd>
-        <dt>Decided</dt>
-        <dd>28 June 2021 (Infrastrukturplan 2035)</dd>
-        <dt>Construction law passed</dt>
-        <dd>May 2024</dd>
-        <dt>Budget</dt>
-        <dd>8.9 billion DKK (2024 prices)</dd>
-        <dt>Expected completion</dt>
-        <dd>2034</dd>
+        <dt>{t('about.facts.length')}</dt>
+        <dd>{t('about.facts.lengthValue')}</dd>
+        <dt>{t('about.facts.tunnel')}</dt>
+        <dd>{t('about.facts.tunnelValue')}</dd>
+        <dt>{t('about.facts.decided')}</dt>
+        <dd>{t('about.facts.decidedValue')}</dd>
+        <dt>{t('about.facts.law')}</dt>
+        <dd>{t('about.facts.lawValue')}</dd>
+        <dt>{t('about.facts.budget')}</dt>
+        <dd>{t('about.facts.budgetValue')}</dd>
+        <dt>{t('about.facts.expropriation')}</dt>
+        <dd>{t('about.facts.expropriationValue')}</dd>
+        <dt>{t('about.facts.construction')}</dt>
+        <dd>{t('about.facts.constructionValue')}</dd>
+        <dt>{t('about.facts.completion')}</dt>
+        <dd>{t('about.facts.completionValue')}</dd>
       </dl>
-      <p className="about-route__note">
-        This project is still evolving, expropriation reviews and design changes (such as the
-        southern interchange near Dall) are ongoing as of mid-2026. Figures here reflect the
-        most recent public information at the time this was built and may be superseded.
-      </p>
+      <p className="about-route__note">{t('about.note')}</p>
     </article>
   )
 }

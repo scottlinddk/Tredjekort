@@ -1,32 +1,47 @@
-# React + TypeScript + Vite
+# 3. Limfjordsforbindelse — interaktivt kort
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interactive map of the planned 3. Limfjordsforbindelse motorway (Egholmlinjen) west of
+Aalborg. React + TypeScript + Vite + MapLibre GL.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dotted planned alignments** — the motorway (surveyed / provisional / schematic
+  confidence tiers) and the planned local roads from Vejdirektoratet's
+  *Præsentation af Nørholmsvej og Mølholmsvejs forlængelse* (detailbesigtigelse,
+  April 2026) all render as dotted lines, since none of them exist yet.
+- **Danish-first UI** — Danish is the default language with an English toggle in the
+  header (persisted in `localStorage`, see `src/shared/i18n/`).
+- **Address search with road-noise verdict** — look up any Danish address
+  (autocomplete via DAWA), the map marks it and reports whether residents are likely
+  to hear road noise, based on straight-line distance to the planned alignment.
+  This is a distance-based estimate, not an acoustic model.
 
-## React Compiler
+## Address API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+`GET /api/addresses?q=<query>` — a Vercel serverless function
+([api/addresses.js](api/addresses.js)) proxying
+[DAWA / Dataforsyningen](https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#autocomplete)
+address autocomplete. In development the Vite dev server proxies the same path
+directly to DAWA (see `vite.config.ts`), and the frontend also falls back to calling
+DAWA directly if the endpoint is unavailable.
 
-## Expanding the Oxlint configuration
+## Development
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
+npm run dev     # dev server with /api/addresses proxy
+npm run build   # type-check + production build
+npm run lint    # oxlint
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Data caveats
+
+Road geometry is approximated from Vejdirektoratet's public planning documents; it is
+not official survey data. The local-road lines (relocated Nørholmsvej over the
+motorway at interchange TSA 12 – Mølholm, and the Mølholmsvej/Nørholmsvej extension
+north-east to the Løvstikkevej area) follow the maps in the detailed-inspection
+presentation of 15 April 2026, but the source is a raster PDF without a coordinate
+grid, so absolute placement is anchored to known reference points (Egholm, the
+motorway station ladder) and may be off by a few hundred metres. The noise bands and
+the address verdict are simplified distance-based approximations, not the official
+Lden noise study (drawing 9095-29011). See the in-app disclaimer for details.
