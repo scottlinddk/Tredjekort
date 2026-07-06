@@ -84,8 +84,8 @@ const translations = {
     en: 'No source geometry exists for this stretch. The line is an approximate placeholder, not a precise alignment.',
   },
   'disclaimer.localRoads': {
-    da: 'De planlagte lokalveje (Nørholmsvej-omlægningen og Mølholmsvejs forlængelse) stammer fra Vejdirektoratets præsentation til detailbesigtigelsen, april 2026, men er placeret omtrentligt.',
-    en: 'The planned local roads (the Nørholmsvej rearrangement and the Mølholmsvej extension) come from Vejdirektoratet’s detailed-inspection presentation, April 2026, but are placed approximately.',
+    da: 'De planlagte lokalveje (forlagt Nørholmsvej og Mølholmsvej/Nørholmsvejs forlængelse) er tegnet efter Vejdirektoratets præsentation til detailbesigtigelsen 15. april 2026. Formen følger præsentationens kort, men den absolutte placering er omtrentlig (forvent afvigelser på nogle hundrede meter).',
+    en: 'The planned local roads (the relocated Nørholmsvej and the Mølholmsvej/Nørholmsvej extension) are drawn from Vejdirektoratet’s detailed-inspection presentation of 15 April 2026. The shape follows the presentation maps, but absolute placement is approximate (expect offsets of a few hundred metres).',
   },
 
   'about.title': { da: 'Om 3. Limfjordsforbindelse', en: 'About the 3. Limfjordsforbindelse' },
@@ -105,15 +105,22 @@ const translations = {
     da: '28. juni 2021 (Infrastrukturplan 2035)',
     en: '28 June 2021 (Infrastrukturplan 2035)',
   },
-  'about.facts.law': { da: 'Anlægslov vedtaget', en: 'Construction law passed' },
-  'about.facts.lawValue': { da: 'Maj 2024', en: 'May 2024' },
+  'about.facts.law': { da: 'Anlægslov', en: 'Construction act' },
+  'about.facts.lawValue': { da: '1. juli 2024', en: '1 July 2024' },
   'about.facts.budget': { da: 'Budget', en: 'Budget' },
   'about.facts.budgetValue': {
     da: '8,9 mia. kr. (2024-priser)',
     en: '8.9 billion DKK (2024 prices)',
   },
+  'about.facts.expropriation': { da: 'Ekspropriation', en: 'Expropriation' },
+  'about.facts.expropriationValue': {
+    da: '4. kvartal 2026 – 2. kvartal 2028',
+    en: 'Q4 2026 – Q2 2028',
+  },
+  'about.facts.construction': { da: 'Anlæg af motorvej', en: 'Motorway construction' },
+  'about.facts.constructionValue': { da: 'Fra primo 2028', en: 'From early 2028' },
   'about.facts.completion': { da: 'Forventet åbning', en: 'Expected completion' },
-  'about.facts.completionValue': { da: '2034', en: '2034' },
+  'about.facts.completionValue': { da: '4. kvartal 2034', en: 'Q4 2034' },
   'about.note': {
     da: 'Projektet udvikler sig stadig. Ekspropriationsforretninger og designændringer (fx det sydlige tilslutningsanlæg ved Dall) er i gang medio 2026. Tallene her afspejler de senest offentliggjorte oplysninger og kan være forældede.',
     en: 'This project is still evolving, expropriation reviews and design changes (such as the southern interchange near Dall) are ongoing as of mid-2026. Figures here reflect the most recent public information at the time this was built and may be superseded.',

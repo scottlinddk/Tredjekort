@@ -18,6 +18,10 @@ export function AboutRoute() {
         <dd>{t('about.facts.lawValue')}</dd>
         <dt>{t('about.facts.budget')}</dt>
         <dd>{t('about.facts.budgetValue')}</dd>
+        <dt>{t('about.facts.expropriation')}</dt>
+        <dd>{t('about.facts.expropriationValue')}</dd>
+        <dt>{t('about.facts.construction')}</dt>
+        <dd>{t('about.facts.constructionValue')}</dd>
         <dt>{t('about.facts.completion')}</dt>
         <dd>{t('about.facts.completionValue')}</dd>
       </dl>

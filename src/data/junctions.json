@@ -13,31 +13,31 @@
   },
   {
     "id": "norholmsvej",
-    "name": "Nørholmsvej",
+    "name": "Nørholmsvej / TSA 12 – Mølholm",
     "description": {
-      "da": "Her krydser motorvejen Nørholmsvej vest for Hasseris på vej mod tunnelportalen ved Limfjorden. Nørholmsvej omlægges, og der er planlagt støjskærme langs vejen. Placeringen er omtrentlig.",
-      "en": "Here the motorway crosses Nørholmsvej west of Hasseris on the approach to the tunnel portal at the Limfjord. Nørholmsvej will be rearranged, and noise barriers are planned along the road. Placement is approximate."
+      "da": "Tilslutningsanlæg TSA 12 – Mølholm (st. 107.300–108.700), det sidste inden tunnelen under Sønderdyb. Nørholmsvej forlægges mod syd og føres 6,75 m over motorvejen. Begge rampekryds signalreguleres, der anlægges enkeltrettede cykelstier og en samkørselsplads, Hasseris Å forlægges, og der opsættes støjskærme op til 6 meters højde over vejoverside. Trafikken opretholdes i hele anlægsperioden. Placeringen på kortet er omtrentlig.",
+      "en": "Interchange TSA 12 – Mølholm (st. 107.300–108.700), the last one before the tunnel under Sønderdyb. Nørholmsvej is relocated southwards and carried 6.75 m over the motorway. Both ramp junctions get traffic signals, one-way cycle tracks and a carpool site are added, the Hasseris stream is relocated, and noise barriers up to 6 metres above the road surface will be erected. Traffic is maintained throughout construction. Placement on the map is approximate."
     },
-    "longitude": 9.854,
-    "latitude": 57.033,
+    "longitude": 9.8565,
+    "latitude": 57.0322,
     "status": "expropriation review ongoing",
     "sources": [
-      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
-      "Vejdirektoratet news, detailed site inspections spring 2026"
+      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026",
+      "Vejdirektoratet, Detailbesigtigelse - Støjkort, tegning 9095-29011 (10-04-2026)"
     ]
   },
   {
     "id": "molholmsvej",
-    "name": "Mølholmsvejs forlængelse",
+    "name": "Mølholmsvej/Nørholmsvejs forlængelse",
     "description": {
-      "da": "Mølholmsvej forlænges mod vest som ny lokalvej frem mod motorvejskorridoren og Nørholmsvej, som en del af anlægslovens bestemmelser om omlægning af kommuneveje. Placeringen er omtrentlig.",
-      "en": "Mølholmsvej will be extended westwards as a new local road towards the motorway corridor and Nørholmsvej, as part of the construction act's provisions for realigning municipal roads. Placement is approximate."
+      "da": "Mølholmsvej/Nørholmsvej forlænges mod nord fra et nyt signalreguleret T-kryds på den forlagte Nørholmsvej og videre mod nordøst til Løvstikkevej-området, hvor adgange retableres. Der anlægges dobbeltrettet fællessti vest for T-krydset, krydsningshelle mellem søerne, spunsvægge, faunapassager og regnvandsbassiner. Placeringen på kortet er omtrentlig.",
+      "en": "Mølholmsvej/Nørholmsvej is extended northwards from a new signalised T-junction on the relocated Nørholmsvej and onwards north-east to the Løvstikkevej area, where accesses are re-established. A two-way shared path west of the T-junction, a crossing island between the lakes, sheet-pile walls, fauna passages and stormwater basins are included. Placement on the map is approximate."
     },
-    "longitude": 9.8575,
-    "latitude": 57.0308,
+    "longitude": 9.8612,
+    "latitude": 57.036,
     "status": "planned realignment",
     "sources": [
-      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
+      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026",
       "Lov om anlæg af en 3. Limfjordsforbindelse, §1"
     ]
   },

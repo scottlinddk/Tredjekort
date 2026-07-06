@@ -37,8 +37,11 @@ npm run lint    # oxlint
 ## Data caveats
 
 Road geometry is approximated from Vejdirektoratet's public planning documents; it is
-not official survey data. The local-road lines (Nørholmsvej rearrangement,
-Mølholmsvejs forlængelse) are placed approximately — the source presentation is a
-raster PDF that has not been traced coordinate-by-coordinate. The noise bands and the
-address verdict are simplified distance-based approximations. See the in-app
-disclaimer for details.
+not official survey data. The local-road lines (relocated Nørholmsvej over the
+motorway at interchange TSA 12 – Mølholm, and the Mølholmsvej/Nørholmsvej extension
+north-east to the Løvstikkevej area) follow the maps in the detailed-inspection
+presentation of 15 April 2026, but the source is a raster PDF without a coordinate
+grid, so absolute placement is anchored to known reference points (Egholm, the
+motorway station ladder) and may be off by a few hundred metres. The noise bands and
+the address verdict are simplified distance-based approximations, not the official
+Lden noise study (drawing 9095-29011). See the in-app disclaimer for details.

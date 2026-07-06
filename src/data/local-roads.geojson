@@ -4,26 +4,28 @@
     {
       "type": "Feature",
       "properties": {
-        "id": "norholmsvej-omlaegning",
-        "name": "Nørholmsvej (omlægning)",
+        "id": "forlagt-norholmsvej",
+        "name": "Forlagt Nørholmsvej",
         "kind": "realignment",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
-        "note": "Approximate placement along the existing Nørholmsvej corridor west of Hasseris. The source presentation is a raster document; this line has not been traced from it coordinate-by-coordinate."
+        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (st. 107.300–108.700)",
+        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Shape follows the presentation maps; absolute georeferencing is approximate (anchored to Egholm and the motorway station ladder), expect offsets of a few hundred metres."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.897, 57.0362],
-          [9.8885, 57.0353],
-          [9.879, 57.0345],
-          [9.869, 57.0338],
-          [9.8605, 57.0334],
-          [9.854, 57.0331],
-          [9.846, 57.0328],
-          [9.836, 57.0326],
-          [9.826, 57.0324],
-          [9.816, 57.0323]
+          [9.84, 57.0338],
+          [9.8465, 57.0334],
+          [9.8515, 57.0329],
+          [9.8545, 57.0325],
+          [9.8565, 57.0322],
+          [9.859, 57.0322],
+          [9.862, 57.0326],
+          [9.866, 57.0333],
+          [9.8705, 57.034],
+          [9.875, 57.0345],
+          [9.88, 57.0349],
+          [9.885, 57.0352]
         ]
       }
     },
@@ -31,23 +33,24 @@
       "type": "Feature",
       "properties": {
         "id": "molholmsvej-forlaengelse",
-        "name": "Mølholmsvejs forlængelse",
+        "name": "Mølholmsvej/Nørholmsvejs forlængelse",
         "kind": "new-road",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
-        "note": "Approximate placement of the planned westward extension of Mølholmsvej towards the motorway corridor and Nørholmsvej. The source presentation is a raster document; this line has not been traced from it coordinate-by-coordinate."
+        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (lokalvejens st. 1+000–3+000)",
+        "note": "New local road from a signalised T-junction on the relocated Nørholmsvej, extending north and then north-east roughly parallel to the Sønderdyb coast, past the lakes (crossing island between them) to the Løvstikkevej area where accesses are re-established. Shape follows the presentation maps; absolute georeferencing is approximate, expect offsets of a few hundred metres."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8925, 57.027],
-          [9.884, 57.0273],
-          [9.8755, 57.0278],
-          [9.868, 57.0286],
-          [9.862, 57.0296],
-          [9.8575, 57.0308],
-          [9.855, 57.032],
-          [9.854, 57.0331]
+          [9.862, 57.0326],
+          [9.8612, 57.0345],
+          [9.861, 57.0365],
+          [9.8618, 57.0385],
+          [9.8638, 57.0403],
+          [9.8665, 57.0417],
+          [9.87, 57.0428],
+          [9.874, 57.0436],
+          [9.878, 57.0441]
         ]
       }
     }
