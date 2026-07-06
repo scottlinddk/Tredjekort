@@ -39,6 +39,9 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
     }
 
     return () => {
+      // On route unmount React runs MapCanvas's cleanup (map.remove()) before this one,
+      // and getLayer/getSource throw on a removed map because its style is gone.
+      if (!map.style) return
       if (map.getLayer(LAYER_IDS.noiseBufferFill)) map.removeLayer(LAYER_IDS.noiseBufferFill)
       if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID)
     }

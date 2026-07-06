@@ -49,6 +49,9 @@ export function RoadAlignmentLayer() {
     })
 
     return () => {
+      // On route unmount React runs MapCanvas's cleanup (map.remove()) before this one,
+      // and getLayer/getSource throw on a removed map because its style is gone.
+      if (!map.style) return
       if (map.getLayer(LAYER_IDS.roadAlignmentLine)) map.removeLayer(LAYER_IDS.roadAlignmentLine)
       if (map.getLayer(LAYER_IDS.roadAlignmentCasing)) map.removeLayer(LAYER_IDS.roadAlignmentCasing)
       if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID)
