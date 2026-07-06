@@ -1,0 +1,47 @@
+[
+  {
+    "id": "dall-e45",
+    "name": "Dall / E45 Nordjyske Motorvej",
+    "description": "Southern end of the new motorway, a new motorway interchange just south of Dall connecting to E45. Vejdirektoratet proposed relocating this interchange closer to Dall in 2025 to improve traffic flow, avoid an asbestos-contaminated landfill, and reduce impact on the Østerå valley crossing. The change triggered a separate environmental impact review.",
+    "longitude": 9.8735,
+    "latitude": 56.964,
+    "status": "design under revision",
+    "sources": ["Vejdirektoratet project page", "Trafikstyrelsen VVM screening decision, 2025-04"]
+  },
+  {
+    "id": "norholmsvej",
+    "name": "Nørholmsvej",
+    "description": "Connection point on the Hasseris side, on the approach to the Aalborg tunnel portal.",
+    "longitude": 9.879,
+    "latitude": 56.985,
+    "status": "expropriation review ongoing",
+    "sources": ["Vejdirektoratet news, detailed site inspections spring 2026"]
+  },
+  {
+    "id": "molholmsvej",
+    "name": "Mølholmsvej",
+    "description": "Local road extension and connection near Hasseris, part of the anlægslov's explicit provisions for realigning municipal roads.",
+    "longitude": 9.884,
+    "latitude": 56.986,
+    "status": "planned realignment",
+    "sources": ["Lov om anlæg af en 3. Limfjordsforbindelse, §1"]
+  },
+  {
+    "id": "egholm-local",
+    "name": "Egholm local road",
+    "description": "A local road and bridge to Egholm island, to be built alongside the motorway if Aalborg Kommune opts in, per the anlægslov.",
+    "longitude": 9.843,
+    "latitude": 57.05,
+    "status": "conditional on municipal decision",
+    "sources": ["Lov om anlæg af en 3. Limfjordsforbindelse, §1 stk. 2"]
+  },
+  {
+    "id": "vadum-e39",
+    "name": "Vadum / E39 Hirtshalsmotorvejen",
+    "description": "Northern end of the new motorway, connecting to the existing E39 Hirtshalsmotorvejen near Vadum.",
+    "longitude": 9.921,
+    "latitude": 57.101,
+    "status": "planned",
+    "sources": ["Vejdirektoratet project page"]
+  }
+]

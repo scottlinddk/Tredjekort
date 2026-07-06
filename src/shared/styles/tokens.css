@@ -1,0 +1,31 @@
+/*
+  Design direction: this project is built from real Vejdirektoratet CAD survey
+  drawings (navy dash-dot centerlines, cyan building-line corridors, amber
+  markers, fine coordinate-grid ticks on white paper). Rather than a generic
+  dashboard look, the UI borrows that drafting vocabulary directly.
+*/
+:root {
+  /* Color */
+  --color-paper: #fafaf8;
+  --color-ink: #1c2128;
+  --color-graphite: #6b7280;
+  --color-survey-blue: #1d4ed8;
+  --color-amber: #a16207;
+  --color-fjord: #0e7490;
+
+  /* Type */
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  --radius: 4px;
+  --border-hairline: 1px solid #d8d5cc;
+}
