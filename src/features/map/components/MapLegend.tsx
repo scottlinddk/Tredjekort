@@ -18,6 +18,9 @@ export function MapLegend() {
       <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--local-road" /> {t('legend.localRoad')}
       </div>
+      <div className="map-legend__row">
+        <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
+      </div>
       <p className="map-legend__note">{t('legend.plannedNote')}</p>
     </CollapsiblePanel>
   )

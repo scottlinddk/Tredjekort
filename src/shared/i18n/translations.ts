@@ -17,6 +17,7 @@ const translations = {
   'legend.provisional': { da: 'Foreløbig (motorvej)', en: 'Provisional (motorway)' },
   'legend.schematic': { da: 'Skitse (motorvej)', en: 'Schematic (motorway)' },
   'legend.localRoad': { da: 'Planlagt lokalvej', en: 'Planned local road' },
+  'legend.noiseScreen': { da: 'Planlagt støjskærm', en: 'Planned noise screen' },
   'legend.plannedNote': {
     da: 'Alle linjer er planlagte anlæg, vist punkteret.',
     en: 'All lines are planned works, drawn dotted.',
@@ -68,8 +69,8 @@ const translations = {
     en: 'Road geometry is approximated from Vejdirektoratet’s public planning documents. It is not official survey data and should not be used for anything beyond general orientation.',
   },
   'disclaimer.noise': {
-    da: 'Støjlaget er en forenklet afstandsbaseret tilnærmelse, ikke en rigtig akustisk model. Vejdirektoratet har offentliggjort et egentligt Lden-støjkort (dB-bånd, tegning 9095-29011) for en del af strækningen, men det er et rasterkort, som endnu ikke er pålideligt georefereret ind i denne app.',
-    en: 'The noise overlay is a simplified distance-based approximation, not a real acoustic model. Vejdirektoratet has published an actual Lden noise study (dB bands, drawing 9095-29011) for part of this route, but it is a raster map that has not yet been reliably georeferenced into this app.',
+    da: 'Støjlaget er en forenklet afstandsbaseret tilnærmelse, ikke en rigtig akustisk model. Vejdirektoratet har offentliggjort et egentligt Lden-støjkort (dB-bånd, tegning 9095-29011) for en del af strækningen, men det er et rasterkort, som endnu ikke er pålideligt georefereret ind i denne app. Vejdirektoratets opdaterede støjberegninger fra november 2023 anslår 682 støjbelastede boliger med anlægget mod 671 i referencescenariet uden, og et støjbelastningstal på 87 mod 102. De planlagte støjskærme fra samme rapport (i alt ca. 5,2 km, ved Dall, Dall Villaby, Nibevej og Nørholmsvej) er vist som en omtrentlig, ikke-georefereret linje.',
+    en: 'The noise overlay is a simplified distance-based approximation, not a real acoustic model. Vejdirektoratet has published an actual Lden noise study (dB bands, drawing 9095-29011) for part of this route, but it is a raster map that has not yet been reliably georeferenced into this app. Vejdirektoratet’s updated noise calculations from November 2023 estimate 682 noise-affected homes with the project versus 671 in the reference scenario without it, and a noise burden index of 87 versus 102. The planned noise screens from the same report (about 5.2 km total, at Dall, Dall Villaby, Nibevej and Nørholmsvej) are shown as an approximate, non-georeferenced line.',
   },
   'disclaimer.confidence.surveyed': {
     da: 'Optegnet efter Vejdirektoratets officielle deklarationsrids (E9095), georefereret til rigtige koordinater.',

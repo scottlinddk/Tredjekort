@@ -513,7 +513,7 @@
         "segment": "plan7",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Auto-selected chain not yet visually verified against ramp geometry near Vadum interchange; may not be the true through-route."
+        "note": "Reviewed against the Nov 2024 declaration plan sheet covering the Vadum interchange (a genuine multi-ramp junction, not a digitizing artifact); the general path is plausible but still not pixel-registered against the sheet's own coordinate grid, so the exact ramp/through-route choice remains unconfirmed."
       },
       "geometry": {
         "type": "LineString",
@@ -767,7 +767,7 @@
         "segment": "plan8",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Auto-selected chain not yet visually verified against ramp geometry near Vadum interchange; may not be the true through-route."
+        "note": "Reviewed against the Nov 2024 declaration plan sheet covering the Vadum interchange (a genuine multi-ramp junction, not a digitizing artifact); the general path is plausible but still not pixel-registered against the sheet's own coordinate grid, so the exact ramp/through-route choice remains unconfirmed."
       },
       "geometry": {
         "type": "LineString",
@@ -1018,25 +1018,78 @@
     {
       "type": "Feature",
       "properties": {
-        "segment": "schematic_fjord_crossing",
-        "confidence": "schematic",
-        "source": "approximate, no centerline data available for tunnel/bridge section"
+        "segment": "plan3",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Shape traced from the declaration plan sheets (Drastrup/Sofiendal/Hasseris, st. ~103-108) and anchored to the plan2 endpoint and the Nørholmsvej interchange point; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [
-            9.88444086417376,
-            56.985869812284356
-          ],
-          [
-            9.843,
-            57.05
-          ],
-          [
-            9.920932626249826,
-            57.093213554015776
-          ]
+          [9.88444086417376, 56.985869812284356],
+          [9.881, 56.991],
+          [9.878, 56.998],
+          [9.8735, 57.006],
+          [9.868, 57.014],
+          [9.8615, 57.021],
+          [9.8565, 57.0322]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan4",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Shape traced from the declaration plan sheets (Hasseris/Egholm approach past TSA 12 - Mølholm, st. ~108-110) and anchored to the Nørholmsvej and Egholm-crossing junction points; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.8565, 57.0322],
+          [9.8555, 57.036],
+          [9.8505, 57.042],
+          [9.846, 57.046],
+          [9.843, 57.05]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan5",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Shape traced from the declaration plan sheet covering the Egholm fjord crossing itself (st. ~110-113), replacing the previous straight-line placeholder; anchored at the Egholm junction point but not pixel-registered to the sheet's own coordinate grid."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.843, 57.05],
+          [9.8455, 57.056],
+          [9.85, 57.0625],
+          [9.857, 57.068],
+          [9.865, 57.0725]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan6",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Shape traced from the declaration plan sheets (Vadum/Lindholm/Voerbjerg, st. ~113-116) and anchored to the plan7 start point; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.865, 57.0725],
+          [9.878, 57.078],
+          [9.895, 57.084],
+          [9.91, 57.089],
+          [9.920932626249826, 57.093213554015776]
         ]
       }
     }
