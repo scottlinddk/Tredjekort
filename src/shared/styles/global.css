@@ -207,3 +207,34 @@ body {
   font-family: var(--font-mono);
   color: var(--color-graphite);
 }
+
+.route-error {
+  max-width: 480px;
+  margin: var(--space-8) auto;
+  padding: var(--space-6);
+}
+
+.route-error__title {
+  font-family: var(--font-display);
+  margin: 0 0 var(--space-2);
+}
+
+.route-error__message {
+  color: var(--color-graphite);
+  margin: 0 0 var(--space-4);
+}
+
+.route-error__action {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.route-error__action:hover {
+  border-color: var(--color-graphite);
+}
