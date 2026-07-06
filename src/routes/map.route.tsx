@@ -26,8 +26,10 @@ export function MapRoute() {
           <LayerToggle showNoise={showNoise} onToggleNoise={setShowNoise} />
         </div>
       </MapCanvas>
-      <MapLegend />
-      <DataSourceDisclaimer />
+      <div className="map-overlays-bottom">
+        <DataSourceDisclaimer />
+        <MapLegend />
+      </div>
     </div>
   )
 }

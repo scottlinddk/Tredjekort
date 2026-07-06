@@ -23,10 +23,19 @@ body {
   height: 100%;
 }
 
+/* Track the browser chrome on mobile so the map fills the visible viewport. */
+@supports (height: 100dvh) {
+  .app-shell {
+    height: 100dvh;
+  }
+}
+
 .app-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
   padding: var(--space-3) var(--space-4);
   border-bottom: var(--border-hairline);
   background: var(--color-paper);
@@ -264,21 +273,76 @@ body {
   color: var(--color-graphite);
 }
 
-.map-legend {
-  position: absolute;
-  bottom: var(--space-3);
-  right: var(--space-3);
+/* Collapsible map overlay panel: a title bar that toggles the body, so the
+   legend and disclaimer can be minimised to a small chip on phones. */
+.map-panel {
   background: var(--color-paper);
   border: var(--border-hairline);
   border-radius: var(--radius);
-  padding: var(--space-2) var(--space-3);
-  font-size: 0.8rem;
-  font-family: var(--font-mono);
 }
 
-.map-legend__title {
-  margin: 0 0 var(--space-1);
-  font-weight: 500;
+.map-panel__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: none;
+  color: var(--color-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.map-panel__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.map-panel__icon {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1;
+  color: var(--color-graphite);
+}
+
+.map-panel__body {
+  padding: 0 var(--space-3) var(--space-3);
+  overflow-y: auto;
+}
+
+.map-panel__body > :first-child {
+  margin-top: 0;
+}
+
+.map-panel__body > :last-child {
+  margin-bottom: 0;
+}
+
+/* Row of panels along the map's bottom edge: disclaimer left, legend right.
+   pointer-events pass through the gap between them so the map stays draggable. */
+.map-overlays-bottom {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  right: var(--space-3);
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.map-overlays-bottom > * {
+  pointer-events: auto;
+}
+
+.map-legend {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
 }
 
 .map-legend__row {
@@ -320,24 +384,10 @@ body {
 }
 
 .data-disclaimer {
-  position: absolute;
-  bottom: var(--space-3);
-  left: var(--space-3);
   max-width: 320px;
-  background: var(--color-paper);
-  border: var(--border-hairline);
-  border-radius: var(--radius);
-  padding: var(--space-3);
   font-size: 0.78rem;
   line-height: 1.4;
   color: var(--color-graphite);
-}
-
-.data-disclaimer__heading {
-  font-family: var(--font-display);
-  color: var(--color-ink);
-  margin: 0 0 var(--space-1);
-  font-size: 0.85rem;
 }
 
 .data-disclaimer ul {
@@ -382,6 +432,10 @@ body {
   color: var(--color-graphite);
 }
 
+.about-route__facts dd {
+  margin: 0;
+}
+
 .about-route__note {
   border-left: 3px solid var(--color-amber);
   padding-left: var(--space-3);
@@ -424,4 +478,65 @@ body {
 
 .route-error__action:hover {
   border-color: var(--color-graphite);
+}
+
+/* Small screens: tighten the header, keep overlays inside the viewport, and cap
+   expanded panel height so the map stays reachable behind them. */
+@media (max-width: 640px) {
+  .app-header {
+    padding: var(--space-2) var(--space-3);
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .app-header__title {
+    font-size: 1rem;
+  }
+
+  .app-header__side {
+    gap: var(--space-3);
+  }
+
+  .app-header__nav {
+    gap: var(--space-3);
+  }
+
+  .map-overlays-left {
+    width: calc(100% - 2 * var(--space-3));
+  }
+
+  /* Stack the bottom panels full-width, lifted above MapLibre's scale bar
+     and attribution control. */
+  .map-overlays-bottom {
+    flex-direction: column;
+    align-items: stretch;
+    bottom: calc(var(--space-3) + 28px);
+  }
+
+  .data-disclaimer {
+    max-width: none;
+  }
+
+  .map-panel__body {
+    max-height: 40vh;
+  }
+
+  .junction-detail,
+  .about-route {
+    padding: var(--space-4);
+    overflow-wrap: break-word;
+  }
+
+  .junction-detail h1,
+  .about-route h1 {
+    font-size: 1.6rem;
+  }
+
+  .about-route__facts {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .about-route__facts dd {
+    margin: 0 0 var(--space-2);
+  }
 }
