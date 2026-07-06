@@ -39,9 +39,37 @@ body {
   letter-spacing: -0.01em;
 }
 
+.app-header__side {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
 .app-header__nav {
   display: flex;
   gap: var(--space-4);
+}
+
+.language-switcher {
+  display: flex;
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.language-switcher__option {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: var(--color-paper);
+  color: var(--color-graphite);
+  cursor: pointer;
+}
+
+.language-switcher__option--active {
+  background: var(--color-survey-blue);
+  color: var(--color-paper);
 }
 
 .app-header__nav a {
@@ -86,15 +114,154 @@ body {
   padding: 0;
 }
 
-.layer-toggle {
+/* Column of interactive overlays in the map's top-left corner. */
+.map-overlays-left {
   position: absolute;
   top: var(--space-3);
   left: var(--space-3);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(320px, calc(100% - 2 * var(--space-3)));
+}
+
+.layer-toggle {
+  align-self: flex-start;
   background: var(--color-paper);
   border: var(--border-hairline);
   border-radius: var(--radius);
   padding: var(--space-2) var(--space-3);
   font-size: 0.85rem;
+}
+
+.address-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.address-search__input-row {
+  position: relative;
+  display: flex;
+}
+
+.address-search__input {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  padding: var(--space-2) var(--space-6) var(--space-2) var(--space-3);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.address-search__input:focus {
+  outline: 2px solid var(--color-survey-blue);
+  outline-offset: -1px;
+}
+
+.address-search__clear {
+  position: absolute;
+  right: var(--space-1);
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--color-graphite);
+  cursor: pointer;
+  padding: var(--space-1) var(--space-2);
+}
+
+.address-search__results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--color-paper);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(28, 33, 40, 0.12);
+}
+
+.address-search__result {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  background: none;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+.address-search__result:hover {
+  background: rgba(29, 78, 216, 0.08);
+}
+
+.address-search__status {
+  font-size: 0.85rem;
+  color: var(--color-graphite);
+  padding: var(--space-2) var(--space-3);
+}
+
+.address-search__verdict {
+  background: var(--color-paper);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.address-search__verdict p {
+  margin: 0 0 var(--space-2);
+}
+
+.address-search__verdict p:last-child {
+  margin-bottom: 0;
+}
+
+.address-search__address {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.address-search__distance {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-graphite);
+}
+
+.address-search__level {
+  border-left: 3px solid var(--color-graphite);
+  padding-left: var(--space-2);
+}
+
+.address-search__level--high {
+  border-left-color: #dc2626;
+}
+
+.address-search__level--moderate {
+  border-left-color: var(--color-amber);
+}
+
+.address-search__level--low {
+  border-left-color: var(--color-fjord);
+}
+
+.address-search__level--minimal {
+  border-left-color: #15803d;
+}
+
+.address-search__disclaimer {
+  font-size: 0.75rem;
+  color: var(--color-graphite);
 }
 
 .map-legend {
@@ -121,19 +288,35 @@ body {
 }
 
 .legend-swatch {
-  width: 18px;
-  height: 3px;
+  width: 20px;
+  height: 4px;
   display: inline-block;
+  /* Dotted, mirroring how planned alignments render on the map. */
+  background: repeating-linear-gradient(
+    90deg,
+    var(--swatch-color, var(--color-graphite)) 0 4px,
+    transparent 4px 8px
+  );
+  border-radius: 2px;
 }
 
 .legend-swatch--surveyed {
-  background: var(--color-survey-blue);
+  --swatch-color: var(--color-survey-blue);
 }
 .legend-swatch--provisional {
-  background: var(--color-amber);
+  --swatch-color: var(--color-amber);
 }
 .legend-swatch--schematic {
-  background: var(--color-graphite);
+  --swatch-color: var(--color-graphite);
+}
+.legend-swatch--local-road {
+  --swatch-color: var(--color-fjord);
+}
+
+.map-legend__note {
+  margin: var(--space-2) 0 0;
+  color: var(--color-graphite);
+  max-width: 200px;
 }
 
 .data-disclaimer {

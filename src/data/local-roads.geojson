@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "norholmsvej-omlaegning",
+        "name": "Nørholmsvej (omlægning)",
+        "kind": "realignment",
+        "confidence": "schematic",
+        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
+        "note": "Approximate placement along the existing Nørholmsvej corridor west of Hasseris. The source presentation is a raster document; this line has not been traced from it coordinate-by-coordinate."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.897, 57.0362],
+          [9.8885, 57.0353],
+          [9.879, 57.0345],
+          [9.869, 57.0338],
+          [9.8605, 57.0334],
+          [9.854, 57.0331],
+          [9.846, 57.0328],
+          [9.836, 57.0326],
+          [9.826, 57.0324],
+          [9.816, 57.0323]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "molholmsvej-forlaengelse",
+        "name": "Mølholmsvejs forlængelse",
+        "kind": "new-road",
+        "confidence": "schematic",
+        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
+        "note": "Approximate placement of the planned westward extension of Mølholmsvej towards the motorway corridor and Nørholmsvej. The source presentation is a raster document; this line has not been traced from it coordinate-by-coordinate."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.8925, 57.027],
+          [9.884, 57.0273],
+          [9.8755, 57.0278],
+          [9.868, 57.0286],
+          [9.862, 57.0296],
+          [9.8575, 57.0308],
+          [9.855, 57.032],
+          [9.854, 57.0331]
+        ]
+      }
+    }
+  ]
+}

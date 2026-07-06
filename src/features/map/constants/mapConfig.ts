@@ -8,6 +8,8 @@ export const DEFAULT_MAP_ZOOM = 11.5
 export const LAYER_IDS = {
   roadAlignmentLine: 'road-alignment-line',
   roadAlignmentCasing: 'road-alignment-casing',
+  localRoadsLine: 'local-roads-line',
+  localRoadsCasing: 'local-roads-casing',
   noiseBufferFill: 'noise-buffer-fill',
   junctionPoints: 'junction-points',
 } as const
@@ -17,6 +19,14 @@ export const CONFIDENCE_COLORS = {
   provisional: '#a16207',
   schematic: '#6b7280',
 } as const
+
+// Matches the --color-fjord design token in tokens.css.
+export const LOCAL_ROAD_COLOR = '#0e7490'
+
+// Everything on this map is a planned road, none of it exists yet, so all alignments
+// render dotted. Zero-length dashes with a round line-cap produce true dots.
+export const DOTTED_LINE_DASHARRAY: [number, number] = [0, 2.2]
+export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 
 export const NOISE_BUFFER_BANDS_METERS = [
   { distance: 600, opacity: 0.06 },

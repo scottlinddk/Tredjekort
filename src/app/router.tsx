@@ -3,6 +3,7 @@ import { RootLayout } from './root-layout'
 import { queryClient } from './queryClient'
 import { roadAlignmentOptions } from '../features/map/hooks/useRoadAlignment'
 import { junctionsOptions } from '../features/map/hooks/useJunctions'
+import { localRoadsOptions } from '../features/map/hooks/useLocalRoads'
 import { RouteErrorBoundary } from '../shared/components/RouteErrorBoundary'
 
 export const router = createBrowserRouter([
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
           await Promise.all([
             queryClient.ensureQueryData(roadAlignmentOptions()),
             queryClient.ensureQueryData(junctionsOptions()),
+            queryClient.ensureQueryData(localRoadsOptions()),
           ])
           return null
         },

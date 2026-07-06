@@ -2,7 +2,10 @@
   {
     "id": "dall-e45",
     "name": "Dall / E45 Nordjyske Motorvej",
-    "description": "Southern end of the new motorway, a new motorway interchange just south of Dall connecting to E45. Vejdirektoratet proposed relocating this interchange closer to Dall in 2025 to improve traffic flow, avoid an asbestos-contaminated landfill, and reduce impact on the Østerå valley crossing. The change triggered a separate environmental impact review.",
+    "description": {
+      "da": "Motorvejens sydlige ende, et nyt motorvejskryds lige syd for Dall med tilslutning til E45. Vejdirektoratet foreslog i 2025 at flytte krydset tættere på Dall for at forbedre trafikafviklingen, undgå en asbestforurenet losseplads og mindske påvirkningen af krydsningen af Østerådalen. Ændringen udløste en separat miljøkonsekvensvurdering.",
+      "en": "Southern end of the new motorway, a new motorway interchange just south of Dall connecting to E45. Vejdirektoratet proposed relocating this interchange closer to Dall in 2025 to improve traffic flow, avoid an asbestos-contaminated landfill, and reduce impact on the Østerå valley crossing. The change triggered a separate environmental impact review."
+    },
     "longitude": 9.8735,
     "latitude": 56.964,
     "status": "design under revision",
@@ -11,25 +14,40 @@
   {
     "id": "norholmsvej",
     "name": "Nørholmsvej",
-    "description": "Connection point on the Hasseris side, on the approach to the Aalborg tunnel portal.",
-    "longitude": 9.879,
-    "latitude": 56.985,
+    "description": {
+      "da": "Her krydser motorvejen Nørholmsvej vest for Hasseris på vej mod tunnelportalen ved Limfjorden. Nørholmsvej omlægges, og der er planlagt støjskærme langs vejen. Placeringen er omtrentlig.",
+      "en": "Here the motorway crosses Nørholmsvej west of Hasseris on the approach to the tunnel portal at the Limfjord. Nørholmsvej will be rearranged, and noise barriers are planned along the road. Placement is approximate."
+    },
+    "longitude": 9.854,
+    "latitude": 57.033,
     "status": "expropriation review ongoing",
-    "sources": ["Vejdirektoratet news, detailed site inspections spring 2026"]
+    "sources": [
+      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
+      "Vejdirektoratet news, detailed site inspections spring 2026"
+    ]
   },
   {
     "id": "molholmsvej",
-    "name": "Mølholmsvej",
-    "description": "Local road extension and connection near Hasseris, part of the anlægslov's explicit provisions for realigning municipal roads.",
-    "longitude": 9.884,
-    "latitude": 56.986,
+    "name": "Mølholmsvejs forlængelse",
+    "description": {
+      "da": "Mølholmsvej forlænges mod vest som ny lokalvej frem mod motorvejskorridoren og Nørholmsvej, som en del af anlægslovens bestemmelser om omlægning af kommuneveje. Placeringen er omtrentlig.",
+      "en": "Mølholmsvej will be extended westwards as a new local road towards the motorway corridor and Nørholmsvej, as part of the construction act's provisions for realigning municipal roads. Placement is approximate."
+    },
+    "longitude": 9.8575,
+    "latitude": 57.0308,
     "status": "planned realignment",
-    "sources": ["Lov om anlæg af en 3. Limfjordsforbindelse, §1"]
+    "sources": [
+      "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse april 2026",
+      "Lov om anlæg af en 3. Limfjordsforbindelse, §1"
+    ]
   },
   {
     "id": "egholm-local",
     "name": "Egholm local road",
-    "description": "A local road and bridge to Egholm island, to be built alongside the motorway if Aalborg Kommune opts in, per the anlægslov.",
+    "description": {
+      "da": "En lokalvej og bro til øen Egholm, der kan anlægges sammen med motorvejen, hvis Aalborg Kommune vælger det, jf. anlægsloven.",
+      "en": "A local road and bridge to Egholm island, to be built alongside the motorway if Aalborg Kommune opts in, per the anlægslov."
+    },
     "longitude": 9.843,
     "latitude": 57.05,
     "status": "conditional on municipal decision",
@@ -38,7 +56,10 @@
   {
     "id": "vadum-e39",
     "name": "Vadum / E39 Hirtshalsmotorvejen",
-    "description": "Northern end of the new motorway, connecting to the existing E39 Hirtshalsmotorvejen near Vadum.",
+    "description": {
+      "da": "Motorvejens nordlige ende med tilslutning til den eksisterende E39 Hirtshalsmotorvejen ved Vadum.",
+      "en": "Northern end of the new motorway, connecting to the existing E39 Hirtshalsmotorvejen near Vadum."
+    },
     "longitude": 9.921,
     "latitude": 57.101,
     "status": "planned",
