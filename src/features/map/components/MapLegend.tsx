@@ -1,11 +1,11 @@
 import { useI18n } from '../../../shared/i18n/I18nContext'
+import { CollapsiblePanel } from '../../../shared/components/CollapsiblePanel'
 
 export function MapLegend() {
   const { t } = useI18n()
 
   return (
-    <div className="map-legend">
-      <p className="map-legend__title">{t('legend.title')}</p>
+    <CollapsiblePanel title={t('legend.title')} className="map-legend">
       <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--surveyed" /> {t('legend.surveyed')}
       </div>
@@ -19,6 +19,6 @@ export function MapLegend() {
         <span className="legend-swatch legend-swatch--local-road" /> {t('legend.localRoad')}
       </div>
       <p className="map-legend__note">{t('legend.plannedNote')}</p>
-    </div>
+    </CollapsiblePanel>
   )
 }
