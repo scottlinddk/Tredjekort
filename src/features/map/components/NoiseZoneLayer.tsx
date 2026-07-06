@@ -48,7 +48,10 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
   }, [map, buffers])
 
   useEffect(() => {
-    if (!map || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
+    // Same rationale as the cleanup above: a removed map's style is gone, and this effect
+    // can still fire with a stale `map` reference (e.g. a pending visibility toggle racing
+    // a route unmount), so getLayer must be guarded here too.
+    if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
     map.setLayoutProperty(LAYER_IDS.noiseBufferFill, 'visibility', visible ? 'visible' : 'none')
   }, [map, visible])
 
