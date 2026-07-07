@@ -513,7 +513,7 @@
         "segment": "plan3",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Dall to TSA 12 - Moelholm (st. ~103-108). Anchored to the plan2 endpoint and the TSA 12 interchange point used by the local-road layers. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+        "note": "Dall to TSA 12 - Moelholm (st. ~103-108), re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 103-105: Hobrovej and the railway pass under the motorway at the st. 103 interchange just NW of Dall Villaby, the line then runs NNW through the fields WEST of the Krebsen/City Syd industrial area, Nibevej is carried over the motorway at st. ~104.3 just west of the Drastrup Skovvej housing strip, and Ny Nibevej is carried over at the st. ~105.2 half-interchange. Anchored to the plan2 endpoint and the TSA 12 interchange point used by the local-road layers."
       },
       "geometry": {
         "type": "LineString",
@@ -523,32 +523,48 @@
             56.985869812284356
           ],
           [
-            9.882,
-            56.993
+            9.8825,
+            56.9915
           ],
           [
-            9.879,
-            57.0005
+            9.8795,
+            56.9955
           ],
           [
-            9.8752,
-            57.008
+            9.8755,
+            57.0
           ],
           [
             9.871,
-            57.0155
+            57.005
           ],
           [
-            9.8668,
+            9.867,
+            57.009
+          ],
+          [
+            9.864,
+            57.0125
+          ],
+          [
+            9.8615,
+            57.0165
+          ],
+          [
+            9.8595,
+            57.0205
+          ],
+          [
+            9.858,
             57.0225
           ],
           [
-            9.8625,
-            57.029
+            9.8565,
+            57.028
           ],
           [
-            9.8585,
-            57.034
+            9.855,
+            57.033
           ],
           [
             9.8537,
@@ -681,7 +697,7 @@
         "segment": "plan7",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Through the Vadum interchange point (9.921, 57.101), curving from north-east to north; replaces the earlier west-curving arc that did not match the corridor sketch. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+        "note": "Through the Vadum/Hoevej area (st. ~116): Hoevej passes under the motorway and Hvorup Kaervej is relocated north, after which the line bends NORTH-EAST east of Hvorupgaard rather than continuing due north. Re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 116-120."
       },
       "geometry": {
         "type": "LineString",
@@ -699,12 +715,12 @@
             57.101
           ],
           [
-            9.925,
-            57.104
+            9.9245,
+            57.105
           ],
           [
-            9.9285,
-            57.1075
+            9.927,
+            57.1095
           ]
         ]
       }
@@ -715,45 +731,45 @@
         "segment": "plan8",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Northern tie-in to the existing E39 Hirtshalsmotorvejen south of Vestbjerg, heading straight north; replaces the earlier eastern bulge that started out near lon 9.96. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+        "note": "Northern tie-in (st. ~117-120): runs NE east of Hvorupgaard, Teglvaerksvej is carried over the motorway at st. ~118 west of Hvorup Mose, then 'udfletning til eksisterende E39' - the line merges into the existing E39 Hirtshalsmotorvejen around st. 119 and follows the E39 corridor north past Vestbjerg Eng. Re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 116-120."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.9285,
-            57.1075
+            9.927,
+            57.1095
           ],
           [
-            9.931,
-            57.112
+            9.929,
+            57.114
           ],
           [
-            9.9325,
-            57.117
-          ],
-          [
-            9.933,
-            57.122
+            9.9306,
+            57.1185
           ],
           [
             9.9322,
-            57.127
+            57.123
           ],
           [
-            9.9308,
-            57.132
+            9.9345,
+            57.128
           ],
           [
-            9.9294,
-            57.138
+            9.937,
+            57.134
           ],
           [
-            9.9282,
+            9.936,
+            57.139
+          ],
+          [
+            9.935,
             57.144
           ],
           [
-            9.9275,
+            9.9345,
             57.147
           ]
         ]
