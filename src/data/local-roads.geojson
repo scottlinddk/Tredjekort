@@ -8,23 +8,23 @@
         "name": "Forlagt Nørholmsvej",
         "kind": "realignment",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (st. 107.300–108.700)",
-        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Per Aalborg Kommune's HDT 2035 traffic model, the Mølholmsvej extension branches off right where Nørholmsvej meets the motorway interchange, not further along - both local roads originate from essentially the same node in that model. Geometry is anchored to the existing Nørholmsvej corridor: it follows the road with a slight southward relocation across the interchange (st. 107.300-108.700) and runs east to the Under Lien roundabout, matching the HDT 2035 model."
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (st. 107.300–108.700)",
+        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. West of the interchange the relocated road follows the traced corridor over the Egholmlinjen, then curves north-east where it hands over to the Mølholmsvej extension, with the existing Nørholmsvej corridor tying in from the east at the new T-junction."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8445, 57.037],
-          [9.847, 57.0377],
-          [9.8497, 57.038],
-          [9.8512, 57.038],
-          [9.8537, 57.0381],
-          [9.8555, 57.0384],
-          [9.8573, 57.0388],
-          [9.8598, 57.039],
-          [9.8636, 57.0388],
-          [9.8661, 57.0386],
-          [9.8686, 57.038]
+          [9.8438899, 57.0372411],
+          [9.8461044, 57.0375761],
+          [9.8477024, 57.0374202],
+          [9.8500095, 57.0376484],
+          [9.8522931, 57.0381328],
+          [9.8543035, 57.0393516],
+          [9.854423, 57.0394831],
+          [9.8547298, 57.0393706],
+          [9.8575435, 57.03914],
+          [9.8589856, 57.0391652],
+          [9.8599513, 57.0391317]
         ]
       }
     },
@@ -35,21 +35,40 @@
         "name": "Mølholmsvej/Nørholmsvejs forlængelse",
         "kind": "new-road",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (lokalvejens st. 1+000–3+000)",
-        "note": "New local road from a signalised T-junction right by the Nørholmsvej/motorway interchange (per Aalborg Kommune's HDT 2035 traffic model, both local roads originate from essentially the same node there), extending north-east between the lakes and tying into the existing western end of Mølholmsvej in the Løvstikkevej area, where accesses are re-established. Geometry is anchored to that existing dead-end and to the relocated Nørholmsvej, matching the HDT 2035 model diagonal."
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (lokalvejens st. 1+000–3+000)",
+        "note": "New local road continuing from the relocated Nørholmsvej just east of the TSA 12 interchange, extending north-east between the lakes (Mølholmsvej forbindes med Nørholmsvej) and tying into the existing western end of Mølholmsvej in the Løvstikkevej area, where accesses are re-established."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8555, 57.0384],
-          [9.8562, 57.0395],
-          [9.857, 57.0405],
-          [9.8572, 57.0415],
-          [9.858, 57.0425],
-          [9.8594, 57.0435],
-          [9.861, 57.0437],
-          [9.8625, 57.044],
-          [9.8638, 57.0442]
+          [9.8543035, 57.0393516],
+          [9.8557051, 57.0411662],
+          [9.8567157, 57.0423974],
+          [9.8577635, 57.0430812],
+          [9.8588906, 57.0433322],
+          [9.8600371, 57.0434407],
+          [9.8618275, 57.0436761],
+          [9.8630024, 57.0439681],
+          [9.8640656, 57.0443649],
+          [9.8650081, 57.0449462]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "norholmsvej-link",
+        "name": "Nørholmsvej tilslutning",
+        "kind": "new-road",
+        "confidence": "schematic",
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026",
+        "note": "Short link at the new signalised T-junction connecting the existing Nørholmsvej corridor to the relocated Nørholmsvej south-west of the junction."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.8559246, 57.0393081],
+          [9.8548756, 57.0388028]
         ]
       }
     }
