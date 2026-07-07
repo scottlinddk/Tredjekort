@@ -6,7 +6,7 @@
       "da": "Motorvejens sydlige ende, et nyt motorvejskryds lige syd for Dall med tilslutning til E45. Vejdirektoratet foreslog i 2025 at flytte krydset tættere på Dall for at forbedre trafikafviklingen, undgå en asbestforurenet losseplads og mindske påvirkningen af krydsningen af Østerådalen. Ændringen udløste en separat miljøkonsekvensvurdering.",
       "en": "Southern end of the new motorway, a new motorway interchange just south of Dall connecting to E45. Vejdirektoratet proposed relocating this interchange closer to Dall in 2025 to improve traffic flow, avoid an asbestos-contaminated landfill, and reduce impact on the Østerå valley crossing. The change triggered a separate environmental impact review."
     },
-    "longitude": 9.8766,
+    "longitude": 9.8757,
     "latitude": 56.964,
     "status": "design under revision",
     "sources": ["Vejdirektoratet project page", "Trafikstyrelsen VVM screening decision, 2025-04"]
@@ -18,8 +18,8 @@
       "da": "Tilslutningsanlæg TSA 12 – Mølholm (st. 107.300–108.700), det sidste inden tunnelen under Sønderdyb. Nørholmsvej forlægges mod syd og føres 6,75 m over motorvejen. Begge rampekryds signalreguleres, der anlægges enkeltrettede cykelstier og en samkørselsplads, Hasseris Å forlægges, og der opsættes støjskærme op til 6 meters højde over vejoverside. Trafikken opretholdes i hele anlægsperioden. Placeringen på kortet er omtrentlig.",
       "en": "Interchange TSA 12 – Mølholm (st. 107.300–108.700), the last one before the tunnel under Sønderdyb. Nørholmsvej is relocated southwards and carried 6.75 m over the motorway. Both ramp junctions get traffic signals, one-way cycle tracks and a carpool site are added, the Hasseris stream is relocated, and noise barriers up to 6 metres above the road surface will be erected. Traffic is maintained throughout construction. Placement on the map is approximate."
     },
-    "longitude": 9.8473,
-    "latitude": 57.0377,
+    "longitude": 9.8510,
+    "latitude": 57.0378,
     "status": "expropriation review ongoing",
     "sources": [
       "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026",
@@ -61,8 +61,8 @@
       "da": "Motorvejens nordlige ende med tilslutning til den eksisterende E39 Hirtshalsmotorvejen ved Vadum.",
       "en": "Northern end of the new motorway, connecting to the existing E39 Hirtshalsmotorvejen near Vadum."
     },
-    "longitude": 9.9423,
-    "latitude": 57.1117,
+    "longitude": 9.9413,
+    "latitude": 57.1192,
     "status": "planned",
     "sources": ["Vejdirektoratet project page"]
   }
