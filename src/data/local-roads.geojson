@@ -9,7 +9,7 @@
         "kind": "realignment",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (st. 107.300–108.700)",
-        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Past the crossing it loops north toward Klostereng before curving back south-east to rejoin the existing road - the Mølholmsvej extension branches off at the top of that loop, not right after the motorway crossing. Shape follows the presentation maps; absolute georeferencing is approximate (anchored to Egholm and the motorway station ladder), expect offsets of a few hundred metres."
+        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Per Aalborg Kommune's HDT 2035 traffic model, the Mølholmsvej extension branches off right where Nørholmsvej meets the motorway interchange, not further along - both local roads originate from essentially the same node in that model. Shape follows the presentation maps; absolute georeferencing is approximate (anchored to Egholm and the motorway station ladder), expect offsets of a few hundred metres."
       },
       "geometry": {
         "type": "LineString",
@@ -19,15 +19,12 @@
           [9.8515, 57.0329],
           [9.8545, 57.0325],
           [9.8565, 57.0322],
-          [9.858, 57.0338],
-          [9.8595, 57.0358],
-          [9.861, 57.0378],
-          [9.8625, 57.0398],
-          [9.864, 57.0415],
-          [9.868, 57.0405],
-          [9.8725, 57.0385],
-          [9.877, 57.0365],
-          [9.881, 57.0352],
+          [9.858, 57.0328],
+          [9.862, 57.0325],
+          [9.866, 57.0328],
+          [9.8705, 57.0334],
+          [9.875, 57.0339],
+          [9.88, 57.0346],
           [9.885, 57.0352]
         ]
       }
@@ -40,14 +37,19 @@
         "kind": "new-road",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (lokalvejens st. 1+000–3+000)",
-        "note": "New local road from a signalised T-junction at the top of the relocated Nørholmsvej's loop near Klostereng, extending north and then north-east roughly parallel to the Sønderdyb coast, past the lakes (crossing island between them) to the Løvstikkevej area where accesses are re-established. Shape follows the presentation maps; absolute georeferencing is approximate, expect offsets of a few hundred metres."
+        "note": "New local road from a signalised T-junction right by the Nørholmsvej/motorway interchange (per Aalborg Kommune's HDT 2035 traffic model, both local roads originate from essentially the same node there), extending north-east toward Mølholm and on to the Løvstikkevej area where accesses are re-established. Shape follows the presentation maps; absolute georeferencing is approximate, expect offsets of a few hundred metres."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.864, 57.0415],
-          [9.868, 57.0425],
-          [9.873, 57.0433],
+          [9.858, 57.0328],
+          [9.8595, 57.0345],
+          [9.861, 57.0365],
+          [9.8625, 57.0385],
+          [9.8645, 57.0403],
+          [9.867, 57.0417],
+          [9.871, 57.0428],
+          [9.875, 57.0436],
           [9.878, 57.0441]
         ]
       }
