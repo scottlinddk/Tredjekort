@@ -11,6 +11,7 @@ export const LAYER_IDS = {
   localRoadsLine: 'local-roads-line',
   localRoadsCasing: 'local-roads-casing',
   noiseBufferFill: 'noise-buffer-fill',
+  noiseScreensLine: 'noise-screens-line',
   junctionPoints: 'junction-points',
 } as const
 
@@ -22,6 +23,10 @@ export const CONFIDENCE_COLORS = {
 
 // Matches the --color-fjord design token in tokens.css.
 export const LOCAL_ROAD_COLOR = '#0e7490'
+
+// Planned noise barriers (Table 6, Nov 2023 updated noise study), rendered as a solid
+// (not dotted) line since these are physical mitigation structures, not road alignment.
+export const NOISE_SCREEN_COLOR = '#7c2d12'
 
 // Everything on this map is a planned road, none of it exists yet, so all alignments
 // render dotted. Zero-length dashes with a round line-cap produce true dots.
@@ -47,5 +52,16 @@ export const OFFICIAL_NOISE_STUDY_REFERENCE = {
   date: '2026-04-10',
   stationRange: '102+200 to 110+800',
   dbBandsLden: [52, 54, 56, 58, 60, 62, 64, 66, 68],
+} as const
+
+// A separate, earlier Vejdirektoratet noise study, covering the whole route (not just
+// one station range) with aggregate impact figures and the planned noise-screen
+// stretches now in noise-screens.geojson. Also not the source for the buffers below.
+export const UPDATED_NOISE_CALCULATIONS_REFERENCE = {
+  title: 'Opdaterede stojberegninger for den 3. Limfjordsforbindelse',
+  date: '2023-11',
+  noiseAffectedHomes: { reference: 671, withProject: 682 },
+  noiseBurdenIndex: { reference: 102, withProject: 87 },
+  totalScreenLengthMeters: 5200,
 } as const
 

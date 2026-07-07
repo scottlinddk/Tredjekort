@@ -376,6 +376,10 @@ body {
 .legend-swatch--local-road {
   --swatch-color: var(--color-fjord);
 }
+.legend-swatch--noise-screen {
+  /* Solid, not dotted: a physical barrier rather than a planned road alignment. */
+  background: var(--color-noise-screen);
+}
 
 .map-legend__note {
   margin: var(--space-2) 0 0;

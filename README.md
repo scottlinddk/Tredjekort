@@ -37,11 +37,22 @@ npm run lint    # oxlint
 ## Data caveats
 
 Road geometry is approximated from Vejdirektoratet's public planning documents; it is
-not official survey data. The local-road lines (relocated Nørholmsvej over the
-motorway at interchange TSA 12 – Mølholm, and the Mølholmsvej/Nørholmsvej extension
-north-east to the Løvstikkevej area) follow the maps in the detailed-inspection
-presentation of 15 April 2026, but the source is a raster PDF without a coordinate
-grid, so absolute placement is anchored to known reference points (Egholm, the
-motorway station ladder) and may be off by a few hundred metres. The noise bands and
-the address verdict are simplified distance-based approximations, not the official
-Lden noise study (drawing 9095-29011). See the in-app disclaimer for details.
+not official survey data. The full corridor (Sdr. Svenstrup to Vadum) is traced from
+the Nov 2024 declaration drawings (deklarationsrids E9095, jnr. EMN-2024-618886), a
+scanned 8-sheet document without a machine-readable coordinate grid; the Dall and
+Vadum interchange ends were digitized more carefully (`confidence: "surveyed"`), while
+the middle stretch (Drastrup, Sofiendal, Hasseris, the Egholm fjord crossing itself,
+and Lindholm/Voerbjerg) is a shape traced from those same sheets and anchored to known
+junction points rather than pixel-registered to the sheets' own grid
+(`confidence: "provisional"`) — treat it as indicative of the route's real shape, not
+survey-accurate. The local-road lines (relocated Nørholmsvej over the motorway at
+interchange TSA 12 – Mølholm, and the Mølholmsvej/Nørholmsvej extension north-east to
+the Løvstikkevej area) follow the maps in the detailed-inspection presentation of 15
+April 2026, but the source is a raster PDF without a coordinate grid, so absolute
+placement is anchored to known reference points (Egholm, the motorway station ladder)
+and may be off by a few hundred metres. The noise bands and the address verdict are
+simplified distance-based approximations, not the official Lden noise study (drawing
+9095-29011). The planned noise-screen stretches (Dall, Dall Villaby, Nibevej,
+Nørholmsvej) come from Vejdirektoratet's separate Nov 2023 updated noise calculations
+report, which gives lengths and heights but only illustrative city-scale maps, so
+their geometry is likewise approximate. See the in-app disclaimer for details.
