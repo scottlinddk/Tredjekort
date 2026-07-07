@@ -512,63 +512,147 @@
       "properties": {
         "segment": "plan3",
         "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Dall to TSA 12 - Moelholm (st. ~103-108), re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 103-105: Hobrovej and the railway pass under the motorway at the st. 103 interchange just NW of Dall Villaby, the line then runs NNW through the fields WEST of the Krebsen/City Syd industrial area, Nibevej is carried over the motorway at st. ~104.3 just west of the Drastrup Skovvej housing strip, and Ny Nibevej is carried over at the st. ~105.2 half-interchange. Anchored to the plan2 endpoint and the TSA 12 interchange point used by the local-road layers."
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet detailbesigtigelse plan sheets (MVK E45/E39)",
+        "note": "Egholmlinjen mainline (st. ~102-120), traced end to end: from the E45 merge north of Svenstrup, north along/over E45 past Dall Villaby (Egholmlinjen foeres over E45 and over Hobrovej), NNW through Oesteraadalen past Ny Nibevej and Nibevej, TSA 12 Noerholmsvej, the Egholmtunnel under Soenderdyb, across eastern Egholm, lavbroer over Noerredyb, past TSA 11 Thistedvej and Hvorup, to the udfletning onto the existing E39 south of Vestbjerg."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.88444086417376,
-            56.985869812284356
+            9.8662237,
+            56.9518599
           ],
           [
-            9.8825,
-            56.9915
+            9.8711658,
+            56.9572527
           ],
           [
-            9.8795,
-            56.9955
+            9.8763592,
+            56.9649379
           ],
           [
-            9.8755,
-            57.0
+            9.8775638,
+            56.9697974
           ],
           [
-            9.871,
-            57.005
+            9.8791361,
+            56.9713178
           ],
           [
-            9.867,
-            57.009
+            9.8800032,
+            56.9728275
           ],
           [
-            9.864,
-            57.0125
+            9.8800327,
+            56.9737214
           ],
           [
-            9.8615,
-            57.0165
+            9.8792097,
+            56.9750637
           ],
           [
-            9.8595,
-            57.0205
+            9.8724171,
+            56.9815191
           ],
           [
-            9.858,
-            57.0225
+            9.8633958,
+            56.990858
           ],
           [
-            9.8565,
-            57.028
+            9.8613824,
+            56.9931054
           ],
           [
-            9.855,
-            57.033
+            9.8605553,
+            56.9962087
           ],
           [
-            9.8537,
-            57.0381
+            9.8607304,
+            56.9995417
+          ],
+          [
+            9.860629,
+            57.0051953
+          ],
+          [
+            9.8608727,
+            57.013266
+          ],
+          [
+            9.8598065,
+            57.0179908
+          ],
+          [
+            9.8587563,
+            57.0223299
+          ],
+          [
+            9.8572809,
+            57.0266961
+          ],
+          [
+            9.8543113,
+            57.032215
+          ],
+          [
+            9.8476774,
+            57.0431659
+          ],
+          [
+            9.8466854,
+            57.0451675
+          ],
+          [
+            9.8470132,
+            57.0477379
+          ],
+          [
+            9.8498304,
+            57.0521277
+          ],
+          [
+            9.853964,
+            57.0556668
+          ],
+          [
+            9.8732929,
+            57.0704566
+          ],
+          [
+            9.8836339,
+            57.0779498
+          ],
+          [
+            9.8898132,
+            57.0826798
+          ],
+          [
+            9.9133766,
+            57.0990766
+          ],
+          [
+            9.9342111,
+            57.112284
+          ],
+          [
+            9.939751,
+            57.11678
+          ],
+          [
+            9.9412711,
+            57.1192072
+          ],
+          [
+            9.941142,
+            57.1218957
+          ],
+          [
+            9.9404015,
+            57.1243189
+          ],
+          [
+            9.9394194,
+            57.1272489
           ]
         ]
       }
@@ -578,27 +662,39 @@
       "properties": {
         "segment": "plan4",
         "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "TSA 12 to the Soenderdyb tunnel portal (st. ~108-110), continuing essentially due north from the interchange rather than swinging west. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet detailbesigtigelse plan sheets (MVK E45/E39)",
+        "note": "Udfletning til den eksisterende E39 at Bjoerum Mark: branch from the mainline curving south-east onto the existing E39 Hirtshalsmotorvejen corridor."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.8537,
-            57.0381
+            9.9393146,
+            57.1264032
           ],
           [
-            9.852,
-            57.041
+            9.9425185,
+            57.1220087
           ],
           [
-            9.8508,
-            57.0445
+            9.9441936,
+            57.1207245
           ],
           [
-            9.8502,
-            57.048
+            9.9444809,
+            57.1196294
+          ],
+          [
+            9.9439063,
+            57.1188417
+          ],
+          [
+            9.94041,
+            57.1166144
+          ],
+          [
+            9.9382233,
+            57.1153001
           ]
         ]
       }
@@ -608,169 +704,19 @@
       "properties": {
         "segment": "plan5",
         "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Fjord crossing (st. ~110-113): tunnel under Soenderdyb and crossing over the eastern part of Egholm, passing just east of the optional Egholm local-road point instead of looping over mid-island. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+        "source": "Owner GPS trace 2026-07 against Vejdirektoratet detailbesigtigelse plan sheets (MVK E45/E39)",
+        "note": "Southern tie-in branch along E45 at Dall Villaby, between the surveyed sections, where the Egholmlinjen forks from/over the existing E45."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.8502,
-            57.048
+            9.8777288,
+            56.9760402
           ],
           [
-            9.85,
-            57.052
-          ],
-          [
-            9.8502,
-            57.056
-          ],
-          [
-            9.851,
-            57.06
-          ],
-          [
-            9.8525,
-            57.064
-          ],
-          [
-            9.855,
-            57.068
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan6",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "North shore across Vadum enge (st. ~113-116), running north-east past the east side of Aalborg Airport towards the Vadum interchange. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            9.855,
-            57.068
-          ],
-          [
-            9.86,
-            57.072
-          ],
-          [
-            9.866,
-            57.076
-          ],
-          [
-            9.873,
-            57.08
-          ],
-          [
-            9.881,
-            57.0845
-          ],
-          [
-            9.889,
-            57.089
-          ],
-          [
-            9.8965,
-            57.0935
-          ],
-          [
-            9.904,
-            57.0975
-          ],
-          [
-            9.9115,
-            57.1
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan7",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Through the Vadum/Hoevej area (st. ~116): Hoevej passes under the motorway and Hvorup Kaervej is relocated north, after which the line bends NORTH-EAST east of Hvorupgaard rather than continuing due north. Re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 116-120."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            9.9115,
-            57.1
-          ],
-          [
-            9.9165,
-            57.1005
-          ],
-          [
-            9.921,
-            57.101
-          ],
-          [
-            9.9245,
-            57.105
-          ],
-          [
-            9.927,
-            57.1095
-          ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan8",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Northern tie-in (st. ~117-120): runs NE east of Hvorupgaard, Teglvaerksvej is carried over the motorway at st. ~118 west of Hvorup Mose, then 'udfletning til eksisterende E39' - the line merges into the existing E39 Hirtshalsmotorvejen around st. 119 and follows the E39 corridor north past Vestbjerg Eng. Re-traced 2026-07 against the detailbesigtigelse plan sheet for st. 116-120."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [
-            9.927,
-            57.1095
-          ],
-          [
-            9.929,
-            57.114
-          ],
-          [
-            9.9306,
-            57.1185
-          ],
-          [
-            9.9322,
-            57.123
-          ],
-          [
-            9.9345,
-            57.128
-          ],
-          [
-            9.937,
-            57.134
-          ],
-          [
-            9.936,
-            57.139
-          ],
-          [
-            9.935,
-            57.144
-          ],
-          [
-            9.9345,
-            57.147
+            9.8772705,
+            56.9696182
           ]
         ]
       }
