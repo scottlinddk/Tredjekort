@@ -9,23 +9,22 @@
         "kind": "realignment",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (st. 107.300–108.700)",
-        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Per Aalborg Kommune's HDT 2035 traffic model, the Mølholmsvej extension branches off right where Nørholmsvej meets the motorway interchange, not further along - both local roads originate from essentially the same node in that model. Shape follows the presentation maps; absolute georeferencing is approximate (anchored to Egholm and the motorway station ladder), expect offsets of a few hundred metres."
+        "note": "Nørholmsvej is relocated southwards and carried 6.75 m over the motorway at interchange TSA 12 - Mølholm, with signalised ramp junctions and noise barriers up to 6 m. Per Aalborg Kommune's HDT 2035 traffic model, the Mølholmsvej extension branches off right where Nørholmsvej meets the motorway interchange, not further along - both local roads originate from essentially the same node in that model. Geometry is anchored to the existing Nørholmsvej corridor: it follows the road with a slight southward relocation across the interchange (st. 107.300-108.700) and runs east to the Under Lien roundabout, matching the HDT 2035 model."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.84, 57.0338],
-          [9.8465, 57.0334],
-          [9.8515, 57.0329],
-          [9.8545, 57.0325],
-          [9.8565, 57.0322],
-          [9.858, 57.0328],
-          [9.862, 57.0325],
-          [9.866, 57.0328],
-          [9.8705, 57.0334],
-          [9.875, 57.0339],
-          [9.88, 57.0346],
-          [9.885, 57.0352]
+          [9.8445, 57.037],
+          [9.847, 57.0377],
+          [9.8497, 57.038],
+          [9.8512, 57.038],
+          [9.8537, 57.0381],
+          [9.8555, 57.0384],
+          [9.8573, 57.0388],
+          [9.8598, 57.039],
+          [9.8636, 57.0388],
+          [9.8661, 57.0386],
+          [9.8686, 57.038]
         ]
       }
     },
@@ -37,20 +36,20 @@
         "kind": "new-road",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026 (lokalvejens st. 1+000–3+000)",
-        "note": "New local road from a signalised T-junction right by the Nørholmsvej/motorway interchange (per Aalborg Kommune's HDT 2035 traffic model, both local roads originate from essentially the same node there), extending north-east toward Mølholm and on to the Løvstikkevej area where accesses are re-established. Shape follows the presentation maps; absolute georeferencing is approximate, expect offsets of a few hundred metres."
+        "note": "New local road from a signalised T-junction right by the Nørholmsvej/motorway interchange (per Aalborg Kommune's HDT 2035 traffic model, both local roads originate from essentially the same node there), extending north-east between the lakes and tying into the existing western end of Mølholmsvej in the Løvstikkevej area, where accesses are re-established. Geometry is anchored to that existing dead-end and to the relocated Nørholmsvej, matching the HDT 2035 model diagonal."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.858, 57.0328],
-          [9.8595, 57.0345],
-          [9.861, 57.0365],
-          [9.8625, 57.0385],
-          [9.8645, 57.0403],
-          [9.867, 57.0417],
-          [9.871, 57.0428],
-          [9.875, 57.0436],
-          [9.878, 57.0441]
+          [9.8555, 57.0384],
+          [9.8562, 57.0395],
+          [9.857, 57.0405],
+          [9.8572, 57.0415],
+          [9.858, 57.0425],
+          [9.8594, 57.0435],
+          [9.861, 57.0437],
+          [9.8625, 57.044],
+          [9.8638, 57.0442]
         ]
       }
     }
