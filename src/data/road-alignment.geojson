@@ -510,253 +510,201 @@
     {
       "type": "Feature",
       "properties": {
-        "segment": "plan7",
+        "segment": "plan3",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Reviewed against the Nov 2024 declaration plan sheet covering the Vadum interchange (a genuine multi-ramp junction, not a digitizing artifact); the general path is plausible but still not pixel-registered against the sheet's own coordinate grid, so the exact ramp/through-route choice remains unconfirmed."
+        "note": "Dall to TSA 12 - Moelholm (st. ~103-108). Anchored to the plan2 endpoint and the TSA 12 interchange point used by the local-road layers. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.920932626249826,
-            57.093213554015776
+            9.88444086417376,
+            56.985869812284356
           ],
           [
-            9.920649152293015,
-            57.09329592824776
+            9.882,
+            56.993
           ],
           [
-            9.920370074345675,
-            57.09338258572278
+            9.879,
+            57.0005
           ],
           [
-            9.920096680831838,
-            57.093474492574664
+            9.8752,
+            57.008
           ],
           [
-            9.919827793291914,
-            57.09357027171573
+            9.871,
+            57.0155
           ],
           [
-            9.91956329723198,
-            57.09366958480104
+            9.8668,
+            57.0225
           ],
           [
-            9.91930408008723,
-            57.093772970626404
+            9.8625,
+            57.029
           ],
           [
-            9.919049294196444,
-            57.09387953372587
+            9.8585,
+            57.034
           ],
           [
-            9.918801631161266,
-            57.093990985748746
+            9.8537,
+            57.0381
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan4",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "TSA 12 to the Soenderdyb tunnel portal (st. ~108-110), continuing essentially due north from the interchange rather than swinging west. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.8537,
+            57.0381
           ],
           [
-            9.918559381620135,
-            57.094105919310564
+            9.852,
+            57.041
           ],
           [
-            9.918322106697408,
-            57.094223875485014
+            9.8508,
+            57.0445
           ],
           [
-            9.918091739730041,
-            57.094345820077315
+            9.8502,
+            57.048
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan5",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Fjord crossing (st. ~110-113): tunnel under Soenderdyb and crossing over the eastern part of Egholm, passing just east of the optional Egholm local-road point instead of looping over mid-island. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.8502,
+            57.048
           ],
           [
-            9.917868939009663,
-            57.09447187273304
+            9.85,
+            57.052
           ],
           [
-            9.917652366095854,
-            57.09460110852404
+            9.8502,
+            57.056
           ],
           [
-            9.917440606167778,
-            57.094732689496254
+            9.851,
+            57.06
           ],
           [
-            9.91723342117532,
-            57.09486640485772
+            9.8525,
+            57.064
           ],
           [
-            9.91703362264995,
-            57.09500341869729
+            9.855,
+            57.068
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan6",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "North shore across Vadum enge (st. ~113-116), running north-east past the east side of Aalborg Airport towards the Vadum interchange. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.855,
+            57.068
           ],
           [
-            9.916837425102468,
-            57.09514196466709
+            9.86,
+            57.072
           ],
           [
-            9.91664629234874,
-            57.0952825944572
+            9.866,
+            57.076
           ],
           [
-            9.916457730188023,
-            57.0954242165815
+            9.873,
+            57.08
           ],
           [
-            9.916283896067881,
-            57.09557133503243
+            9.881,
+            57.0845
           ],
           [
-            9.916120365005124,
-            57.095721913360634
+            9.889,
+            57.089
           ],
           [
-            9.915967260489042,
-            57.09587568531555
+            9.8965,
+            57.0935
           ],
           [
-            9.915823937244722,
-            57.09603221542064
+            9.904,
+            57.0975
           ],
           [
-            9.915691615320876,
-            57.09619159481666
+            9.9115,
+            57.1
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "segment": "plan7",
+        "confidence": "provisional",
+        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
+        "note": "Through the Vadum interchange point (9.921, 57.101), curving from north-east to north; replaces the earlier west-curving arc that did not match the corridor sketch. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.9115,
+            57.1
           ],
           [
-            9.915568694707346,
-            57.09635318622671
+            9.9165,
+            57.1005
           ],
           [
-            9.915454432816388,
-            57.09651667063321
+            9.921,
+            57.101
           ],
           [
-            9.915348494620858,
-            57.09668180251075
+            9.925,
+            57.104
           ],
           [
-            9.915247801648173,
-            57.096847923444955
-          ],
-          [
-            9.915149524099572,
-            57.09701447332124
-          ],
-          [
-            9.915054243793296,
-            57.09718153612469
-          ],
-          [
-            9.91495761465263,
-            57.09734836802592
-          ],
-          [
-            9.91485906029223,
-            57.09751487208357
-          ],
-          [
-            9.914760505055085,
-            57.09768137606205
-          ],
-          [
-            9.914660839158305,
-            57.097847682347904
-          ],
-          [
-            9.914562160618537,
-            57.098014158243465
-          ],
-          [
-            9.914463358728117,
-            57.09818061627885
-          ],
-          [
-            9.914363664599454,
-            57.098346919608574
-          ],
-          [
-            9.914261705180909,
-            57.098512810665746
-          ],
-          [
-            9.91415596219611,
-            57.09867799722145
-          ],
-          [
-            9.91404391009244,
-            57.0988419389258
-          ],
-          [
-            9.91392368518674,
-            57.0990041521105
-          ],
-          [
-            9.913795578434138,
-            57.09916456027881
-          ],
-          [
-            9.913657337381956,
-            57.09932247028555
-          ],
-          [
-            9.91350990976875,
-            57.099477881901585
-          ],
-          [
-            9.913350889131419,
-            57.09962986870443
-          ],
-          [
-            9.91318253290055,
-            57.099778871289814
-          ],
-          [
-            9.913007976504604,
-            57.09992572668545
-          ],
-          [
-            9.912820279520083,
-            57.1000677220214
-          ],
-          [
-            9.912624564720437,
-            57.10020645584274
-          ],
-          [
-            9.912420961245159,
-            57.10034181073205
-          ],
-          [
-            9.912209229916854,
-            57.10047340874126
-          ],
-          [
-            9.91199187575648,
-            57.10060227439209
-          ],
-          [
-            9.911765250431614,
-            57.10072631177037
-          ],
-          [
-            9.911532078968754,
-            57.100846685980414
-          ],
-          [
-            9.91128898685441,
-            57.10096110489212
-          ],
-          [
-            9.911040106639158,
-            57.10107178637402
-          ],
-          [
-            9.910785358914719,
-            57.10117843913536
-          ],
-          [
-            9.910524913934877,
-            57.10128090868183
-          ],
-          [
-            9.910257631316867,
-            57.101378028209716
+            9.9285,
+            57.1075
           ]
         ]
       }
@@ -767,329 +715,47 @@
         "segment": "plan8",
         "confidence": "provisional",
         "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Reviewed against the Nov 2024 declaration plan sheet covering the Vadum interchange (a genuine multi-ramp junction, not a digitizing artifact); the general path is plausible but still not pixel-registered against the sheet's own coordinate grid, so the exact ramp/through-route choice remains unconfirmed."
+        "note": "Northern tie-in to the existing E39 Hirtshalsmotorvejen south of Vestbjerg, heading straight north; replaces the earlier eastern bulge that started out near lon 9.96. Re-traced 2026-07 against the owner's annotated overview sketch of the corridor and the Detailbesigtigelse stoejkort 9095-29011 (st. 102.600-108.100), which shows the motorway skirting west/north of the Hasseris/Sofiendal residential areas."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
           [
-            9.964465318008068,
-            57.10164487763232
+            9.9285,
+            57.1075
           ],
           [
-            9.964012698393445,
-            57.10218938774581
+            9.931,
+            57.112
           ],
           [
-            9.963533088784892,
-            57.102727003280826
+            9.9325,
+            57.117
           ],
           [
-            9.963027476091463,
-            57.103257520161705
+            9.933,
+            57.122
           ],
           [
-            9.962497002951459,
-            57.103780795721825
+            9.9322,
+            57.127
           ],
           [
-            9.961946350464952,
-            57.10429788181807
+            9.9308,
+            57.132
           ],
           [
-            9.961376427532246,
-            57.10480874280941
+            9.9294,
+            57.138
           ],
           [
-            9.960791558280958,
-            57.10531459207439
+            9.9282,
+            57.144
           ],
           [
-            9.960195539548195,
-            57.1058165773848
-          ],
-          [
-            9.959588813398936,
-            57.106314752731635
-          ],
-          [
-            9.958975497963891,
-            57.106810534166456
-          ],
-          [
-            9.958359531954496,
-            57.10730535049433
-          ],
-          [
-            9.957743549564539,
-            57.107800163809976
-          ],
-          [
-            9.95712755079334,
-            57.10829497411324
-          ],
-          [
-            9.956511535640226,
-            57.10878978140394
-          ],
-          [
-            9.95589550410453,
-            57.10928458568191
-          ],
-          [
-            9.955279456185574,
-            57.109779386946975
-          ],
-          [
-            9.954663391882686,
-            57.11027418519896
-          ],
-          [
-            9.954047311195188,
-            57.11076898043771
-          ],
-          [
-            9.953431214122414,
-            57.11126377266303
-          ],
-          [
-            9.952815100663688,
-            57.11175856187477
-          ],
-          [
-            9.952198970818335,
-            57.11225334807274
-          ],
-          [
-            9.951582824585682,
-            57.112748131256794
-          ],
-          [
-            9.950966661965055,
-            57.113242911426745
-          ],
-          [
-            9.950350482955782,
-            57.11373768858242
-          ],
-          [
-            9.949734287557188,
-            57.11423246272366
-          ],
-          [
-            9.9491180757686,
-            57.114727233850275
-          ],
-          [
-            9.948501847589345,
-            57.11522200196211
-          ],
-          [
-            9.94788844929687,
-            57.115717800714
-          ],
-          [
-            9.947285781929239,
-            57.116217466929605
-          ],
-          [
-            9.946697179399019,
-            57.11672209190028
-          ],
-          [
-            9.946121890201796,
-            57.11723123558475
-          ],
-          [
-            9.945563869102427,
-            57.11774603720419
-          ],
-          [
-            9.94502806289849,
-            57.118267776794085
-          ],
-          [
-            9.944513009506474,
-            57.11879565412675
-          ],
-          [
-            9.944022591270429,
-            57.1193304425167
-          ],
-          [
-            9.943555293837985,
-            57.119871312960186
-          ],
-          [
-            9.943113341319691,
-            57.1204184613851
-          ],
-          [
-            9.94269581565504,
-            57.12097125813378
-          ],
-          [
-            9.942301184431113,
-            57.12152901351573
-          ],
-          [
-            9.941932831628469,
-            57.12209205412154
-          ],
-          [
-            9.941590078299942,
-            57.12265986237252
-          ],
-          [
-            9.941271320198418,
-            57.123231789117376
-          ],
-          [
-            9.940980583585771,
-            57.123808116419234
-          ],
-          [
-            9.940713349709478,
-            57.1243877986698
-          ],
-          [
-            9.940471452271137,
-            57.124970768524626
-          ],
-          [
-            9.940257659706308,
-            57.12555697693854
-          ],
-          [
-            9.940069220580186,
-            57.12614574166544
-          ],
-          [
-            9.939905286742814,
-            57.12673668799357
-          ],
-          [
-            9.939769941126777,
-            57.12732976783673
-          ],
-          [
-            9.93966153626089,
-            57.127924472803954
-          ],
-          [
-            9.939576862608234,
-            57.128520314777624
-          ],
-          [
-            9.939520959656111,
-            57.12911716727377
-          ],
-          [
-            9.939490337745456,
-            57.12971454686157
-          ],
-          [
-            9.939487897272182,
-            57.130312164300896
-          ],
-          [
-            9.939510983029697,
-            57.13090964913788
-          ],
-          [
-            9.939560953570927,
-            57.13150664638668
-          ],
-          [
-            9.939637265150958,
-            57.13210281697393
-          ],
-          [
-            9.93973981682073,
-            57.13269782420037
-          ],
-          [
-            9.939869023276504,
-            57.13329129182723
+            9.9275,
+            57.147
           ]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan3",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Shape traced from the declaration plan sheets (Drastrup/Sofiendal/Hasseris, st. ~103-108) and anchored to the plan2 endpoint and the Nørholmsvej interchange point; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [9.88444086417376, 56.985869812284356],
-          [9.881, 56.991],
-          [9.878, 56.998],
-          [9.8735, 57.006],
-          [9.868, 57.014],
-          [9.8615, 57.021],
-          [9.8565, 57.0322]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan4",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Shape traced from the declaration plan sheets (Hasseris/Egholm approach past TSA 12 - Mølholm, st. ~108-110) and anchored to the Nørholmsvej and Egholm-crossing junction points; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [9.8565, 57.0322],
-          [9.8555, 57.036],
-          [9.8505, 57.042],
-          [9.846, 57.046],
-          [9.843, 57.05]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan5",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Shape traced from the declaration plan sheet covering the Egholm fjord crossing itself (st. ~110-113), replacing the previous straight-line placeholder; anchored at the Egholm junction point but not pixel-registered to the sheet's own coordinate grid."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [9.843, 57.05],
-          [9.8455, 57.056],
-          [9.85, 57.0625],
-          [9.857, 57.068],
-          [9.865, 57.0725]
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {
-        "segment": "plan6",
-        "confidence": "provisional",
-        "source": "Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886",
-        "note": "Shape traced from the declaration plan sheets (Vadum/Lindholm/Voerbjerg, st. ~113-116) and anchored to the plan7 start point; not pixel-registered to the sheets' own coordinate grid, so treat as an approximate curve rather than a surveyed line."
-      },
-      "geometry": {
-        "type": "LineString",
-        "coordinates": [
-          [9.865, 57.0725],
-          [9.878, 57.078],
-          [9.895, 57.084],
-          [9.91, 57.089],
-          [9.920932626249826, 57.093213554015776]
         ]
       }
     }
