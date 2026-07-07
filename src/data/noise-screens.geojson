@@ -10,14 +10,14 @@
         "height_m": "6",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs along the eastern side of E45 Nordjyske Motorvej near the Dall interchange. Path approximated from the report's Figure 3 city-scale map and offset from the existing Dall-area alignment; not pixel-registered to any coordinate grid."
+        "note": "Runs along the eastern side of E45 Nordjyske Motorvej near the Dall interchange. Geometry manually traced to align with the mapped road corridor."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8744, 56.9601],
-          [9.8770, 56.9645],
-          [9.8783, 56.9683]
+          [9.8794187, 56.9792433],
+          [9.8803458, 56.9809962],
+          [9.8817013, 56.9827804]
         ]
       }
     },
@@ -30,34 +30,55 @@
         "height_m": "6-7",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs on both sides of the 3. Limfjordsforbindelse east of Dallvej (6 m) and west of Dallvej (7 m) at Dall Villaby. Path approximated from the report's Figure 3 city-scale map and offset from the existing alignment; not pixel-registered to any coordinate grid."
+        "note": "Runs along the 3. Limfjordsforbindelse east of Dallvej (6 m) and west of Dallvej (7 m) at Dall Villaby. Geometry manually traced to align with the mapped road corridor."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8782, 56.9683],
-          [9.8808, 56.9733],
-          [9.8760, 56.9789]
+          [9.8831355, 56.9855665],
+          [9.8850665, 56.9866888],
+          [9.8876843, 56.9880836],
+          [9.8909939, 56.9893135],
+          [9.8949947, 56.9904785],
+          [9.8963616, 56.9911196]
         ]
       }
     },
     {
       "type": "Feature",
       "properties": {
-        "id": "stojskaerm-nibevej",
-        "name": "Støjskærm, Nibevej",
+        "id": "stojskaerm-nibevej-oest",
+        "name": "Støjskærm, Nibevej (østlig side)",
         "length_m": 1400,
         "height_m": "5-6",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs on both sides of the 3. Limfjordsforbindelse south of Nibevej (5 m) and north of Nibevej (6 m), near Drastrup. Path approximated from the report's Figure 3 city-scale map and offset from the plan3 alignment; not pixel-registered to any coordinate grid."
+        "note": "Eastern side of the 3. Limfjordsforbindelse at Nibevej, near Drastrup. Screens run south of Nibevej (5 m) and north of Nibevej (6 m); the 1400 m length covers both sides combined. Geometry manually traced to align with the mapped road corridor."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8617, 56.998],
-          [9.8616, 57.004],
-          [9.8618, 57.010]
+          [9.8607359, 57.0064162],
+          [9.8614018, 57.0043614]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "stojskaerm-nibevej-vest",
+        "name": "Støjskærm, Nibevej (vestlig side)",
+        "length_m": 1400,
+        "height_m": "5-6",
+        "confidence": "schematic",
+        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
+        "note": "Western side of the 3. Limfjordsforbindelse at Nibevej, near Drastrup. Screens run south of Nibevej (5 m) and north of Nibevej (6 m); the 1400 m length covers both sides combined. Geometry manually traced to align with the mapped road corridor."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [9.8592631, 57.0063423],
+          [9.8598106, 57.0042157]
         ]
       }
     },
@@ -70,14 +91,14 @@
         "height_m": "6",
         "confidence": "schematic",
         "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs along the eastern side of the 3. Limfjordsforbindelse both north and south of Nørholmsvej, at interchange TSA 12 - Mølholm. Path approximated from the report's Figure 3 city-scale map and offset from the plan3/plan4 alignment; not pixel-registered to any coordinate grid."
+        "note": "Runs along the eastern side of the 3. Limfjordsforbindelse both north and south of Nørholmsvej, at interchange TSA 12 - Mølholm. Geometry manually traced to align with the mapped road corridor."
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8585, 57.0260],
-          [9.8553, 57.0322],
-          [9.8520, 57.0378]
+          [9.854018, 57.0333071],
+          [9.8520017, 57.0380989],
+          [9.8497809, 57.0435384]
         ]
       }
     }
