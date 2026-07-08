@@ -1,0 +1,69 @@
+/*
+  Spot and hero illustrations. They reuse the survey/drafting vocabulary from
+  the map (dash-dot alignments, fjord water, amber interchanges, coordinate-grid
+  ticks) so the marketing surfaces read as the same drawing as the map itself.
+  Everything is driven by the color tokens, so both themes are covered for free.
+*/
+.illus {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Hero banner on the About page. */
+.illus-hero {
+  max-width: 480px;
+  margin: 0 0 var(--space-6);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+}
+
+/* Centred spot illustration above an empty/error message. */
+.illus-spot {
+  width: 132px;
+  height: auto;
+  margin: 0 auto var(--space-4);
+}
+
+.illus-fill-paper {
+  fill: var(--color-paper);
+}
+.illus-fill-fjord {
+  fill: var(--color-fjord);
+}
+.illus-fill-amber {
+  fill: var(--color-amber);
+}
+.illus-fill-ink {
+  fill: var(--color-ink);
+}
+
+.illus-stroke-paper {
+  stroke: var(--color-paper);
+}
+.illus-stroke-survey {
+  stroke: var(--color-survey-blue);
+}
+.illus-stroke-fjord {
+  stroke: var(--color-fjord);
+}
+.illus-stroke-amber {
+  stroke: var(--color-amber);
+}
+.illus-stroke-graphite {
+  stroke: var(--color-graphite);
+}
+.illus-stroke-noise {
+  stroke: var(--color-noise-screen);
+}
+.illus-stroke-grid {
+  stroke: var(--color-border);
+}
+
+/* The planned-alignment signature: dash-dot, matching the map legend. */
+.illus-alignment {
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 7 3.5 0.1 3.5;
+}

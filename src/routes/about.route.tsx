@@ -1,10 +1,12 @@
 import { useI18n } from '../shared/i18n/I18nContext'
+import { FjordCrossingIllustration } from '../shared/components/illustrations/FjordCrossingIllustration'
 
 export function AboutRoute() {
   const { t } = useI18n()
 
   return (
     <article className="about-route">
+      <FjordCrossingIllustration />
       <h1>{t('about.title')}</h1>
       <p>{t('about.intro')}</p>
       <dl className="about-route__facts">

@@ -1,6 +1,7 @@
 import { useI18n } from '../shared/i18n/I18nContext'
 import { useChanges } from '../features/changes/hooks/useChanges'
 import type { ChangeFeedPage } from '../features/changes/types/changes.types'
+import { EmptyChangesIllustration } from '../shared/components/illustrations/EmptyChangesIllustration'
 
 function useDateFormatter() {
   const { language } = useI18n()
@@ -112,7 +113,10 @@ export function ChangesRoute() {
       {isLoading && <p className="route-status">{t('changes.loading')}</p>}
       {isError && <p className="route-status">{t('changes.error')}</p>}
       {!isLoading && !isError && data && data.entries.length === 0 && (
-        <p className="route-status">{t('changes.empty')}</p>
+        <div className="route-empty">
+          <EmptyChangesIllustration />
+          <p className="route-empty__message">{t('changes.empty')}</p>
+        </div>
       )}
 
       {data?.entries.map((entry) => (

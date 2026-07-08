@@ -511,6 +511,19 @@ body {
   color: var(--color-graphite);
 }
 
+/* Empty state: centred spot illustration above a short message. */
+.route-empty {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+}
+
+.route-empty__message {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-graphite);
+  margin: 0;
+}
+
 .route-error {
   max-width: 480px;
   margin: var(--space-8) auto;
