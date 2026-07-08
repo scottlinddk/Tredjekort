@@ -7,6 +7,7 @@ import { I18nProvider } from './shared/i18n/I18nContext'
 import { ThemeProvider } from './shared/theme/ThemeContext'
 import './shared/styles/tokens.css'
 import './shared/styles/global.css'
+import './shared/styles/illustrations.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

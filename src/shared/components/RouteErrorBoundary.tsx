@@ -1,5 +1,6 @@
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router'
 import { useI18n } from '../i18n/I18nContext'
+import { OffRouteIllustration } from './illustrations/OffRouteIllustration'
 
 export function RouteErrorBoundary() {
   const error = useRouteError()
@@ -16,6 +17,7 @@ export function RouteErrorBoundary() {
 
   return (
     <div className="route-error">
+      <OffRouteIllustration />
       <h1 className="route-error__title">{title}</h1>
       <p className="route-error__message">{message}</p>
       <button type="button" className="route-error__action" onClick={() => navigate('/')}>
