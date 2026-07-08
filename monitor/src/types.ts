@@ -52,7 +52,7 @@ export interface PageSnapshot {
   pageId: string;
   url: string;
   fetchedAt: string;
-  method: "jsonapi" | "browser" | "derived";
+  method: "browser" | "derived";
   title: string;
   sections: PageSection[];
   pdfLinks: PdfLink[];

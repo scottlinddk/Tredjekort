@@ -6,7 +6,6 @@ import { diffSnapshots } from "./diff/differ.ts";
 import { ABOUT_PAGE_ID, buildAboutSnapshot } from "./extract/about.ts";
 import { buildSnapshot } from "./extract/page.ts";
 import { closeBrowser, extractAllLinks, extractPage, openBrowser } from "./fetch/browser.ts";
-import { fetchViaJsonApi, probeJsonApi } from "./fetch/drupalApi.ts";
 import { politeDelay } from "./fetch/politeness.ts";
 import { renderReport } from "./report/markdown.ts";
 import { fetchRobots, groupFor, isAllowed, type RobotsInfo } from "./robots.ts";
@@ -48,13 +47,8 @@ interface FetchResult {
 async function fetchTrackedPage(
   page: TrackedPage,
   config: MonitorConfig,
-  jsonApiAvailable: boolean,
   browserOpened: { value: boolean }
 ): Promise<FetchResult> {
-  if (jsonApiAvailable) {
-    const viaApi = await fetchViaJsonApi(config.baseUrl, page.url, config.userAgent);
-    if (viaApi) return { snapshot: buildSnapshot(page.id, page.url, "jsonapi", viaApi), method: "jsonapi" };
-  }
   if (!browserOpened.value) {
     await openBrowser(config.userAgent);
     browserOpened.value = true;
@@ -90,14 +84,7 @@ async function commandRun(configPath?: string): Promise<void> {
     }
   }
 
-  const jsonApiAvailable = isHttp(config.baseUrl)
-    ? await probeJsonApi(config.baseUrl, config.userAgent)
-    : false;
-  notes.push(
-    jsonApiAvailable
-      ? "Indhold forsøges hentet via Drupal JSON:API (struktureret kilde) med browser-fallback."
-      : "Drupal JSON:API ikke tilgængelig — indhold hentes med headless browser (Playwright)."
-  );
+  notes.push("Indhold hentes med headless browser (Playwright).");
 
   const aboutSources: { page: TrackedPage; snapshot: PageSnapshot }[] = [];
 
@@ -118,7 +105,7 @@ async function commandRun(configPath?: string): Promise<void> {
       }
 
       try {
-        const { snapshot } = await fetchTrackedPage(page, config, jsonApiAvailable, browserOpened);
+        const { snapshot } = await fetchTrackedPage(page, config, browserOpened);
         if (page.aboutSource) aboutSources.push({ page, snapshot });
 
         const prevState = state.pages[page.id];
@@ -231,28 +218,7 @@ async function commandDiscover(configPath?: string): Promise<void> {
     console.log("(non-HTTP base URL — robots.txt not applicable)");
   }
 
-  // 2. Drupal JSON:API probe.
-  console.log("\n=== Drupal JSON:API ===");
-  if (isHttp(config.baseUrl)) {
-    const available = await probeJsonApi(config.baseUrl, config.userAgent);
-    console.log(available
-      ? "JSON:API answers at /api/drupal/jsonapi — structured fetching will be preferred."
-      : "JSON:API not reachable — the tool will render pages with Playwright instead.");
-    findings.jsonApi = { available };
-    if (available) {
-      const mainPage = config.pages[0];
-      if (mainPage) {
-        const sample = await fetchViaJsonApi(config.baseUrl, mainPage.url, config.userAgent);
-        const ok = sample !== null && sample.blocks.length > 0;
-        console.log(ok
-          ? `Router + node fetch works for ${mainPage.url} (${sample.blocks.length} content blocks).`
-          : "…but router/translate-path did not yield usable content — browser fallback will be used.");
-        findings.jsonApi = { available, translatePathWorks: ok };
-      }
-    }
-  }
-
-  // 3. Live menu structure of the main page.
+  // 2. Live menu structure of the main page.
   console.log("\n=== Menu / subpage links on the main project page ===");
   const mainPage = config.pages[0];
   if (mainPage) {

@@ -9,13 +9,11 @@ fremhæves altid i deres egen sektion.
 ## Hvordan det henter indhold
 
 Siderne er client-side renderede, så et almindeligt HTTP GET returnerer ikke
-artikelteksten. Værktøjet prøver i denne rækkefølge:
-
-1. **Drupal JSON:API** (`/api/drupal/jsonapi` + router `translate-path`) —
-   struktureret kilde, billigst for begge parter. Tilgængeligheden probes ved
-   hver kørsel; virker den ikke, falder værktøjet tilbage til:
-2. **Playwright (headless Chromium)** — renderer siden og udtrækker
-   overskrifter, afsnit, links og PDF-links fra DOM'en.
+artikelteksten. Værktøjet bruger **Playwright (headless Chromium)** til at
+rendere hver side og udtrække overskrifter, afsnit, links og PDF-links fra
+DOM'en. (Sitets Drupal JSON:API blev tidligere brugt som en billigere
+struktureret kilde, men er ikke længere tilgængeligt — `/api/drupal/jsonapi`
+svarer nu 403 — så browser-rendering er den eneste hentemetode.)
 
 Værktøjet henter og respekterer `robots.txt` før hver kørsel (fejler den at
 hente, afbrydes kørslen — "fail closed"), venter ~4 s (± jitter) mellem sider,
@@ -33,16 +31,16 @@ cd monitor
 npm install
 npx playwright install chromium   # kun første gang
 
-npm run discover   # 1) verificér robots.txt, sidestruktur og JSON:API live
+npm run discover   # 1) verificér robots.txt og sidestruktur live
 npm run monitor    # 2) første kørsel = baseline-snapshots
 npm run monitor    # 3) anden kørsel bør rapportere "ingen ændringer"
 ```
 
 **Kør `discover` først.** URL-slugs i `src/config.ts` er kortlagt via websøgning
 (juli 2026) og skal bekræftes mod det live site — discover-kommandoen udskriver
-robots.txt-reglerne ordret, tjekker hver konfigureret side mod dem, prober
-JSON:API'et og lister de faktiske menu-links på projektsiden, med en advarsel
-for hver konfigureret URL der ikke længere findes i menuen.
+robots.txt-reglerne ordret, tjekker hver konfigureret side mod dem og lister de
+faktiske menu-links på projektsiden, med en advarsel for hver konfigureret URL
+der ikke længere findes i menuen.
 
 ## Overvågede sider
 
@@ -122,7 +120,5 @@ rigtige data.
 - URL-slugs er websøgnings-kortlagte; kør `discover` og ret `src/config.ts`
   hvis noget er flyttet. Støj-siderne ligger under et separat `/vvm/limfjorden/`-
   hierarki og kan være ældre VVM-sider snarere end aktive nyhedssider.
-- JSON:API-stien er uverificeret gæt baseret på at sitet er decoupled Drupal;
-  al JSON:API-kode er defensiv og falder tilbage til browseren.
 - Diffen er afsnitsbaseret med simpel lighedsparring — omfattende redesign af
   en side vil støje i rapporten én gang, hvorefter den nye baseline gælder.
