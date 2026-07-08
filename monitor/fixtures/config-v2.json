@@ -1,0 +1,26 @@
+{
+  "baseUrl": "file://",
+  "crawlDelayMs": 50,
+  "dataDir": "data-fixture",
+  "pages": [
+    {
+      "id": "hovedside",
+      "url": "fixtures/site-v2/hovedside.html",
+      "label": "Projektside (forside)",
+      "priority": "normal",
+      "aboutSource": true
+    },
+    {
+      "id": "tidsplan",
+      "url": "fixtures/site-v2/tidsplan.html",
+      "label": "Tidsplan",
+      "priority": "high"
+    },
+    {
+      "id": "stoej",
+      "url": "fixtures/site-v2/stoej.html",
+      "label": "Støj",
+      "priority": "high"
+    }
+  ]
+}
