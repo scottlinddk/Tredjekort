@@ -4,6 +4,7 @@ import { queryClient } from './queryClient'
 import { roadAlignmentOptions } from '../features/map/hooks/useRoadAlignment'
 import { junctionsOptions } from '../features/map/hooks/useJunctions'
 import { localRoadsOptions } from '../features/map/hooks/useLocalRoads'
+import { changesOptions } from '../features/changes/hooks/useChanges'
 import { RouteErrorBoundary } from '../shared/components/RouteErrorBoundary'
 
 export const router = createBrowserRouter([
@@ -46,6 +47,18 @@ export const router = createBrowserRouter([
         lazy: async () => {
           const { AboutRoute } = await import('../routes/about.route')
           return { Component: AboutRoute }
+        },
+      },
+      {
+        path: 'changes',
+        ErrorBoundary: RouteErrorBoundary,
+        lazy: async () => {
+          const { ChangesRoute } = await import('../routes/changes.route')
+          return { Component: ChangesRoute }
+        },
+        loader: async () => {
+          await queryClient.ensureQueryData(changesOptions())
+          return null
         },
       },
     ],

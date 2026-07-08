@@ -1,12 +1,16 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import type { MonitorState, PageSnapshot } from "../types.ts";
+import type { ChangeFeed, MonitorState, PageSnapshot } from "../types.ts";
+
+/** How many recent change-runs the website-facing feed keeps. */
+export const CHANGE_FEED_LIMIT = 50;
 
 export interface Store {
   dataDir: string;
   snapshotsDir: string;
   reportsDir: string;
   statePath: string;
+  changeFeedPath: string;
 }
 
 export function openStore(dataDir: string): Store {
@@ -15,6 +19,7 @@ export function openStore(dataDir: string): Store {
     snapshotsDir: join(dataDir, "snapshots"),
     reportsDir: join(dataDir, "reports"),
     statePath: join(dataDir, "state.json"),
+    changeFeedPath: join(dataDir, "changes-feed.json"),
   };
   mkdirSync(store.snapshotsDir, { recursive: true });
   mkdirSync(store.reportsDir, { recursive: true });
@@ -47,4 +52,13 @@ export function saveReport(store: Store, runId: string, markdown: string): strin
   const path = join(store.reportsDir, `${runId}.md`);
   writeFileSync(path, markdown);
   return path;
+}
+
+export function loadChangeFeed(store: Store): ChangeFeed {
+  if (!existsSync(store.changeFeedPath)) return { updatedAt: "", entries: [] };
+  return JSON.parse(readFileSync(store.changeFeedPath, "utf8")) as ChangeFeed;
+}
+
+export function saveChangeFeed(store: Store, feed: ChangeFeed): void {
+  writeFileSync(store.changeFeedPath, JSON.stringify(feed, null, 2));
 }
