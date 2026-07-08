@@ -3,15 +3,18 @@ import type { GeoJSONSource } from 'maplibre-gl'
 import { useMapInstance } from './MapInstanceContext'
 import { useRoadAlignment } from '../hooks/useRoadAlignment'
 import { generateNoiseBuffers } from '../utils/generateNoiseBuffers'
-import { LAYER_IDS, NOISE_BAND_FILL_OPACITY } from '../constants/mapConfig'
+import { buildNoiseFillColorExpression } from '../utils/noiseColorExpression'
+import { LAYER_IDS, type NoiseColorScheme } from '../constants/mapConfig'
 
 const SOURCE_ID = 'noise-buffers'
 
 interface NoiseZoneLayerProps {
   visible: boolean
+  colorScheme: NoiseColorScheme
+  opacity: number
 }
 
-export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
+export function NoiseZoneLayer({ visible, colorScheme, opacity }: NoiseZoneLayerProps) {
   const map = useMapInstance()
   const { data: alignment } = useRoadAlignment()
 
@@ -30,8 +33,10 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
           type: 'fill',
           source: SOURCE_ID,
           paint: {
-            'fill-color': ['get', 'color'],
-            'fill-opacity': NOISE_BAND_FILL_OPACITY,
+            // Initial values only; the effects below keep these in sync with the
+            // color scheme / opacity controls without recreating the layer.
+            'fill-color': buildNoiseFillColorExpression(colorScheme),
+            'fill-opacity': opacity,
           },
         },
         LAYER_IDS.roadAlignmentCasing,
@@ -45,6 +50,9 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
       if (map.getLayer(LAYER_IDS.noiseBufferFill)) map.removeLayer(LAYER_IDS.noiseBufferFill)
       if (map.getSource(SOURCE_ID)) map.removeSource(SOURCE_ID)
     }
+    // colorScheme/opacity intentionally omitted: they only seed the layer's initial paint
+    // values here; the effects below keep them in sync via setPaintProperty afterwards.
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [map, buffers])
 
   useEffect(() => {
@@ -54,6 +62,16 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
     if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
     map.setLayoutProperty(LAYER_IDS.noiseBufferFill, 'visibility', visible ? 'visible' : 'none')
   }, [map, visible])
+
+  useEffect(() => {
+    if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
+    map.setPaintProperty(LAYER_IDS.noiseBufferFill, 'fill-color', buildNoiseFillColorExpression(colorScheme))
+  }, [map, colorScheme])
+
+  useEffect(() => {
+    if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
+    map.setPaintProperty(LAYER_IDS.noiseBufferFill, 'fill-opacity', opacity)
+  }, [map, opacity])
 
   return null
 }

@@ -33,6 +33,10 @@ const translations = {
   },
 
   'layers.noise': { da: 'Omtrentlige støjbånd', en: 'Approximate noise bands' },
+  'layers.colorScheme': { da: 'Farveskema', en: 'Color scheme' },
+  'layers.colorScheme.warm': { da: 'Varmt (gul-rød)', en: 'Warm (yellow-red)' },
+  'layers.colorScheme.cool': { da: 'Køligt (blå-lilla)', en: 'Cool (blue-purple)' },
+  'layers.opacity': { da: 'Gennemsigtighed', en: 'Transparency' },
 
   'search.placeholder': {
     da: 'Søg dansk adresse …',

@@ -6,7 +6,7 @@ import { NOISE_DB_BANDS } from '../constants/mapConfig'
 export interface NoiseBufferProperties {
   distanceMeters: number
   dbLabel: string
-  color: string
+  bandIndex: number
 }
 
 /**
@@ -22,7 +22,9 @@ export function generateNoiseBuffers(
   alignment: AlignmentFeatureCollection,
 ): FeatureCollection<Polygon, NoiseBufferProperties> {
   // Largest radius first so smaller (higher dB) rings paint on top of it.
-  const bands = [...NOISE_DB_BANDS].sort((a, b) => b.distanceMeters - a.distanceMeters)
+  const bands = NOISE_DB_BANDS.map((band, bandIndex) => ({ ...band, bandIndex })).sort(
+    (a, b) => b.distanceMeters - a.distanceMeters,
+  )
 
   const polygons = bands.map((band) => {
     const merged = alignment.features.map((feature) =>
@@ -39,7 +41,7 @@ export function generateNoiseBuffers(
         properties: {
           distanceMeters: band.distanceMeters,
           dbLabel: band.dbLabel,
-          color: band.color,
+          bandIndex: band.bandIndex,
         },
       }))
   })

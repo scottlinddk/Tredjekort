@@ -43,20 +43,35 @@ export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 //
 // The bands below are still the same distance-based approximation as before (concentric
 // buffers around the road alignment, NOT a real acoustic propagation model), just labelled
-// with real dB ranges lifted from `OFFICIAL_NOISE_STUDY_REFERENCE.dbBandsLden` below and
-// coloured as a yellow-to-red gradient to read like Vejdirektoratet's own noise map. The dB
+// with real dB ranges lifted from `OFFICIAL_NOISE_STUDY_REFERENCE.dbBandsLden` below. The dB
 // label on a given ring is illustrative (higher published bands placed closer to the road),
 // not a claim that the real contour for that dB range actually sits at that distance.
+// Ordered lowest to highest dB; index into this array is the band's `bandIndex` in the
+// generated GeoJSON, used to look up a color from `NOISE_COLOR_SCHEMES` below.
 export const NOISE_DB_BANDS = [
-  { distanceMeters: 700, dbLabel: '52-56 dB', color: '#ffffb2' },
-  { distanceMeters: 550, dbLabel: '56-58 dB', color: '#fed976' },
-  { distanceMeters: 425, dbLabel: '58-60 dB', color: '#feb24c' },
-  { distanceMeters: 325, dbLabel: '60-62 dB', color: '#fd8d3c' },
-  { distanceMeters: 225, dbLabel: '62-64 dB', color: '#f03b20' },
-  { distanceMeters: 125, dbLabel: '64-68+ dB', color: '#bd0026' },
+  { distanceMeters: 700, dbLabel: '52-56 dB' },
+  { distanceMeters: 550, dbLabel: '56-58 dB' },
+  { distanceMeters: 425, dbLabel: '58-60 dB' },
+  { distanceMeters: 325, dbLabel: '60-62 dB' },
+  { distanceMeters: 225, dbLabel: '62-64 dB' },
+  { distanceMeters: 125, dbLabel: '64-68+ dB' },
 ] as const
 
-export const NOISE_BAND_FILL_OPACITY = 0.35
+// Two alternative color ramps users can toggle between for the noise bands, both running
+// from lowest dB (index 0) to highest (index 5). "warm" mirrors the yellow-to-red styling
+// common on official Danish noise maps; "cool" is a blue-to-purple alternative for anyone
+// who finds the red end of "warm" reads as more alarming than intended.
+export const NOISE_COLOR_SCHEMES = {
+  warm: ['#ffffb2', '#fed976', '#feb24c', '#fd8d3c', '#f03b20', '#bd0026'],
+  cool: ['#f7fcfd', '#bfd3e6', '#9ebcda', '#8c96c6', '#8c6bb1', '#88419d'],
+} as const
+
+export type NoiseColorScheme = keyof typeof NOISE_COLOR_SCHEMES
+
+export const NOISE_BAND_OPACITY_DEFAULT = 0.18
+export const NOISE_BAND_OPACITY_MIN = 0.05
+export const NOISE_BAND_OPACITY_MAX = 0.6
+export const NOISE_BAND_OPACITY_STEP = 0.05
 
 export const OFFICIAL_NOISE_STUDY_REFERENCE = {
   title: 'Detailbesigtigelse - Stojkort, 9095 3. Limfjordsforbindelse',
