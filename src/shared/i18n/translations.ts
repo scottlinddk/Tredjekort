@@ -14,6 +14,7 @@ const translations = {
   'theme.switchToLight': { da: 'Skift til lyst tema', en: 'Switch to light theme' },
   'nav.map': { da: 'Kort', en: 'Map' },
   'nav.about': { da: 'Om projektet', en: 'Project overview' },
+  'nav.changes': { da: 'Ændringer', en: 'Changes' },
 
   'legend.title': { da: 'Signaturforklaring', en: 'Legend' },
   'legend.surveyed': { da: 'Opmålt (motorvej)', en: 'Surveyed (motorway)' },
@@ -128,6 +129,39 @@ const translations = {
   'about.note': {
     da: 'Projektet udvikler sig stadig. Ekspropriationsforretninger og designændringer (fx det sydlige tilslutningsanlæg ved Dall) er i gang medio 2026. Tallene her afspejler de senest offentliggjorte oplysninger og kan være forældede.',
     en: 'This project is still evolving, expropriation reviews and design changes (such as the southern interchange near Dall) are ongoing as of mid-2026. Figures here reflect the most recent public information at the time this was built and may be superseded.',
+  },
+
+  'changes.title': { da: 'Ændringer på projektsiderne', en: 'Changes to the project pages' },
+  'changes.intro': {
+    da: 'Automatisk overvågning af Vejdirektoratets sider om 3. Limfjordsforbindelse. Listen viser de seneste kørsler, hvor der blev fundet ændringer — nyeste øverst. Støj- og tidsplansændringer er fremhævet.',
+    en: 'Automated monitoring of Vejdirektoratet’s pages about the 3. Limfjordsforbindelse. The list shows the most recent runs where changes were found — newest first. Noise and timeline changes are highlighted.',
+  },
+  'changes.loading': { da: 'Henter ændringer …', en: 'Loading changes…' },
+  'changes.error': {
+    da: 'Kunne ikke hente ændringer. Prøv igen senere.',
+    en: 'Could not load changes. Please try again later.',
+  },
+  'changes.empty': {
+    da: 'Ingen ændringer registreret endnu. Siderne overvåges dagligt.',
+    en: 'No changes recorded yet. The pages are monitored daily.',
+  },
+  'changes.runHeading': { da: 'Registreret {date}', en: 'Detected {date}' },
+  'changes.highPriority': { da: 'Høj prioritet', en: 'High priority' },
+  'changes.noiseTag': { da: 'Støj', en: 'Noise' },
+  'changes.timelineTag': { da: 'Tidsplan', en: 'Timeline' },
+  'changes.baseline': {
+    da: 'Første registrering af denne side ({paragraphs} afsnit, {pdfs} dokumentlink). Fremtidige kørsler viser kun ændringer.',
+    en: 'First capture of this page ({paragraphs} paragraphs, {pdfs} document links). Future runs show only changes.',
+  },
+  'changes.added': { da: 'Nyt', en: 'Added' },
+  'changes.removed': { da: 'Fjernet', en: 'Removed' },
+  'changes.changed': { da: 'Ændret', en: 'Changed' },
+  'changes.timelineChanged': { da: 'Tidsplan ændret', en: 'Timeline changed' },
+  'changes.newPdf': { da: 'Nyt dokument', en: 'New document' },
+  'changes.removedPdf': { da: 'Dokument fjernet', en: 'Document removed' },
+  'changes.note': {
+    da: 'Indholdet er skrabet automatisk fra vejdirektoratet.dk og kan indeholde tekniske uddrag. Kildeteksten er på dansk. Klik på en sidetitel for at åbne den originale side.',
+    en: 'Content is scraped automatically from vejdirektoratet.dk and may contain technical excerpts. The source text is in Danish. Click a page title to open the original page.',
   },
 
   'junction.back': { da: 'Tilbage til kortet', en: 'Back to map' },

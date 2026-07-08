@@ -542,6 +542,163 @@ body {
   border-color: var(--color-graphite);
 }
 
+/* Ændringer (changes feed) route — a scrollable changelog of scraper findings. */
+.changes-route {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.changes-route__intro {
+  color: var(--color-graphite);
+  margin: 0 0 var(--space-6);
+}
+
+.changes-route__note {
+  border-left: 3px solid var(--color-amber);
+  padding-left: var(--space-3);
+  color: var(--color-graphite);
+  font-size: 0.85rem;
+  margin-top: var(--space-8);
+}
+
+.changes-run {
+  margin-bottom: var(--space-8);
+}
+
+.changes-run__date {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-graphite);
+  border-bottom: var(--border-hairline);
+  padding-bottom: var(--space-2);
+  margin: 0 0 var(--space-4);
+}
+
+.changes-page {
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  background: var(--color-paper);
+}
+
+.changes-page--noise {
+  border-left: 3px solid var(--color-noise-screen);
+}
+
+.changes-page__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.changes-page__title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.changes-page__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.changes-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius);
+  border: var(--border-hairline);
+  color: var(--color-graphite);
+}
+
+.changes-tag--noise {
+  color: var(--color-noise-screen);
+  border-color: var(--color-noise-screen);
+}
+
+.changes-tag--timeline {
+  color: var(--color-fjord);
+  border-color: var(--color-fjord);
+}
+
+.changes-tag--priority {
+  color: var(--color-amber);
+  border-color: var(--color-amber);
+}
+
+.changes-page__baseline {
+  color: var(--color-graphite);
+  font-size: 0.9rem;
+  margin: var(--space-2) 0 0;
+}
+
+.changes-list {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.changes-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--color-border);
+  font-size: 0.92rem;
+}
+
+.changes-item--added {
+  border-left-color: var(--color-success);
+}
+
+.changes-item--removed {
+  border-left-color: var(--color-danger);
+}
+
+.changes-item--changed {
+  border-left-color: var(--color-fjord);
+}
+
+.changes-item--pdf {
+  border-left-color: var(--color-amber);
+}
+
+.changes-item__label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-graphite);
+}
+
+.changes-item__section {
+  color: var(--color-graphite);
+}
+
+.changes-diff {
+  display: block;
+}
+
+.changes-diff--before {
+  color: var(--color-graphite);
+  text-decoration: line-through;
+}
+
+.changes-diff--after {
+  color: var(--color-ink);
+}
+
 /* Small screens: tighten the header, keep overlays inside the viewport, and cap
    expanded panel height so the map stays reachable behind them. */
 @media (max-width: 640px) {
@@ -583,7 +740,8 @@ body {
   }
 
   .junction-detail,
-  .about-route {
+  .about-route,
+  .changes-route {
     padding: var(--space-4);
     overflow-wrap: break-word;
   }

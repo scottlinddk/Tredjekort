@@ -16,6 +16,14 @@ export default defineConfig({
           (path.includes('?') ? '&' : '?') +
           'per_side=8&fuzzy=',
       },
+      // Mirrors the Vercel serverless function in api/changes.js so `npm run dev`
+      // serves the same /api/changes endpoint (the monitor's change feed, read
+      // live from the monitor-data branch).
+      '/api/changes': {
+        target: 'https://raw.githubusercontent.com',
+        changeOrigin: true,
+        rewrite: () => '/scottlinddk/Tredjekort/monitor-data/changes-feed.json',
+      },
     },
   },
 })

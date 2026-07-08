@@ -7,9 +7,20 @@ import { ABOUT_PAGE_ID, buildAboutSnapshot } from "./extract/about.ts";
 import { buildSnapshot } from "./extract/page.ts";
 import { closeBrowser, extractAllLinks, extractPage, openBrowser } from "./fetch/browser.ts";
 import { politeDelay } from "./fetch/politeness.ts";
+import { buildChangeFeedEntry } from "./report/changeFeed.ts";
 import { renderReport } from "./report/markdown.ts";
 import { fetchRobots, groupFor, isAllowed, type RobotsInfo } from "./robots.ts";
-import { loadSnapshot, openStore, saveReport, saveSnapshot, saveState, loadState } from "./store/snapshots.ts";
+import {
+  CHANGE_FEED_LIMIT,
+  loadChangeFeed,
+  loadSnapshot,
+  openStore,
+  saveChangeFeed,
+  saveReport,
+  saveSnapshot,
+  saveState,
+  loadState,
+} from "./store/snapshots.ts";
 import type { MonitorConfig, PageDiff, PageSnapshot, TrackedPage } from "./types.ts";
 
 const PACKAGE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -182,6 +193,17 @@ async function commandRun(configPath?: string): Promise<void> {
     noisePages: diffs.filter((d) => d.noiseHits.length > 0).length,
   };
   writeFileSync(join(dataDir, "last-run.json"), JSON.stringify(lastRun, null, 2));
+
+  // Website-facing rolling feed: prepend this run's structured changes (if any)
+  // and cap to the most recent runs. Consumed live by the site via the
+  // monitor-data branch, so unchanged runs leave it untouched.
+  const entry = buildChangeFeedEntry(id, diffs);
+  if (entry) {
+    const feed = loadChangeFeed(store);
+    feed.entries = [entry, ...feed.entries].slice(0, CHANGE_FEED_LIMIT);
+    feed.updatedAt = new Date().toISOString();
+    saveChangeFeed(store, feed);
+  }
 }
 
 async function commandDiscover(configPath?: string): Promise<void> {
