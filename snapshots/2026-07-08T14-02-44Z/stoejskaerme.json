@@ -1,0 +1,184 @@
+{
+  "pageId": "stoejskaerme",
+  "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/planlagte-stoejskaerme",
+  "fetchedAt": "2026-07-08T14:03:38.414Z",
+  "method": "browser",
+  "title": "Tilpas dine cookieindstillinger",
+  "sections": [
+    {
+      "heading": null,
+      "level": 0,
+      "paragraphs": [
+        "Miljø",
+        "Støj",
+        "Planlagte støjskærme",
+        "Hvordan påvirkes støjen i resten af Aalborg?",
+        "Lyt til en motorvej",
+        "Fakta om trafikstøj",
+        "Landskab og visuelle forhold",
+        "Mennesker og samfund",
+        "Planforhold",
+        "Arkæologi og kulturarv",
+        "Befolkning og menneskers sundhed",
+        "Materielle goder",
+        "Natur og biodiversitet",
+        "Natur på land",
+        "Vandkvalitet",
+        "Marin bundflora og -dyr",
+        "Marine pattedyr",
+        "Fisk",
+        "Fugle",
+        "Natura 2000",
+        "Overfladevand",
+        "Afværgetiltag og overvågning",
+        "Øvrige miljøforhold",
+        "Luft og klima",
+        "Geologi og grundvand",
+        "Forurenet jord",
+        "Råstoffer, jord og affald"
+      ]
+    },
+    {
+      "heading": "Planlagte støjskærme",
+      "level": 1,
+      "paragraphs": [
+        "I vejprojektet for Egholmlinjen er det planlagt, at der etableres i alt ca. 5,3 km støjskærme. Støjafskærmningen er planlagt placeret langs E45 ved Dall og Dall Villaby og langs Egholmlinjen ved Drastrup (Nibevej) og ved Nørholmsvej.",
+        "Der er lavet undersøgelse af effekten af støjskærme med forskellige højder og udstrækninger, ud for samtlige lokaliteter, hvor minimum 5 sammenhængende beboelsesejendomme bliver belastet med mere end 58 dB i 2040. De valgte løsninger er vurderet til at ville have en god støjreducerende effekt ved boligområderne.",
+        "Det gælder for alle støjskærmsløsninger, at de kan dæmpe støjen, men ikke fjerne den. Skærmens virkning er størst i området lige bag skærmen og virkningen aftager med øget afstand.",
+        "Det bemærkes, at den præcise udstrækning af de enkelte skærme først vil blive fastlagt ved detailprojektering af vejanlægget.",
+        "Hvis en bolig har et støjniveau over 63 dB efter anlæg af motorvejen, så kan ejeren søge tilskud hos Vejdirektoratet til støjisolering."
+      ]
+    }
+  ],
+  "pdfLinks": [
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Egholmlinjen_st%C3%B8jsk%C3%A6rme.jpg",
+      "text": "Vis stort billede",
+      "section": "Planlagte støjskærme"
+    },
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Tabel%20-%20Placering%20af%20st%C3%B8jsk%C3%A6rme%20.jpg",
+      "text": "Vis stort billede",
+      "section": "Planlagte støjskærme"
+    }
+  ],
+  "links": [
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe",
+      "text": "Miljø"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej",
+      "text": "Støj"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/planlagte-stoejskaerme",
+      "text": "Planlagte støjskærme"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/hvordan-paavirkes-stoejen-i-resten-af-aalborg",
+      "text": "Hvordan påvirkes støjen i resten af Aalborg?"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/lyt-til-en-motorvej",
+      "text": "Lyt til en motorvej"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/fakta-om-trafikstoej",
+      "text": "Fakta om trafikstøj"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/landskab-og-visuelle-forhold",
+      "text": "Landskab og visuelle forhold"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/mennesker-og-samfund",
+      "text": "Mennesker og samfund"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/planforhold",
+      "text": "Planforhold"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/arkaeologi-og-kulturarv",
+      "text": "Arkæologi og kulturarv"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/befolkning-og-menneskers-sundhed",
+      "text": "Befolkning og menneskers sundhed"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/materielle-goder",
+      "text": "Materielle goder"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/natur-og-biodiversitet",
+      "text": "Natur og biodiversitet"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/natur-paa-land",
+      "text": "Natur på land"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/vandkvalitet",
+      "text": "Vandkvalitet"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/marin-bundflora-og-dyr",
+      "text": "Marin bundflora og -dyr"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/marine-pattedyr",
+      "text": "Marine pattedyr"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/fisk",
+      "text": "Fisk"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/fugle",
+      "text": "Fugle"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/natura-2000",
+      "text": "Natura 2000"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/overfladevand",
+      "text": "Overfladevand"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/afvaergetiltag-og-overvaagning",
+      "text": "Afværgetiltag og overvågning"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/oevrige-miljoeforhold",
+      "text": "Øvrige miljøforhold"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/luft-og-klima",
+      "text": "Luft og klima"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/miljoe/geologi-og-grundvand",
+      "text": "Geologi og grundvand"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/forurenet-jord",
+      "text": "Forurenet jord"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/raastoffer-jord-og-affald",
+      "text": "Råstoffer, jord og affald"
+    },
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Egholmlinjen_st%C3%B8jsk%C3%A6rme.jpg",
+      "text": "Vis stort billede"
+    },
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Tabel%20-%20Placering%20af%20st%C3%B8jsk%C3%A6rme%20.jpg",
+      "text": "Vis stort billede"
+    }
+  ],
+  "textHash": "726b07b035d651e6e174ac938de4f733db122e3f64160bbe68e8b8b8405ccf53"
+}

@@ -1,0 +1,76 @@
+{
+  "pageId": "vvm-hub",
+  "url": "https://www.vejdirektoratet.dk/vvm/3-limfjordsforbindelse",
+  "fetchedAt": "2026-07-08T14:04:16.773Z",
+  "method": "browser",
+  "title": "Tilpas dine cookieindstillinger",
+  "sections": [
+    {
+      "heading": null,
+      "level": 0,
+      "paragraphs": [
+        "VVM-undersøgelsen skal tilvejebringe tilstrækkelig viden til, at borgere, politikere, myndigheder og organisationer kan vurdere vejprojektets virkninger på miljøet. VVM-undersøgelsen skal desuden sikre, at vejprojektet bliver bedst muligt tilpasset omgivelserne, og at miljøet ikke påvirkes unødvendigt.",
+        "På denne side kan du læse mere om VVM-undersøgelsen opdelt på følgende hovedemner Projektet, Miljø, Trafik og Areal. Under Baggrund kan du finde mere dybdegående materiale, herunder miljøkonsekvensrapporten. Vi anbefaler, at du benytter en nyere browser (eksempelvis Google Chrome)"
+      ]
+    },
+    {
+      "heading": "Offentlig høring",
+      "level": 2,
+      "paragraphs": [
+        "Den offentlige høring af VVM-undersøgelsen for Egholmlinjen blev afsluttet den 30. april 2021. I høringsperioden modtog vi tæt ved 7.800 høringssvar, som efterfølgende er blevet resumeret i et høringsnotat sammen med Vejdirektoratets eventuelle bemærkninger.",
+        "Tilgængelighedserklæring for 3. Limfjordsforbindelse - Opdatering af VVM-undersøgelsen"
+      ]
+    }
+  ],
+  "pdfLinks": [
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-09/Egholmlinjen_H%C3%B8ringsnotat.pdf",
+      "text": "høringsnotat",
+      "section": "Offentlig høring"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/sites/default/files/2021-02/Limfjord_Resume%20af%20VVM-unders%C3%B8gelsen_wcag.pdf",
+      "text": "Download digital udgave",
+      "section": "Offentlig høring"
+    }
+  ],
+  "links": [
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet",
+      "text": "Projektet"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe",
+      "text": "Miljø"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/trafik",
+      "text": "Trafik"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/areal",
+      "text": "Areal"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/baggrund",
+      "text": "Baggrund"
+    },
+    {
+      "url": "https://vejdirektoratet-public.rhs.niras.dk/Webpublicering/Publicering?hoeringid=3440ad30-ca6b-4ff7-ab94-f859332fecd8",
+      "text": "høringssvar"
+    },
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-09/Egholmlinjen_H%C3%B8ringsnotat.pdf",
+      "text": "høringsnotat"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/sites/default/files/2021-02/Limfjord_Resume%20af%20VVM-unders%C3%B8gelsen_wcag.pdf",
+      "text": "Download digital udgave"
+    },
+    {
+      "url": "https://www.was.digst.dk/vejdirektoratet-dk-vvm-3-limfjordsforbindelse",
+      "text": "Tilgængelighedserklæring"
+    }
+  ],
+  "textHash": "e52fd251db4608f94a76f397d6dc1607dbc66de1099f37f0afe03808ac2c28c6"
+}

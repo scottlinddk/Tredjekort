@@ -1,0 +1,84 @@
+{
+  "pageId": "tidsplan",
+  "url": "https://www.vejdirektoratet.dk/projekt/3-limfjordsforbindelse/tidsplan",
+  "fetchedAt": "2026-07-08T14:03:21.341Z",
+  "method": "browser",
+  "title": "Tilpas dine cookieindstillinger",
+  "sections": [
+    {
+      "heading": null,
+      "level": 0,
+      "paragraphs": [
+        "3. Limfjordsforbindelse",
+        "Om projektet",
+        "Nyheder",
+        "Det arbejder vi på lige nu",
+        "Tidsplan",
+        "Dokumenter",
+        "Arealbehov",
+        "Støj",
+        "Spørgsmål og svar",
+        "Kontakt"
+      ]
+    },
+    {
+      "heading": "Tidsplan",
+      "level": 1,
+      "paragraphs": []
+    }
+  ],
+  "pdfLinks": [
+    {
+      "url": "https://api.vejdirektoratet.dk/sites/default/files/2025-01/tidslinje_Limfjord_1.png",
+      "text": "Vis stort billede",
+      "section": "Tidsplan"
+    }
+  ],
+  "links": [
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse",
+      "text": "3. Limfjordsforbindelse"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "text": "Om projektet"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/nyheder",
+      "text": "Nyheder"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/det-arbejder-vi-paa-lige-nu",
+      "text": "Det arbejder vi på lige nu"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan",
+      "text": "Tidsplan"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter",
+      "text": "Dokumenter"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/arealbehov",
+      "text": "Arealbehov"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+      "text": "Støj"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/projekt/3-limfjordsforbindelse/spoergsmaal-og-svar",
+      "text": "Spørgsmål og svar"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/kontakt",
+      "text": "Kontakt"
+    },
+    {
+      "url": "https://api.vejdirektoratet.dk/sites/default/files/2025-01/tidslinje_Limfjord_1.png",
+      "text": "Vis stort billede"
+    }
+  ],
+  "textHash": "d08f4536ce36274fc4cf4791442521fc950f8f89c34c0f74d284c960a9c89a14"
+}

@@ -1,0 +1,187 @@
+{
+  "pageId": "stoej-anlaeg",
+  "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/stoej-under-anlaegsarbejde",
+  "fetchedAt": "2026-07-08T14:03:46.838Z",
+  "method": "browser",
+  "title": "Tilpas dine cookieindstillinger",
+  "sections": [
+    {
+      "heading": null,
+      "level": 0,
+      "paragraphs": [
+        "Projektet",
+        "Egholmlinjen",
+        "E45 (Svenstrup) – Skalborg",
+        "Skalborg – Egholm",
+        "Egholm – Aalborg Lufthavn",
+        "Aalborg Lufthavn – E39 (Vestbjerg)",
+        "Undersøgte og fravalgte alternativer",
+        "Anlæg af motorvejen",
+        "Egholmtunnelen",
+        "Trafikafvikling",
+        "Geoteknik og jordhåndtering",
+        "Støj under anlægsarbejde",
+        "Økonomi",
+        "Anlægsøkonomi",
+        "Samfundsøkonomi"
+      ]
+    },
+    {
+      "heading": "Støj under anlægsarbejde",
+      "level": 1,
+      "paragraphs": []
+    },
+    {
+      "heading": "Generelle påvirkninger",
+      "level": 2,
+      "paragraphs": [
+        "Støj fra anlægsarbejde vil ofte være varierende, også over kortere tid. I løbet af en dag kan en række aktiviteter foregå samtidigt eller afløse hinanden, og det medfører variationer i støjen. Også over længere tid kan der være meget store variationer i støjen, når anlægsarbejdet går fra en fase til en anden, eller når en anlægsaktivitet flytter sig i terrænet. Det er karakteristisk, at anlægsarbejdet er midlertidigt og ophører helt, når vejen er bygget færdig.",
+        "I anlægsfasen kan der i særlige situationer optræde væsentlige vibrationspåvirkninger af bygninger i omgivelserne, når der sker nedramning af f.eks. spuns og pæle. Erfaringer fra andre anlægsarbejder har vist, at de øvrige anlægsaktiviteter normalt ikke medfører vibrationsproblemer."
+      ]
+    },
+    {
+      "heading": "Det støjende anlægsarbejde",
+      "level": 2,
+      "paragraphs": [
+        "De anlægsaktiviteter, der kan give anledning til støj ved anlæg af motorvejen kan overordnet opdeles i følgende hovedgrupper:",
+        "Strækningsrelateret anlægsarbejde (etablering af det egentlige vejanlæg), inklusiv etablering af tilslutningsanlæg til andre veje",
+        "Etablering af bygværker, dvs. ved anlæg af tunnel, broer, støjskærme, vandløbspassager og lignende",
+        "Transport af materialer på offentlig vej"
+      ]
+    },
+    {
+      "heading": "Afværgeforanstaltninger",
+      "level": 2,
+      "paragraphs": [
+        "Der er begrænsede muligheder for at reducere støj fra anlægsarbejdet. Derfor er det som udgangspunkt forudsat, at anlægsarbejder primært skal ske indenfor normal arbejdstid, men dette afklares først endeligt i forbindelse med detailprojektering i senere faser i samarbejde med Aalborg Kommune.",
+        "Gennem indledende overvejelser om planlægning af anlægsfasen er der truffet beslutning om, at nedbringning af betonpæle og spuns ved bygværker vil blive udført ved nedvibrering med en vibrator, der er monteret på en rammemaskine. Denne proces betydelig mindre støjende end traditionel nedramning af pæle og spuns.",
+        "I forbindelse med særligt vibrerende arbejde kan der i enkelte tilfælde være risiko for, at bygninger kan blive udsat for bygningsskadelige vibrationer. I så fald kan brug af måleudstyr, der permanent overvåger vibrationspåvirkningen, sikre, at relevante grænseværdier ikke overskrides og bygningerne dermed beskyttes mod skader."
+      ]
+    },
+    {
+      "heading": "Beregning af anlægsstøj",
+      "level": 2,
+      "paragraphs": [
+        "Støj, der vil optræde i fremtiden, kan af gode grunde ikke måles, men må i stedet beregnes. Grundlaget for beregning af støj fra anlægsarbejdet er en viden om det materiel, der forventes anvendt, og om den støj, som materiellet forventes at give anledning til. Disse oplysninger er baseret på et omfattende erfaringsmateriale fra andre større anlægsprojekter.",
+        "Oplysningerne om støjkildernes udsendelse af støj er anvendt til at beregne, hvor langt man skal væk, før støjen er aftaget til kriterieværdierne for støj fra anlægsarbejder, som fastlagt af Aalborg Kommune for arbejde indenfor normal arbejdstid på 70 dB og 40 dB i andre tidsrum."
+      ]
+    },
+    {
+      "heading": "Regler om anlægsstøj",
+      "level": 2,
+      "paragraphs": [
+        "Med henvisning til Aalborg Kommunes Kommunal forskrifter, skal støv- og støjfrembringende bygge- og anlægsaktiviteter anmeldes til kommunen senest 14 dage før aktiviteten påbegyndes. Kommunen angiver følgende grænseværdier:",
+        "Støjgrænserne er gældende for den mest støjende drift inden for et referencetidsrum, der varierer alt afhængigt af perioden.",
+        "Man skal være opmærksom på, at den efterfølgende detailplanlægning af anlægsarbejdet kan medføre ændringer i de forudsætninger, der er anvendt. Entreprenøren kan for eksempel vælge at anvende andre typer materiel og metoder end forudsat på nuværende tidspunkt. Beregningerne i denne VVM-undersøgelse vil imidlertid være retningsgivende for anlægsarbejdets støjmæssige rammer."
+      ]
+    },
+    {
+      "heading": "Støj fra strækningsrelaterede arbejder",
+      "level": 2,
+      "paragraphs": [
+        "Strækningsrelaterede anlægsarbejder vil medføre støj langs hele den berørte motorvejsstrækning. Arbejderne gennemføres ad flere omgange og vil bestå af en række hovedaktiviteter.",
+        "De strækningsrelatererede anlægsarbejder strækker sig over hele anlægsperioden for det samlede vejanlæg, men arbejderne gennemføres ikke samtidigt på hele strækningen. Den enkelte nabo vil derfor opleve perioder med anlægsaktivitet i nærheden og perioder uden aktivitet, hvor arbejderne gennemføres på andre dele af strækningen.",
+        "Der er lavet en vurdering af varigheden af de enkelte anlægsaktiviteter, som afhænger af mange forskellige forhold, og som nuværende tidspunkt ikke kan fastlægges. Varigheden afhænger blandt andet af entreprenørens plan for gennemførelse af det samlede anlægsprojekt. Entreprenøren kan for eksempel vælge at anvende mere materiel samtidig og dermed blive hurtigere færdig, eller omvendt anvende mindre materiel og til gengæld bruge mere tid."
+      ]
+    },
+    {
+      "heading": "Støj i forbindelse med strækningsrelaterede anlægsarbejder",
+      "level": 2,
+      "paragraphs": [
+        "Det vurderes at færre end 10 boliger ligger tættere på anlægsområdet end ca. 25 meter, og kan blive udsat for støj, som overstiger kriterieværdien for væsentlig støj på 70 dB i forbindelse med:",
+        "Forberedende arbejder",
+        "Komprimering og opbygning af vejkasse",
+        "Drift af arbejds- og depotpladser.",
+        "Det vurderes at færre end 10 boliger ligger tættere på anlægsområdet end ca. 45 meter og kan blive udsat for støj, der overstiger kriterieværdien for væsentlig støj på 70 dB i forbindelse med:",
+        "Jordhåndtering",
+        "Transport af materialer på anlægsområdet",
+        "Etablering af vejbelægning",
+        "Hvis anlægsarbejdet udføres udenfor normal arbejdstid, vil boliger, der ligger tættere på anlægsområdet end hhv. 500 meter og 850 meter, dvs. bl.a. boliger beliggende i Dall, Dall Villaby, Sofiendal Enge, Hasseris Enge og ved Nørholmsvej kunne blive udsat for støj, som overstiger kriterieværdien for væsentlig støj på 40 dB."
+      ]
+    },
+    {
+      "heading": "Støj fra etablering og ombygning af bygværker",
+      "level": 2,
+      "paragraphs": [
+        "I forbindelse med anlæg af en ny motorvej skal en række bygværker etableres.",
+        "Hovedparten af disse anlæg er betonkonstruktioner, der støbes på stedet. Enkelte kan dog udføres med præfabrikerede betonelementer eller rør. Det støjende materiel kan omfatte gravemaskiner, mobilkraner, tårnkraner, betonkanoner, betonpumper, lastvogne, håndværktøj og forskelligt hjælpeudstyr i form af kompressorer, pumper og lignende.",
+        "Der vil forekomme behov for nedvibrering af spuns og betonpæle, som vil ske med en hydraulisk vibrator monteret på en rammemaskine. Som indledende planlægningsredskab har Vejdirektoratet udarbejdet estimater på varigheder af nedvibrering ved de enkelte bygværker.",
+        "Det vurderes at mindre end 10 boliger kan blive belastet med mere en 70 dB i forbindelse med etablering af bygværker."
+      ]
+    }
+  ],
+  "pdfLinks": [
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Egholmlinjen_anl%C3%A6gsst%C3%B8j_0.jpg",
+      "text": "Vis stort billede",
+      "section": "Støj i forbindelse med strækningsrelaterede anlægsarbejder"
+    }
+  ],
+  "links": [
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet",
+      "text": "Projektet"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/egholmlinjen",
+      "text": "Egholmlinjen"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/e45-svenstrup-skalborg",
+      "text": "E45 (Svenstrup) – Skalborg"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/skalborg-egholm",
+      "text": "Skalborg – Egholm"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/egholm-aalborg-lufthavn",
+      "text": "Egholm – Aalborg Lufthavn"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/aalborg-lufthavn-e39-vestbjerg",
+      "text": "Aalborg Lufthavn – E39 (Vestbjerg)"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/undersoegte-og-fravalgte-alternativer",
+      "text": "Undersøgte og fravalgte alternativer"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/anlaeg-af-motorvejen",
+      "text": "Anlæg af motorvejen"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/egholmtunnelen",
+      "text": "Egholmtunnelen"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/trafikafvikling",
+      "text": "Trafikafvikling"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/geoteknik-og-jordhaandtering",
+      "text": "Geoteknik og jordhåndtering"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/stoej-under-anlaegsarbejde",
+      "text": "Støj under anlægsarbejde"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/oekonomi",
+      "text": "Økonomi"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/anlaegsoekonomi",
+      "text": "Anlægsøkonomi"
+    },
+    {
+      "url": "https://www.vejdirektoratet.dk/vvm/limfjorden/projektet/samfundsoekonomi",
+      "text": "Samfundsøkonomi"
+    },
+    {
+      "url": "http://api.vejdirektoratet.dk/sites/default/files/2021-02/Egholmlinjen_anl%C3%A6gsst%C3%B8j_0.jpg",
+      "text": "Vis stort billede"
+    }
+  ],
+  "textHash": "c3c9b8c86b18febb5d1c8b227fa706dc44ab9419caa0d836308d586844e73c6c"
+}
