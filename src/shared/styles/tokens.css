@@ -3,16 +3,28 @@
   drawings (navy dash-dot centerlines, cyan building-line corridors, amber
   markers, fine coordinate-grid ticks on white paper). Rather than a generic
   dashboard look, the UI borrows that drafting vocabulary directly.
+
+  Theming: every color the UI uses is a token here, with a dark variant under
+  prefers-color-scheme. The MapLibre basemap stays light regardless, so map
+  overlays keep their own paper surface in both schemes.
 */
 :root {
+  color-scheme: light;
+
   /* Color */
   --color-paper: #fafaf8;
   --color-ink: #1c2128;
-  --color-graphite: #6b7280;
+  --color-graphite: #59626e;
   --color-survey-blue: #1d4ed8;
   --color-amber: #a16207;
   --color-fjord: #0e7490;
   --color-noise-screen: #7c2d12;
+  --color-danger: #dc2626;
+  --color-success: #15803d;
+  --color-border: #d8d5cc;
+  --color-accent-soft: rgba(29, 78, 216, 0.08);
+  --shadow-panel: 0 2px 8px rgba(28, 33, 40, 0.12);
+  --color-focus: var(--color-survey-blue);
 
   /* Type */
   --font-display: 'Space Grotesk', system-ui, sans-serif;
@@ -28,5 +40,25 @@
   --space-8: 32px;
 
   --radius: 4px;
-  --border-hairline: 1px solid #d8d5cc;
+  --border-hairline: 1px solid var(--color-border);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+
+    --color-paper: #15191f;
+    --color-ink: #e8eaed;
+    --color-graphite: #a2abb6;
+    --color-survey-blue: #8ab0ff;
+    --color-amber: #d9a441;
+    --color-fjord: #4cc3de;
+    --color-noise-screen: #d98d63;
+    --color-danger: #f87171;
+    --color-success: #4ade80;
+    --color-border: #3a414b;
+    --color-accent-soft: rgba(138, 176, 255, 0.14);
+    --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.5);
+    --color-focus: var(--color-survey-blue);
+  }
 }

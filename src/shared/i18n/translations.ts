@@ -9,6 +9,7 @@ const translations = {
     da: '3. Limfjordsforbindelse',
     en: '3. Limfjordsforbindelse',
   },
+  'app.skipToContent': { da: 'Spring til indhold', en: 'Skip to content' },
   'nav.map': { da: 'Kort', en: 'Map' },
   'nav.about': { da: 'Om projektet', en: 'Project overview' },
 

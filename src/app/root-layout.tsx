@@ -7,8 +7,11 @@ export function RootLayout() {
 
   return (
     <div className="app-shell">
+      <a className="skip-link" href="#main-content">
+        {t('app.skipToContent')}
+      </a>
       <header className="app-header">
-        <span className="app-header__title">{t('app.title')}</span>
+        <h1 className="app-header__title">{t('app.title')}</h1>
         <div className="app-header__side">
           <nav className="app-header__nav">
             <NavLink to="/" end>
@@ -19,7 +22,7 @@ export function RootLayout() {
           <LanguageSwitcher />
         </div>
       </header>
-      <main className="app-main">
+      <main id="main-content" tabIndex={-1} className="app-main">
         <Outlet />
       </main>
     </div>

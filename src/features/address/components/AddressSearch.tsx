@@ -39,7 +39,12 @@ export function AddressSearch() {
     const marker = new maplibregl.Marker({ color: '#dc2626' })
       .setLngLat([selected.longitude, selected.latitude])
       .addTo(map)
-    map.flyTo({ center: [selected.longitude, selected.latitude], zoom: 13.5 })
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    map.flyTo({
+      center: [selected.longitude, selected.latitude],
+      zoom: 13.5,
+      animate: !prefersReducedMotion,
+    })
 
     return () => {
       marker.remove()
@@ -102,16 +107,24 @@ export function AddressSearch() {
       </div>
 
       {showDropdown && (
-        <ul className="address-search__results" role="listbox" aria-label={t('search.label')}>
+        <ul className="address-search__results" aria-label={t('search.label')}>
           {isFetching && !suggestions && (
-            <li className="address-search__status">{t('search.loading')}</li>
+            <li className="address-search__status" role="status">
+              {t('search.loading')}
+            </li>
           )}
-          {isError && <li className="address-search__status">{t('search.error')}</li>}
+          {isError && (
+            <li className="address-search__status" role="status">
+              {t('search.error')}
+            </li>
+          )}
           {suggestions && suggestions.length === 0 && (
-            <li className="address-search__status">{t('search.noResults')}</li>
+            <li className="address-search__status" role="status">
+              {t('search.noResults')}
+            </li>
           )}
           {suggestions?.map((suggestion) => (
-            <li key={suggestion.id} role="option" aria-selected="false">
+            <li key={suggestion.id}>
               <button
                 type="button"
                 className="address-search__result"
