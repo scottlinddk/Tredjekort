@@ -17,6 +17,42 @@ body {
   background: var(--color-paper);
 }
 
+/* One consistent keyboard-focus treatment everywhere; mouse clicks stay clean. */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Keyboard users can jump straight past the header to the map/content. */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 20;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-paper);
+  color: var(--color-survey-blue);
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+  transform: translateY(calc(-100% - var(--space-4)));
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
 .app-shell {
   display: flex;
   flex-direction: column;
@@ -46,6 +82,7 @@ body {
   font-weight: 600;
   font-size: 1.1rem;
   letter-spacing: -0.01em;
+  margin: 0;
 }
 
 .app-header__side {
@@ -79,6 +116,27 @@ body {
 .language-switcher__option--active {
   background: var(--color-survey-blue);
   color: var(--color-paper);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+  color: var(--color-graphite);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--color-ink);
+  border-color: var(--color-graphite);
 }
 
 .app-header__nav a {
@@ -167,7 +225,7 @@ body {
 }
 
 .address-search__input:focus {
-  outline: 2px solid var(--color-survey-blue);
+  outline: 2px solid var(--color-focus);
   outline-offset: -1px;
 }
 
@@ -193,7 +251,7 @@ body {
   border: var(--border-hairline);
   border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(28, 33, 40, 0.12);
+  box-shadow: var(--shadow-panel);
 }
 
 .address-search__result {
@@ -210,7 +268,7 @@ body {
 }
 
 .address-search__result:hover {
-  background: rgba(29, 78, 216, 0.08);
+  background: var(--color-accent-soft);
 }
 
 .address-search__status {
@@ -253,7 +311,7 @@ body {
 }
 
 .address-search__level--high {
-  border-left-color: #dc2626;
+  border-left-color: var(--color-danger);
 }
 
 .address-search__level--moderate {
@@ -265,7 +323,7 @@ body {
 }
 
 .address-search__level--minimal {
-  border-left-color: #15803d;
+  border-left-color: var(--color-success);
 }
 
 .address-search__disclaimer {
