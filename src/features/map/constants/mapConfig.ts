@@ -56,7 +56,7 @@ export const NOISE_DB_BANDS = [
   { distanceMeters: 125, dbLabel: '64-68+ dB', color: '#bd0026' },
 ] as const
 
-export const NOISE_BAND_FILL_OPACITY = 0.6
+export const NOISE_BAND_FILL_OPACITY = 0.35
 
 export const OFFICIAL_NOISE_STUDY_REFERENCE = {
   title: 'Detailbesigtigelse - Stojkort, 9095 3. Limfjordsforbindelse',
