@@ -3,7 +3,7 @@ import type { GeoJSONSource } from 'maplibre-gl'
 import { useMapInstance } from './MapInstanceContext'
 import { useRoadAlignment } from '../hooks/useRoadAlignment'
 import { generateNoiseBuffers } from '../utils/generateNoiseBuffers'
-import { LAYER_IDS } from '../constants/mapConfig'
+import { LAYER_IDS, NOISE_BAND_FILL_OPACITY } from '../constants/mapConfig'
 
 const SOURCE_ID = 'noise-buffers'
 
@@ -30,8 +30,8 @@ export function NoiseZoneLayer({ visible }: NoiseZoneLayerProps) {
           type: 'fill',
           source: SOURCE_ID,
           paint: {
-            'fill-color': '#dc2626',
-            'fill-opacity': ['get', 'opacity'],
+            'fill-color': ['get', 'color'],
+            'fill-opacity': NOISE_BAND_FILL_OPACITY,
           },
         },
         LAYER_IDS.roadAlignmentCasing,

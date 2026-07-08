@@ -439,6 +439,19 @@ body {
   background: var(--color-noise-screen);
 }
 
+.legend-swatch--noise-band {
+  /* Solid fill swatch: a dB band area, not a linear alignment. */
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--swatch-color, var(--color-graphite));
+}
+
+.map-legend__group-label {
+  margin: var(--space-2) 0 0;
+  font-weight: 600;
+}
+
 .map-legend__note {
   margin: var(--space-2) 0 0;
   color: var(--color-graphite);

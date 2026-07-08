@@ -26,6 +26,11 @@ const translations = {
     da: 'Alle linjer er planlagte anlæg, vist punkteret.',
     en: 'All lines are planned works, drawn dotted.',
   },
+  'legend.noiseBands': { da: 'Støjbånd (Lden)', en: 'Noise bands (Lden)' },
+  'legend.noiseBandsNote': {
+    da: 'Båndene er afstandsringe om linjeføringen, ikke en beregnet støjkurve. dB-intervallerne stammer fra Vejdirektoratets rigtige Lden-støjkort, men er lagt på tilnærmet geometri.',
+    en: 'The bands are distance rings around the alignment, not a calculated noise contour. The dB ranges come from Vejdirektoratet’s real Lden noise study, but are placed on approximate geometry.',
+  },
 
   'layers.noise': { da: 'Omtrentlige støjbånd', en: 'Approximate noise bands' },
 

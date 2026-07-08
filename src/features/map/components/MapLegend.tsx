@@ -1,5 +1,7 @@
+import type { CSSProperties } from 'react'
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { CollapsiblePanel } from '../../../shared/components/CollapsiblePanel'
+import { NOISE_DB_BANDS } from '../constants/mapConfig'
 
 export function MapLegend() {
   const { t } = useI18n()
@@ -21,7 +23,18 @@ export function MapLegend() {
       <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
       </div>
+      <p className="map-legend__group-label">{t('legend.noiseBands')}</p>
+      {NOISE_DB_BANDS.map((band) => (
+        <div className="map-legend__row" key={band.dbLabel}>
+          <span
+            className="legend-swatch legend-swatch--noise-band"
+            style={{ '--swatch-color': band.color } as CSSProperties}
+          />
+          {band.dbLabel}
+        </div>
+      ))}
       <p className="map-legend__note">{t('legend.plannedNote')}</p>
+      <p className="map-legend__note">{t('legend.noiseBandsNote')}</p>
     </CollapsiblePanel>
   )
 }

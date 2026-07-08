@@ -33,19 +33,31 @@ export const NOISE_SCREEN_COLOR = '#7c2d12'
 export const DOTTED_LINE_DASHARRAY: [number, number] = [0, 2.2]
 export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 
-export const NOISE_BUFFER_BANDS_METERS = [
-  { distance: 600, opacity: 0.06 },
-  { distance: 300, opacity: 0.12 },
-] as const
-
 // Vejdirektoratet has published a real Lden noise study (dB bands: 52-54, 54-56, 56-58,
 // 58-60, 60-62, 62-64, 64-66, 66-68, 68+) for station 102+200-110+800, "Detailbesigtigelse -
 // Stojkort", drawing 9095-29011, dated 2026-04-10, modeled for 2035 traffic with the project
 // built. That document is raster (not vector) and has not been georeferenced into this app,
 // an attempt to cross-reference it against the deklarationsrids station calibration produced
 // inconsistent results (~90-100m disagreement at shared chainage points) and was abandoned
-// rather than shipped. The buffers below remain a simplified distance-based approximation,
-// not derived from that real data. Revisit if a reliable georeferencing approach turns up.
+// rather than shipped. Revisit if a reliable georeferencing approach turns up.
+//
+// The bands below are still the same distance-based approximation as before (concentric
+// buffers around the road alignment, NOT a real acoustic propagation model), just labelled
+// with real dB ranges lifted from `OFFICIAL_NOISE_STUDY_REFERENCE.dbBandsLden` below and
+// coloured as a yellow-to-red gradient to read like Vejdirektoratet's own noise map. The dB
+// label on a given ring is illustrative (higher published bands placed closer to the road),
+// not a claim that the real contour for that dB range actually sits at that distance.
+export const NOISE_DB_BANDS = [
+  { distanceMeters: 700, dbLabel: '52-56 dB', color: '#ffffb2' },
+  { distanceMeters: 550, dbLabel: '56-58 dB', color: '#fed976' },
+  { distanceMeters: 425, dbLabel: '58-60 dB', color: '#feb24c' },
+  { distanceMeters: 325, dbLabel: '60-62 dB', color: '#fd8d3c' },
+  { distanceMeters: 225, dbLabel: '62-64 dB', color: '#f03b20' },
+  { distanceMeters: 125, dbLabel: '64-68+ dB', color: '#bd0026' },
+] as const
+
+export const NOISE_BAND_FILL_OPACITY = 0.6
+
 export const OFFICIAL_NOISE_STUDY_REFERENCE = {
   title: 'Detailbesigtigelse - Stojkort, 9095 3. Limfjordsforbindelse',
   drawingNumber: '9095-29011',
