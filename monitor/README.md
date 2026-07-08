@@ -69,18 +69,36 @@ Alt ligger i `monitor/data/` (gitignoreret):
   billige.
 - `data/discovery.json` — resultatet af seneste `discover`.
 
-## Automatisk kørsel (ikke sat op — gør det selv hvis ønsket)
+## Automatisk kørsel
 
-**cron** (macOS/Linux), fx hver morgen kl. 8:
+**GitHub Actions** (sat op): `.github/workflows/monitor.yml` kører værktøjet
+dagligt kl. 05:00 UTC (~07:00 dansk tid), eller manuelt via "Run workflow" i
+Actions-fanen. Da schedulerede workflows kun trigges fra default branch,
+aktiveres den først når filen er merget til `main`.
+
+Snapshots og rapporter kan ikke ligge på runneren mellem kørsler (den er
+engangsbrug), så workflowen bruger `monitor/ci-config.json`
+(`{ "dataDir": "../monitor-data" }`) til at gemme data på en dedikeret
+`monitor-data`-branch i stedet — den bootstrappes automatisk som en orphan
+branch ved første kørsel og committes/pushes efter hver kørsel. Historikken
+kan browses direkte på GitHub under den branch.
+
+Når en kørsel finder ændringer, åbnes et GitHub issue med rapporten som
+indhold (titlen præfikses med 🔊 hvis ændringen er støj-relateret) — det er
+notifikationen, da GitHub sender dig en mail for nye issues i dit eget repo.
+Ingen ændringer ⇒ intet issue. Rapporten lægges desuden altid i kørslens
+"step summary" i Actions-fanen.
+
+Bemærk: robots.txt-fejl afbryder kørslen med det samme (tool'et fejler
+"closed") — det viser sig som en rød/fejlet workflow-kørsel, med det samme
+som lokalt.
+
+Vil du hellere køre det selv lokalt med **cron** (macOS/Linux), fx hver
+morgen kl. 8:
 
 ```cron
 0 8 * * * cd /sti/til/Tredjekort/monitor && npm run monitor >> data/cron.log 2>&1
 ```
-
-**GitHub Actions**: en workflow med `on: schedule` kan køre værktøjet og fx
-committe rapporten eller åbne et issue ved ændringer. Kræver at Actions-runneren
-må nå vejdirektoratet.dk. Ingen workflow er oprettet — sig til hvis du vil have
-en.
 
 En gang om dagen er rigeligt; siderne opdateres typisk uger imellem.
 

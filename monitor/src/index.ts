@@ -183,6 +183,18 @@ async function commandRun(configPath?: string): Promise<void> {
   const reportPath = saveReport(store, id, report);
   console.log(`\n${report}`);
   console.log(`\nRapport gemt: ${reportPath}`);
+
+  // Machine-readable summary so callers (e.g. the CI workflow) can decide
+  // whether to notify without parsing the Markdown report.
+  const lastRun = {
+    runId: id,
+    reportPath,
+    changed: diffs.filter((d) => d.status === "changed").length,
+    new: diffs.filter((d) => d.status === "new").length,
+    errors: diffs.filter((d) => d.status === "error").length,
+    noisePages: diffs.filter((d) => d.noiseHits.length > 0).length,
+  };
+  writeFileSync(join(dataDir, "last-run.json"), JSON.stringify(lastRun, null, 2));
 }
 
 async function commandDiscover(configPath?: string): Promise<void> {

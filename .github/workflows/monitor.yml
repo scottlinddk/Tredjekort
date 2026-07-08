@@ -1,0 +1,97 @@
+name: Limfjordsforbindelse monitor
+
+on:
+  schedule:
+    # 05:00 UTC ≈ 07:00 Danish time. Scheduled workflows only fire from the
+    # default branch — this activates once this workflow lands on main.
+    - cron: "0 5 * * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: monitor/package-lock.json
+
+      - name: Install dependencies
+        working-directory: monitor
+        run: npm ci
+
+      - name: Install Chromium
+        working-directory: monitor
+        run: npx playwright install --with-deps chromium
+
+      # Snapshot/report history is persisted on a dedicated `monitor-data`
+      # branch (Actions runners are ephemeral, so anything not committed is
+      # lost between runs). Bootstrap it as an orphan branch the first time.
+      - name: Prepare monitor-data worktree
+        run: |
+          set -euo pipefail
+          if git ls-remote --exit-code --heads origin monitor-data >/dev/null 2>&1; then
+            git fetch origin monitor-data:monitor-data
+            git worktree add monitor-data monitor-data
+          else
+            git worktree add --orphan -b monitor-data monitor-data
+          fi
+
+      - name: Run monitor
+        working-directory: monitor
+        run: npm run monitor -- --config ci-config.json
+        env:
+          MONITOR_CONTACT: https://github.com/${{ github.repository }}/issues
+
+      - name: Append report to step summary
+        run: |
+          set -euo pipefail
+          RUN_ID=$(jq -r .runId monitor-data/last-run.json)
+          {
+            echo "## Monitor run: $RUN_ID"
+            cat "monitor-data/reports/$RUN_ID.md"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit snapshot data
+        working-directory: monitor-data
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git -c user.name="github-actions[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "Update monitor snapshots — $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push origin HEAD:monitor-data
+          fi
+
+      - name: Open issue on changes
+        run: |
+          set -euo pipefail
+          CHANGED=$(jq -r '.changed + .new' monitor-data/last-run.json)
+          if [ "$CHANGED" -eq 0 ]; then
+            echo "No changes detected — skipping issue."
+            exit 0
+          fi
+          RUN_ID=$(jq -r '.runId' monitor-data/last-run.json)
+          NOISE=$(jq -r '.noisePages' monitor-data/last-run.json)
+          TITLE="3. Limfjordsforbindelse: ændringer fundet ($RUN_ID)"
+          if [ "$NOISE" -gt 0 ]; then
+            TITLE="🔊 $TITLE"
+          fi
+          gh issue create --title "$TITLE" --body-file "monitor-data/reports/$RUN_ID.md"
+        env:
+          GH_TOKEN: ${{ github.token }}

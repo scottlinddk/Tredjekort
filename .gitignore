@@ -13,6 +13,9 @@ dist-ssr
 *.local
 .vercel
 
+# Local worktree for the monitor's CI data branch (see monitor/ci-config.json)
+/monitor-data/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
