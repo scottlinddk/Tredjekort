@@ -118,6 +118,27 @@ body {
   color: var(--color-paper);
 }
 
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  border: var(--border-hairline);
+  border-radius: var(--radius);
+  background: var(--color-paper);
+  color: var(--color-graphite);
+  font-size: 0.85rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.theme-toggle:hover {
+  color: var(--color-ink);
+  border-color: var(--color-graphite);
+}
+
 .app-header__nav a {
   color: var(--color-graphite);
   text-decoration: none;

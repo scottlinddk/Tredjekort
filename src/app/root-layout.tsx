@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from 'react-router'
 import { useI18n } from '../shared/i18n/I18nContext'
 import { LanguageSwitcher } from '../shared/components/LanguageSwitcher'
+import { ThemeToggle } from '../shared/components/ThemeToggle'
 
 export function RootLayout() {
   const { t } = useI18n()
@@ -20,6 +21,7 @@ export function RootLayout() {
             <NavLink to="/about">{t('nav.about')}</NavLink>
           </nav>
           <LanguageSwitcher />
+          <ThemeToggle />
         </div>
       </header>
       <main id="main-content" tabIndex={-1} className="app-main">

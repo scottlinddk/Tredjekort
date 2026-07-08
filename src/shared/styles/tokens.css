@@ -43,8 +43,31 @@
   --border-hairline: 1px solid var(--color-border);
 }
 
+/*
+  Dark palette. The ThemeProvider stamps data-theme on <html> (explicit user
+  choice, or the resolved OS scheme). The media query only covers the first
+  paint before React mounts, and defers to an explicit light choice.
+*/
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-paper: #15191f;
+  --color-ink: #e8eaed;
+  --color-graphite: #a2abb6;
+  --color-survey-blue: #8ab0ff;
+  --color-amber: #d9a441;
+  --color-fjord: #4cc3de;
+  --color-noise-screen: #d98d63;
+  --color-danger: #f87171;
+  --color-success: #4ade80;
+  --color-border: #3a414b;
+  --color-accent-soft: rgba(138, 176, 255, 0.14);
+  --shadow-panel: 0 2px 8px rgba(0, 0, 0, 0.5);
+  --color-focus: var(--color-survey-blue);
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     color-scheme: dark;
 
     --color-paper: #15191f;

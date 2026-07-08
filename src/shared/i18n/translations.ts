@@ -10,6 +10,8 @@ const translations = {
     en: '3. Limfjordsforbindelse',
   },
   'app.skipToContent': { da: 'Spring til indhold', en: 'Skip to content' },
+  'theme.switchToDark': { da: 'Skift til mørkt tema', en: 'Switch to dark theme' },
+  'theme.switchToLight': { da: 'Skift til lyst tema', en: 'Switch to light theme' },
   'nav.map': { da: 'Kort', en: 'Map' },
   'nav.about': { da: 'Om projektet', en: 'Project overview' },
 
