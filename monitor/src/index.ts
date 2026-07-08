@@ -7,7 +7,7 @@ import { ABOUT_PAGE_ID, buildAboutSnapshot } from "./extract/about.ts";
 import { buildSnapshot } from "./extract/page.ts";
 import { closeBrowser, extractAllLinks, extractPage, openBrowser } from "./fetch/browser.ts";
 import { politeDelay } from "./fetch/politeness.ts";
-import { buildChangeFeedEntry } from "./report/changeFeed.ts";
+import { buildChangeFeedEntry, buildSeedFeedEntry } from "./report/changeFeed.ts";
 import { renderReport } from "./report/markdown.ts";
 import { fetchRobots, groupFor, isAllowed, type RobotsInfo } from "./robots.ts";
 import {
@@ -98,6 +98,7 @@ async function commandRun(configPath?: string): Promise<void> {
   notes.push("Indhold hentes med headless browser (Playwright).");
 
   const aboutSources: { page: TrackedPage; snapshot: PageSnapshot }[] = [];
+  const allFetched: { page: TrackedPage; snapshot: PageSnapshot }[] = [];
 
   try {
     let first = true;
@@ -117,6 +118,7 @@ async function commandRun(configPath?: string): Promise<void> {
 
       try {
         const { snapshot } = await fetchTrackedPage(page, config, browserOpened);
+        allFetched.push({ page, snapshot });
         if (page.aboutSource) aboutSources.push({ page, snapshot });
 
         const prevState = state.pages[page.id];
@@ -196,10 +198,16 @@ async function commandRun(configPath?: string): Promise<void> {
 
   // Website-facing rolling feed: prepend this run's structured changes (if any)
   // and cap to the most recent runs. Consumed live by the site via the
-  // monitor-data branch, so unchanged runs leave it untouched.
-  const entry = buildChangeFeedEntry(id, diffs);
+  // monitor-data branch, so unchanged runs leave it untouched. When the feed is
+  // still empty (e.g. state was captured by an earlier monitor version that
+  // never wrote a feed), emit a one-time baseline entry so the site has content
+  // without waiting for the next real change.
+  const feed = loadChangeFeed(store);
+  let entry = buildChangeFeedEntry(id, diffs);
+  if (!entry && feed.entries.length === 0) {
+    entry = buildSeedFeedEntry(id, allFetched);
+  }
   if (entry) {
-    const feed = loadChangeFeed(store);
     feed.entries = [entry, ...feed.entries].slice(0, CHANGE_FEED_LIMIT);
     feed.updatedAt = new Date().toISOString();
     saveChangeFeed(store, feed);
