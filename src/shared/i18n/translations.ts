@@ -36,6 +36,7 @@ const translations = {
   'layers.colorScheme': { da: 'Farveskema', en: 'Color scheme' },
   'layers.colorScheme.warm': { da: 'Varmt (gul-rød)', en: 'Warm (yellow-red)' },
   'layers.colorScheme.cool': { da: 'Køligt (blå-lilla)', en: 'Cool (blue-purple)' },
+  'layers.colorScheme.red': { da: 'Rødt (lys-mørk)', en: 'Red (light-dark)' },
   'layers.opacity': { da: 'Gennemsigtighed', en: 'Transparency' },
 
   'search.placeholder': {

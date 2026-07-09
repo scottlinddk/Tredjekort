@@ -60,6 +60,16 @@ export function LayerToggle({
               />
               {t('layers.colorScheme.cool')}
             </label>
+            <label>
+              <input
+                type="radio"
+                name="noise-color-scheme"
+                value="red"
+                checked={colorScheme === 'red'}
+                onChange={() => onColorSchemeChange('red')}
+              />
+              {t('layers.colorScheme.red')}
+            </label>
           </div>
 
           <label className="layer-toggle__group">
