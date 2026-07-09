@@ -202,6 +202,26 @@ body {
   font-size: 0.85rem;
 }
 
+.layer-toggle__noise-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: var(--border-hairline);
+}
+
+.layer-toggle__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.layer-toggle__group-label {
+  font-size: 0.75rem;
+  color: var(--color-graphite);
+}
+
 .address-search {
   display: flex;
   flex-direction: column;
@@ -437,6 +457,19 @@ body {
 .legend-swatch--noise-screen {
   /* Solid, not dotted: a physical barrier rather than a planned road alignment. */
   background: var(--color-noise-screen);
+}
+
+.legend-swatch--noise-band {
+  /* Solid fill swatch: a dB band area, not a linear alignment. */
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  background: var(--swatch-color, var(--color-graphite));
+}
+
+.map-legend__group-label {
+  margin: var(--space-2) 0 0;
+  font-weight: 600;
 }
 
 .map-legend__note {

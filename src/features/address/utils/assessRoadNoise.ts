@@ -1,6 +1,6 @@
 import { point, pointToLineDistance } from '@turf/turf'
 import type { AlignmentFeatureCollection } from '../../map/types/road.types'
-import { NOISE_BUFFER_BANDS_METERS } from '../../map/constants/mapConfig'
+import { NOISE_DB_BANDS } from '../../map/constants/mapConfig'
 
 export type NoiseLevel = 'high' | 'moderate' | 'low' | 'minimal'
 
@@ -13,9 +13,9 @@ export interface NoiseAssessment {
 // Like the buffer bands, this is a rule-of-thumb threshold, not an acoustic result.
 const FAINTLY_AUDIBLE_LIMIT_METERS = 1500
 
-const [outerBand, innerBand] = [...NOISE_BUFFER_BANDS_METERS].sort(
-  (a, b) => b.distance - a.distance,
-)
+const bandDistances = NOISE_DB_BANDS.map((band) => band.distanceMeters)
+const outerDistance = Math.max(...bandDistances)
+const innerDistance = Math.min(...bandDistances)
 
 /**
  * Estimates whether residents at a point will hear road noise from the planned
@@ -40,9 +40,9 @@ export function assessRoadNoise(
   )
 
   const level: NoiseLevel =
-    distanceMeters < innerBand.distance
+    distanceMeters < innerDistance
       ? 'high'
-      : distanceMeters < outerBand.distance
+      : distanceMeters < outerDistance
         ? 'moderate'
         : distanceMeters < FAINTLY_AUDIBLE_LIMIT_METERS
           ? 'low'

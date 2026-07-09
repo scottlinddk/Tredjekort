@@ -1,15 +1,17 @@
 import { buffer, featureCollection, lineString } from '@turf/turf'
 import type { FeatureCollection, Polygon } from 'geojson'
 import type { AlignmentFeatureCollection } from '../types/road.types'
-import { NOISE_BUFFER_BANDS_METERS } from '../constants/mapConfig'
+import { NOISE_DB_BANDS } from '../constants/mapConfig'
 
 export interface NoiseBufferProperties {
   distanceMeters: number
-  opacity: number
+  dbLabel: string
+  bandIndex: number
 }
 
 /**
- * Generates simple concentric distance-buffer polygons around the road alignment.
+ * Generates concentric distance-buffer polygons around the road alignment, one per
+ * dB band in `NOISE_DB_BANDS`.
  *
  * This is NOT an acoustic noise model. Real noise propagation depends on traffic volume,
  * speed, barriers, terrain, and building density, none of which are modeled here. This is
@@ -19,11 +21,14 @@ export interface NoiseBufferProperties {
 export function generateNoiseBuffers(
   alignment: AlignmentFeatureCollection,
 ): FeatureCollection<Polygon, NoiseBufferProperties> {
-  const bands = [...NOISE_BUFFER_BANDS_METERS].sort((a, b) => b.distance - a.distance)
+  // Largest radius first so smaller (higher dB) rings paint on top of it.
+  const bands = NOISE_DB_BANDS.map((band, bandIndex) => ({ ...band, bandIndex })).sort(
+    (a, b) => b.distanceMeters - a.distanceMeters,
+  )
 
   const polygons = bands.map((band) => {
     const merged = alignment.features.map((feature) =>
-      buffer(lineString(feature.geometry.coordinates), band.distance, { units: 'meters' }),
+      buffer(lineString(feature.geometry.coordinates), band.distanceMeters, { units: 'meters' }),
     )
 
     // Combine all segment buffers for this band into a single feature set entry.
@@ -33,7 +38,11 @@ export function generateNoiseBuffers(
       .filter((f): f is NonNullable<typeof f> => f != null)
       .map((f) => ({
         ...f,
-        properties: { distanceMeters: band.distance, opacity: band.opacity },
+        properties: {
+          distanceMeters: band.distanceMeters,
+          dbLabel: band.dbLabel,
+          bandIndex: band.bandIndex,
+        },
       }))
   })
 

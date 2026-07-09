@@ -26,8 +26,18 @@ const translations = {
     da: 'Alle linjer er planlagte anlæg, vist punkteret.',
     en: 'All lines are planned works, drawn dotted.',
   },
+  'legend.noiseBands': { da: 'Støjbånd (Lden)', en: 'Noise bands (Lden)' },
+  'legend.noiseBandsNote': {
+    da: 'Båndene er afstandsringe om linjeføringen, ikke en beregnet støjkurve. dB-intervallerne stammer fra Vejdirektoratets rigtige Lden-støjkort, men er lagt på tilnærmet geometri.',
+    en: 'The bands are distance rings around the alignment, not a calculated noise contour. The dB ranges come from Vejdirektoratet’s real Lden noise study, but are placed on approximate geometry.',
+  },
 
   'layers.noise': { da: 'Omtrentlige støjbånd', en: 'Approximate noise bands' },
+  'layers.colorScheme': { da: 'Farveskema', en: 'Color scheme' },
+  'layers.colorScheme.warm': { da: 'Varmt (gul-rød)', en: 'Warm (yellow-red)' },
+  'layers.colorScheme.cool': { da: 'Køligt (blå-lilla)', en: 'Cool (blue-purple)' },
+  'layers.colorScheme.red': { da: 'Rødt (lys-mørk)', en: 'Red (light-dark)' },
+  'layers.opacity': { da: 'Gennemsigtighed', en: 'Transparency' },
 
   'search.placeholder': {
     da: 'Søg dansk adresse …',

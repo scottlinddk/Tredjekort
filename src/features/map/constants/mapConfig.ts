@@ -33,19 +33,49 @@ export const NOISE_SCREEN_COLOR = '#7c2d12'
 export const DOTTED_LINE_DASHARRAY: [number, number] = [0, 2.2]
 export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 
-export const NOISE_BUFFER_BANDS_METERS = [
-  { distance: 600, opacity: 0.06 },
-  { distance: 300, opacity: 0.12 },
-] as const
-
 // Vejdirektoratet has published a real Lden noise study (dB bands: 52-54, 54-56, 56-58,
 // 58-60, 60-62, 62-64, 64-66, 66-68, 68+) for station 102+200-110+800, "Detailbesigtigelse -
 // Stojkort", drawing 9095-29011, dated 2026-04-10, modeled for 2035 traffic with the project
 // built. That document is raster (not vector) and has not been georeferenced into this app,
 // an attempt to cross-reference it against the deklarationsrids station calibration produced
 // inconsistent results (~90-100m disagreement at shared chainage points) and was abandoned
-// rather than shipped. The buffers below remain a simplified distance-based approximation,
-// not derived from that real data. Revisit if a reliable georeferencing approach turns up.
+// rather than shipped. Revisit if a reliable georeferencing approach turns up.
+//
+// The bands below are still the same distance-based approximation as before (concentric
+// buffers around the road alignment, NOT a real acoustic propagation model), just labelled
+// with real dB ranges lifted from `OFFICIAL_NOISE_STUDY_REFERENCE.dbBandsLden` below. The dB
+// label on a given ring is illustrative (higher published bands placed closer to the road),
+// not a claim that the real contour for that dB range actually sits at that distance.
+// Ordered lowest to highest dB; index into this array is the band's `bandIndex` in the
+// generated GeoJSON, used to look up a color from `NOISE_COLOR_SCHEMES` below.
+export const NOISE_DB_BANDS = [
+  { distanceMeters: 700, dbLabel: '52-56 dB' },
+  { distanceMeters: 550, dbLabel: '56-58 dB' },
+  { distanceMeters: 425, dbLabel: '58-60 dB' },
+  { distanceMeters: 325, dbLabel: '60-62 dB' },
+  { distanceMeters: 225, dbLabel: '62-64 dB' },
+  { distanceMeters: 125, dbLabel: '64-68+ dB' },
+] as const
+
+// Three alternative color ramps users can toggle between for the noise bands, all running
+// from lowest dB (index 0) to highest (index 5). "warm" mirrors the yellow-to-red styling
+// common on official Danish noise maps; "cool" is a blue-to-purple alternative for anyone
+// who finds the red end of "warm" reads as more alarming than intended; "red" is a
+// single-hue pale-to-dark-red ramp, matching the flat red fill this layer used before the
+// multi-band redesign.
+export const NOISE_COLOR_SCHEMES = {
+  warm: ['#ffffb2', '#fed976', '#feb24c', '#fd8d3c', '#f03b20', '#bd0026'],
+  cool: ['#f7fcfd', '#bfd3e6', '#9ebcda', '#8c96c6', '#8c6bb1', '#88419d'],
+  red: ['#fee5d9', '#fcbba1', '#fc9272', '#fb6a4a', '#de2d26', '#a50f15'],
+} as const
+
+export type NoiseColorScheme = keyof typeof NOISE_COLOR_SCHEMES
+
+export const NOISE_BAND_OPACITY_DEFAULT = 0.18
+export const NOISE_BAND_OPACITY_MIN = 0.05
+export const NOISE_BAND_OPACITY_MAX = 0.6
+export const NOISE_BAND_OPACITY_STEP = 0.05
+
 export const OFFICIAL_NOISE_STUDY_REFERENCE = {
   title: 'Detailbesigtigelse - Stojkort, 9095 3. Limfjordsforbindelse',
   drawingNumber: '9095-29011',
