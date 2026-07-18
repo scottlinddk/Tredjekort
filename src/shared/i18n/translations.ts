@@ -199,6 +199,22 @@ const translations = {
   'error.pageLoad': { da: 'Siden kunne ikke indlæses.', en: 'This page could not be loaded.' },
   'error.unexpected': { da: 'Der opstod en uventet fejl.', en: 'An unexpected error occurred.' },
   'error.backToMap': { da: 'Tilbage til kortet', en: 'Back to map' },
+
+  'nav.sources': { da: 'Datakilder', en: 'Data sources' },
+  'sources.title': { da: 'Datakilder', en: 'Data sources' },
+  'sources.intro': {
+    da: 'Alt data på dette site er hentet eller afledt fra de kilder, der er angivet nedenfor. Hvor geometri er tilnærmet eller afledt (fx GPS-spor eller afstandsringe), er det angivet.',
+    en: 'Every dataset on this site is drawn or derived from the sources listed below. Where geometry is approximated or derived (e.g. GPS traces or distance rings), that is noted.',
+  },
+  'sources.dataset.roadAlignment': { da: 'Motorvejens linjeføring', en: 'Motorway alignment' },
+  'sources.dataset.localRoads': { da: 'Planlagte lokalveje', en: 'Planned local roads' },
+  'sources.dataset.noiseBands': { da: 'Støjbånd (Lden)', en: 'Noise bands (Lden)' },
+  'sources.dataset.noiseScreens': { da: 'Planlagte støjskærme', en: 'Planned noise screens' },
+  'sources.dataset.junctions': { da: 'Tilslutningsanlæg', en: 'Junctions / interchanges' },
+  'sources.dataset.addressSearch': { da: 'Adressesøgning', en: 'Address search' },
+  'sources.dataset.basemap': { da: 'Kortgrundlag', en: 'Basemap' },
+  'sources.dataset.changesFeed': { da: 'Ændringsovervågning', en: 'Change monitoring feed' },
+  'sources.viewSource': { da: 'Se kilde', en: 'View source' },
 } as const
 
 export type TranslationKey = keyof typeof translations

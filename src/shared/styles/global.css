@@ -538,6 +538,45 @@ body {
   font-size: 0.9rem;
 }
 
+.sources-route {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.sources-route__list {
+  margin: 0;
+}
+
+.sources-route__entry {
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.sources-route__entry:last-child {
+  border-bottom: none;
+}
+
+.sources-route__entry dt {
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.sources-route__entry dd {
+  margin: 0;
+  color: var(--color-graphite);
+  font-size: 0.9rem;
+}
+
+.sources-route__entry ul {
+  margin: 0 0 var(--space-2);
+  padding-left: var(--space-4);
+}
+
+.sources-route__entry li {
+  margin-bottom: var(--space-1);
+}
+
 .route-status {
   padding: var(--space-6);
   font-family: var(--font-mono);
@@ -787,13 +826,15 @@ body {
 
   .junction-detail,
   .about-route,
-  .changes-route {
+  .changes-route,
+  .sources-route {
     padding: var(--space-4);
     overflow-wrap: break-word;
   }
 
   .junction-detail h1,
-  .about-route h1 {
+  .about-route h1,
+  .sources-route h1 {
     font-size: 1.6rem;
   }
 
