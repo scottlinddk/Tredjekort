@@ -20,6 +20,7 @@ export function RootLayout() {
             </NavLink>
             <NavLink to="/about">{t('nav.about')}</NavLink>
             <NavLink to="/changes">{t('nav.changes')}</NavLink>
+            <NavLink to="/sources">{t('nav.sources')}</NavLink>
           </nav>
           <LanguageSwitcher />
           <ThemeToggle />

@@ -50,6 +50,14 @@ export const router = createBrowserRouter([
         },
       },
       {
+        path: 'sources',
+        ErrorBoundary: RouteErrorBoundary,
+        lazy: async () => {
+          const { SourcesRoute } = await import('../routes/sources.route')
+          return { Component: SourcesRoute }
+        },
+      },
+      {
         path: 'changes',
         ErrorBoundary: RouteErrorBoundary,
         lazy: async () => {
