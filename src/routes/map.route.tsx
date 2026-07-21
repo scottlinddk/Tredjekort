@@ -27,7 +27,7 @@ export function MapRoute() {
         {/* Overlays that need the map instance (search places a marker) live inside
             MapCanvas; purely informational overlays stay outside it. */}
         <div className="map-overlays-left">
-          <AddressSearch />
+          <AddressSearch onAddressSelected={() => setShowNoise(true)} />
           <LayerToggle
             showNoise={showNoise}
             onToggleNoise={setShowNoise}

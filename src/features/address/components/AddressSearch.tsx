@@ -7,16 +7,23 @@ import { useI18n } from '../../../shared/i18n/I18nContext'
 import { useDebouncedValue } from '../../../shared/hooks/useDebouncedValue'
 import { searchAddresses, type AddressSuggestion } from '../api/addressSearch.api'
 import { assessRoadNoise, formatDistance } from '../utils/assessRoadNoise'
+import { useAddressQueryParams } from '../hooks/useAddressQueryParams'
 
 const MIN_QUERY_LENGTH = 2
 
-export function AddressSearch() {
+export interface AddressSearchProps {
+  // Called once a search result is selected, so the map can reveal the
+  // noise band overlay for it.
+  onAddressSelected?: () => void
+}
+
+export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
   const map = useMapInstance()
   const { t, language } = useI18n()
   const { data: alignment } = useRoadAlignment()
+  const { selected, setSelected } = useAddressQueryParams()
 
-  const [query, setQuery] = useState('')
-  const [selected, setSelected] = useState<AddressSuggestion | null>(null)
+  const [query, setQuery] = useState(() => selected?.text ?? '')
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const debouncedQuery = useDebouncedValue(query.trim(), 250)
@@ -31,6 +38,13 @@ export function AddressSearch() {
     enabled: dropdownOpen && debouncedQuery.length >= MIN_QUERY_LENGTH,
     staleTime: 5 * 60 * 1000,
   })
+
+  // Keep the input text in sync when the selection changes from outside a
+  // click in this component, e.g. hydrating from a shared URL or the
+  // browser's back/forward navigation.
+  useEffect(() => {
+    if (selected) setQuery(selected.text)
+  }, [selected])
 
   // Marker + camera follow the selected address.
   useEffect(() => {
@@ -65,6 +79,7 @@ export function AddressSearch() {
     setSelected(suggestion)
     setQuery(suggestion.text)
     setDropdownOpen(false)
+    onAddressSelected?.()
   }
 
   const handleClear = () => {
