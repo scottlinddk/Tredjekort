@@ -1,56 +1,36 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import { useSearchParams } from 'react-router'
-import type { AddressSuggestion } from '../api/addressSearch.api'
 
-// Namespaced so the address selection can't collide with other query params
-// the page might grow later.
-const addressParamKeys = {
-  id: 'address.id',
-  text: 'address.q',
-  lon: 'address.lon',
-  lat: 'address.lat',
-} as const
+// Namespaced so the address query can't collide with other query params the
+// page might grow later.
+const ADDRESS_QUERY_PARAM = 'address.q'
 
 export interface UseAddressQueryParamsResult {
-  selected: AddressSuggestion | null
-  setSelected: (suggestion: AddressSuggestion | null) => void
+  addressQuery: string
+  setAddressQuery: (text: string | null) => void
 }
 
 /**
- * Persists the selected address in the URL query string, so a search result
- * (and the noise band it reveals) can be bookmarked, shared, or restored
- * with the browser's back/forward navigation.
+ * Persists the searched address text in the URL query string, so a search
+ * result (and the noise band it reveals) can be bookmarked, shared, or
+ * restored with the browser's back/forward navigation. Only the human-
+ * readable text is stored; the matching coordinates are re-resolved from it
+ * so the URL stays short and free of opaque ids.
  */
 export function useAddressQueryParams(): UseAddressQueryParamsResult {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const selected = useMemo<AddressSuggestion | null>(() => {
-    const id = searchParams.get(addressParamKeys.id)
-    const text = searchParams.get(addressParamKeys.text)
-    const longitude = Number(searchParams.get(addressParamKeys.lon))
-    const latitude = Number(searchParams.get(addressParamKeys.lat))
+  const addressQuery = searchParams.get(ADDRESS_QUERY_PARAM) ?? ''
 
-    if (!id || !text || !Number.isFinite(longitude) || !Number.isFinite(latitude)) {
-      return null
-    }
-    return { id, text, longitude, latitude }
-  }, [searchParams])
-
-  const setSelected = useCallback(
-    (suggestion: AddressSuggestion | null) => {
+  const setAddressQuery = useCallback(
+    (text: string | null) => {
       setSearchParams(
         (previous) => {
           const next = new URLSearchParams(previous)
-          if (!suggestion) {
-            next.delete(addressParamKeys.id)
-            next.delete(addressParamKeys.text)
-            next.delete(addressParamKeys.lon)
-            next.delete(addressParamKeys.lat)
+          if (!text) {
+            next.delete(ADDRESS_QUERY_PARAM)
           } else {
-            next.set(addressParamKeys.id, suggestion.id)
-            next.set(addressParamKeys.text, suggestion.text)
-            next.set(addressParamKeys.lon, String(suggestion.longitude))
-            next.set(addressParamKeys.lat, String(suggestion.latitude))
+            next.set(ADDRESS_QUERY_PARAM, text)
           }
           return next
         },
@@ -60,5 +40,5 @@ export function useAddressQueryParams(): UseAddressQueryParamsResult {
     [setSearchParams],
   )
 
-  return { selected, setSelected }
+  return { addressQuery, setAddressQuery }
 }

@@ -21,9 +21,10 @@ export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
   const map = useMapInstance()
   const { t, language } = useI18n()
   const { data: alignment } = useRoadAlignment()
-  const { selected, setSelected } = useAddressQueryParams()
+  const { addressQuery, setAddressQuery } = useAddressQueryParams()
 
-  const [query, setQuery] = useState(() => selected?.text ?? '')
+  const [query, setQuery] = useState(() => addressQuery)
+  const [selected, setSelected] = useState<AddressSuggestion | null>(null)
   const [dropdownOpen, setDropdownOpen] = useState(false)
 
   const debouncedQuery = useDebouncedValue(query.trim(), 250)
@@ -39,12 +40,30 @@ export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
     staleTime: 5 * 60 * 1000,
   })
 
-  // Keep the input text in sync when the selection changes from outside a
-  // click in this component, e.g. hydrating from a shared URL or the
-  // browser's back/forward navigation.
+  // Keep the input text in sync with the URL, e.g. hydrating from a shared
+  // link or the browser's back/forward navigation.
   useEffect(() => {
-    if (selected) setQuery(selected.text)
-  }, [selected])
+    setQuery(addressQuery)
+  }, [addressQuery])
+
+  // Re-resolve the coordinates for an address restored from the URL: only
+  // the display text is persisted there, so a shared/bookmarked link needs
+  // one lookup to recover the marker position and noise assessment.
+  const { data: resolvedSuggestions } = useQuery({
+    queryKey: ['address-resolve', addressQuery],
+    queryFn: ({ signal }) => searchAddresses(addressQuery, signal),
+    enabled: addressQuery.length >= MIN_QUERY_LENGTH && !selected,
+    staleTime: 5 * 60 * 1000,
+  })
+
+  useEffect(() => {
+    if (!resolvedSuggestions || selected) return
+    const match =
+      resolvedSuggestions.find((suggestion) => suggestion.text === addressQuery) ??
+      resolvedSuggestions[0] ??
+      null
+    if (match) setSelected(match)
+  }, [resolvedSuggestions, selected, addressQuery])
 
   // Marker + camera follow the selected address.
   useEffect(() => {
@@ -78,6 +97,7 @@ export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
   const handleSelect = (suggestion: AddressSuggestion) => {
     setSelected(suggestion)
     setQuery(suggestion.text)
+    setAddressQuery(suggestion.text)
     setDropdownOpen(false)
     onAddressSelected?.()
   }
@@ -85,6 +105,7 @@ export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
   const handleClear = () => {
     setSelected(null)
     setQuery('')
+    setAddressQuery(null)
     setDropdownOpen(false)
   }
 
@@ -103,7 +124,10 @@ export function AddressSearch({ onAddressSelected }: AddressSearchProps = {}) {
           onChange={(event) => {
             setQuery(event.target.value)
             setDropdownOpen(true)
-            if (selected) setSelected(null)
+            if (selected) {
+              setSelected(null)
+              setAddressQuery(null)
+            }
           }}
           onFocus={() => {
             if (query.trim().length >= MIN_QUERY_LENGTH && !selected) setDropdownOpen(true)
