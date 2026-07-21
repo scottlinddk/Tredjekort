@@ -10,9 +10,10 @@ import { MapLegend } from '../features/map/components/MapLegend'
 import { AddressSearch } from '../features/address/components/AddressSearch'
 import { DataSourceDisclaimer } from '../shared/components/DataSourceDisclaimer'
 import { NOISE_BAND_OPACITY_DEFAULT, type NoiseColorScheme } from '../features/map/constants/mapConfig'
+import { useShowNoiseBandQueryParam } from '../features/map/hooks/useShowNoiseBandQueryParam'
 
 export function MapRoute() {
-  const [showNoise, setShowNoise] = useState(false)
+  const { showNoiseBand: showNoise, setShowNoiseBand: setShowNoise } = useShowNoiseBandQueryParam()
   const [colorScheme, setColorScheme] = useState<NoiseColorScheme>('warm')
   const [opacity, setOpacity] = useState(NOISE_BAND_OPACITY_DEFAULT)
 
