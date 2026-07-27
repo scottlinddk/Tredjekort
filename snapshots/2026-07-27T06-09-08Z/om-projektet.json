@@ -1,0 +1,17 @@
+{
+  "pageId": "om-projektet",
+  "url": "https://www.vejdirektoratet.dk/vvm/3-limfjordsforbindelse",
+  "fetchedAt": "2026-07-27T06:13:44.354Z",
+  "method": "derived",
+  "title": "Om projektet (sammensat beskrivelse)",
+  "sections": [
+    {
+      "heading": "Kilde: VVM-side — https://www.vejdirektoratet.dk/vvm/3-limfjordsforbindelse",
+      "level": 2,
+      "paragraphs": []
+    }
+  ],
+  "pdfLinks": [],
+  "links": [],
+  "textHash": "45574d7041ef098d5dab8d2b4fa7d263cf44cef76cc5595f00837d6d78a1fb90"
+}
