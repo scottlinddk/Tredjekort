@@ -1,6 +1,38 @@
 {
-  "updatedAt": "2026-08-21T05:26:01.472Z",
+  "updatedAt": "2026-08-22T05:20:48.402Z",
   "entries": [
+    {
+      "runId": "2026-08-22T05-19-03Z",
+      "fetchedAt": "2026-08-22T05:20:48.402Z",
+      "pages": [
+        {
+          "pageId": "dokumenter",
+          "label": "Dokumenter",
+          "url": "https://www.vejdirektoratet.dk/projekt/3-limfjordsforbindelse/dokumenter",
+          "priority": "normal",
+          "status": "changed",
+          "addedParagraphs": [],
+          "removedParagraphs": [],
+          "changedParagraphs": [],
+          "dateChanges": [],
+          "addedPdfs": [
+            {
+              "url": "https://api.vejdirektoratet.dk/sites/default/files/2026-08/Bygherrevurdering%20af%20erstatningsnatur%20og%20odderhabitat%20p%C3%A5%20Egholm%20-%20marts%202026.pdf",
+              "text": "Erstatningsnatur og odderhabitat på Egholm - marts 2026",
+              "section": "Bygherrevurderinger"
+            }
+          ],
+          "removedPdfs": [
+            {
+              "url": "https://api.vejdirektoratet.dk/sites/default/files/2026-03/Bygherrevurdering%20af%20erstatningsnatur%20og%20odderhabitat%20p%C3%A5%20Egholm.pdf",
+              "text": "Erstatningsnatur og odderhabitat på Egholm - marts 2026",
+              "section": "Bygherrevurderinger"
+            }
+          ],
+          "noiseHits": []
+        }
+      ]
+    },
     {
       "runId": "2026-08-21T05-24-18Z",
       "fetchedAt": "2026-08-21T05:26:01.472Z",
