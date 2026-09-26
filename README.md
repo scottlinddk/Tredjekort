@@ -13,7 +13,9 @@ React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
   with 2040 traffic forecasts**. Original proposal, reference and variant remain
   distinct from the newer design and newer noise maps.
 - Official **2025 phase 3** design centerlines and permanent/temporary land
-  requirement areas, kept distinct from the existing approximate road traces.
+  requirement areas shown by default as the with-project map. These replace the
+  older traced motorway and local-road layers and their legend entries. Address
+  searches preserve the selected layers; distance zones remain an opt-in overlay.
 - All six published **2035 noise PDFs**, paired by region and with/without project,
   plus project facts, dated updates, the published schedule, inspection documents,
   environmental material and landowner information.

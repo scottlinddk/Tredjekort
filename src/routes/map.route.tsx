@@ -1,8 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router'
 import { MapCanvas } from '../features/map/components/MapCanvas'
-import { RoadAlignmentLayer } from '../features/map/components/RoadAlignmentLayer'
-import { LocalRoadsLayer } from '../features/map/components/LocalRoadsLayer'
 import { NoiseZoneLayer } from '../features/map/components/NoiseZoneLayer'
 import { NoiseScreensLayer } from '../features/map/components/NoiseScreensLayer'
 import { JunctionMarkers } from '../features/map/components/JunctionMarkers'
@@ -46,9 +44,7 @@ export function MapRoute() {
   return (
     <div className={`map-route${activePanel ? ' map-route--panel-open' : ''}`}>
       <MapCanvas>
-        <RoadAlignmentLayer />
         <OfficialDesignLayer visible={showOfficialDesign} />
-        <LocalRoadsLayer />
         <NoiseZoneLayer visible={noiseMode === 'distance'} colorScheme={colorScheme} opacity={opacity} />
         <OfficialNoiseLayer data={officialNoise.data} scenario={officialScenario} opacity={opacity} />
         <NoiseScreensLayer visible={showScreens} />

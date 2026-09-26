@@ -22,18 +22,6 @@ export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDes
         <div className="map-legend__row"><span className="legend-swatch legend-swatch--permanent-land" /> {t('legend.permanentLand')}</div>
         <div className="map-legend__row"><span className="legend-swatch legend-swatch--temporary-land" /> {t('legend.temporaryLand')}</div>
       </>}
-      <div className="map-legend__row">
-        <span className="legend-swatch legend-swatch--surveyed" /> {t('legend.surveyed')}
-      </div>
-      <div className="map-legend__row">
-        <span className="legend-swatch legend-swatch--provisional" /> {t('legend.provisional')}
-      </div>
-      <div className="map-legend__row">
-        <span className="legend-swatch legend-swatch--schematic" /> {t('legend.schematic')}
-      </div>
-      <div className="map-legend__row">
-        <span className="legend-swatch legend-swatch--local-road" /> {t('legend.localRoad')}
-      </div>
       {showScreens && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
       </div>}

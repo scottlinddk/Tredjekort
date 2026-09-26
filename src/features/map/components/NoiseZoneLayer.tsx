@@ -39,7 +39,8 @@ export function NoiseZoneLayer({ visible, colorScheme, opacity }: NoiseZoneLayer
             'fill-opacity': opacity,
           },
         },
-        LAYER_IDS.roadAlignmentCasing,
+        // Keep areas below map labels without depending on a retired road layer.
+        map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id,
       )
     }
 

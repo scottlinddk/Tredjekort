@@ -762,30 +762,13 @@ body {
 .legend-swatch {
   width: 20px;
   height: 4px;
+  flex-shrink: 0;
   display: inline-block;
-  /* Dotted, mirroring how planned alignments render on the map. */
-  background: repeating-linear-gradient(
-    90deg,
-    var(--swatch-color, var(--color-graphite)) 0 4px,
-    transparent 4px 8px
-  );
+  background: var(--color-graphite);
   border-radius: 2px;
 }
 
-.legend-swatch--surveyed {
-  --swatch-color: var(--color-survey-blue);
-}
-.legend-swatch--provisional {
-  --swatch-color: var(--color-amber);
-}
-.legend-swatch--schematic {
-  --swatch-color: var(--color-graphite);
-}
-.legend-swatch--local-road {
-  --swatch-color: var(--color-fjord);
-}
 .legend-swatch--noise-screen {
-  /* Solid, not dotted: a physical barrier rather than a planned road alignment. */
   background: var(--color-noise-screen);
 }
 
@@ -808,7 +791,7 @@ body {
 }
 
 .legend-swatch--noise-band {
-  /* Solid fill swatch: a dB band area, not a linear alignment. */
+  /* Filled polygon swatch for noise contours or distance zones. */
   width: 14px;
   height: 14px;
   border-radius: 3px;
@@ -831,29 +814,6 @@ body {
   font-size: 0.78rem;
   line-height: 1.4;
   color: var(--color-graphite);
-}
-
-.data-disclaimer ul {
-  margin: var(--space-2) 0 0;
-  padding-left: var(--space-4);
-}
-
-.confidence-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: var(--space-1);
-}
-
-.confidence-dot--surveyed {
-  background: var(--color-survey-blue);
-}
-.confidence-dot--provisional {
-  background: var(--color-amber);
-}
-.confidence-dot--schematic {
-  background: var(--color-graphite);
 }
 
 .junction-detail,
