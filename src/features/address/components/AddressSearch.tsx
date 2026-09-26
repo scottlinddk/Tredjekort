@@ -122,6 +122,7 @@ export function AddressSearch() {
 
   return (
     <div className="address-search">
+      {!selected && <p className="map-tools__intro">{t('search.intro')}</p>}
       <div className="address-search__input-row">
         <input
           ref={inputRef}

@@ -9,6 +9,10 @@ React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
   layers and information share one panel; controls never cover the map.
 - Danish/English address search, keyboard navigation, shareable address/scenario
   links, a route overview button and direct address-report JSON links.
+- Expected road noise with the motorway at a searched address: official modeled
+  dwelling values, a range across matched dwelling records, or an original-proposal
+  contour band. Model year, forecast year and the included surrounding roads stay
+  visible; no motorway-only decibel contribution is invented.
 - Official geographic noise scenarios from the **2021 environmental assessment,
   with 2040 traffic forecasts**. Original proposal, reference and variant remain
   distinct from the newer design and newer noise maps.
@@ -46,12 +50,29 @@ map proximity results, official historic noise-model results, sources and data
 limitations. `lang` supports `da` (default) and `en`. Access addresses do not
 distinguish apartment floors or doors. No API key is required; GET supports CORS.
 
-The API returns **noise bands from polygons, not an invented exact decibel
-value**. It preserves model year and scenario. Polygon holes, points outside the
-mapped contours, boundaries and conflicting bands are handled explicitly. An
-unmapped point is not proof of low noise. Exact `ldenDb`, audibility and compliance
-remain null. The 2021/2040 model does not establish the current 2035 design's impact,
-noise-insulation eligibility, or the noise attributable only to the new motorway.
+The additive `noise.expectedWithProject` field prioritizes verified **modeled
+dwelling/facade values** from the original proposal. `valueDb` holds a single or
+identical value; `receiverRange` contains the minimum, maximum and number of all
+matched dwelling records and is present for both `point_value_found` and
+`point_range_found`. Raw source decimals are retained; the prose and UI use one
+decimal. Floor codes are preserved without guessing their meaning.
+
+Matching requires DAWA municipality `0851`, road code and normalized house number,
+then a 50-metre coordinate-consistency guard. It never transfers a nearest
+address's result. Missing/zero source values cannot create a partial receiver range.
+If a complete receiver result is unavailable, the API uses the **original** contour
+band, never the reference or variant. It does not invent a midpoint. Boundaries,
+overlaps, invalid geometry and missing contours give an explicit unknown result.
+The top `78 dB` source category retains its unspecified upper bound.
+
+These are the **2021 model's 2040 forecasts**, including the motorway and selected
+surrounding roads. They do not establish a current measured sound level, the
+current 2035 design's impact or the motorway's isolated contribution. Therefore
+`expectedWithProject.exactDb`, `motorwayOnlyDb`, and the existing `noise.ldenDb`,
+audibility and compliance fields remain null. Existing scenario results and
+response `schemaVersion: "1.0"` remain compatible. An unmapped contour is not proof
+of low noise; a verified dwelling model value may be below the contour's 53 dB
+threshold.
 
 Text search is non-fuzzy. Multiple matches return `409` with candidates instead of
 silently choosing an address. Other responses include `400` invalid input, `404`

@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Tredjekort address report API",
-    "version": "1.0.0",
-    "description": "Read map data and Danish or English prose by Danish access address. Includes official 2021 noise-model polygons forecasting 2040, distinct from the current 2035 PDF material; exact dB values, audibility and compliance remain null. Includes official 2025 design centreline distances and land-requirement point lookups, with explicit limits."
+    "version": "1.1.0",
+    "description": "Read map data and Danish or English prose by Danish access address. Expected with-project noise uses verified address/dwelling model values, then the original-scenario contour band. Both describe the official 2021 model forecasting 2040, including selected surrounding roads, not isolated motorway noise or the current 2035 design. Legacy fields are preserved; current measurements, audibility and compliance are unavailable."
   },
   "servers": [{ "url": "/" }],
   "paths": {
@@ -42,7 +42,8 @@
         "properties": {
           "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" },
           "longitude": { "type": "number", "minimum": -180, "maximum": 180 }, "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
-          "coordinateReferenceSystem": { "const": "EPSG:4326" }, "precision": { "const": "access_address" }, "sourceUrl": { "type": "string", "format": "uri" }
+          "coordinateReferenceSystem": { "const": "EPSG:4326" }, "precision": { "const": "access_address" }, "sourceUrl": { "type": "string", "format": "uri" },
+          "municipalityCode": { "type": ["string", "null"], "description": "DAWA municipality code used for strict historical receiver matching." }, "roadCode": { "type": ["string", "null"] }, "houseNumber": { "type": "string" }
         }
       },
       "MapFeature": {
@@ -76,6 +77,25 @@
           "onBoundary": { "type": "boolean" }, "belowMappedThreshold": { "type": "null", "description": "An absent polygon never establishes noise below the mapped threshold." }
         }
       },
+      "ExpectedWithProject": {
+        "type": "object",
+        "required": ["status", "basis", "valueDb", "receiverRange", "receivers", "receiverDataStatus", "receiverCoordinateLimitMeters", "band", "exactDb", "motorwayOnlyDb", "metric", "units", "scenario", "modelYear", "forecastYear", "sourceUrl", "description"],
+        "description": "Original with-project scenario only. Exact DAWA municipality/road/house matching plus a 50m coordinate guard selects historical dwelling records; every matched row must have a usable original value. Otherwise use only the original contour, never reference or variant. Historical modeled output is not measurement accuracy or the motorway-only contribution.",
+        "properties": {
+          "status": { "enum": ["point_value_found", "point_range_found", "band_found", "no_matching_contour", "boundary", "overlapping_bands", "source_geometry_invalid", "model_unavailable"] },
+          "basis": { "enum": ["address_receivers", "contour_band", "unavailable"] },
+          "valueDb": { "type": ["number", "null"], "description": "Original historical modeled facade/dwelling value, preserving source decimals, when all matched records have one identical value. Null for a multi-value range or contour fallback. Display with one decimal place; source precision is not measured accuracy." },
+          "receiverRange": { "type": ["object", "null"], "description": "Always present for either point_* status, including one/equal values. Covers all matched dwelling records without choosing a floor.", "required": ["minDb", "maxDb", "receiverCount"], "properties": { "minDb": { "type": "number" }, "maxDb": { "type": "number" }, "receiverCount": { "type": "integer", "minimum": 1 } } },
+          "receivers": { "type": "array", "items": { "type": "object", "required": ["sourceRecordId", "sourceFeatureId", "valueDb", "sourceFloor", "sourceFloorCode", "sourceDoor", "coordinateDistanceMeters"], "properties": { "sourceRecordId": { "type": "integer", "description": "Stable numeric id in the source; WFS feature ids can change." }, "sourceFeatureId": { "type": ["string", "null"] }, "valueDb": { "type": ["number", "null"] }, "sourceFloor": { "type": ["number", "string", "null"], "description": "Raw source floor code, not converted to DAWA floor labels." }, "sourceFloorCode": { "type": ["number", "string", "null"], "description": "Raw source sp_etage code." }, "sourceDoor": { "type": ["string", "null"] }, "coordinateDistanceMeters": { "type": "number", "minimum": 0 } } } },
+          "receiverDataStatus": { "enum": ["matched", "not_matched", "incomplete", "coordinate_mismatch", "address_keys_unavailable", "outside_municipality", "dataset_unavailable"], "description": "Incomplete groups retain source rows with null unknown values but never produce a falsely complete receiver range. Raw zero sentinels are treated as unknown." },
+          "receiverCoordinateLimitMeters": { "const": 50 },
+          "band": { "anyOf": [{ "$ref": "#/components/schemas/NoiseBand" }, { "type": "null" }], "description": "Original-scenario contour fallback only. Never a midpoint or reference/variant substitute; null for receiver results and uncertain/unmapped contours." },
+          "exactDb": { "type": "null", "description": "An exact actual/measured address noise value is unsupported. valueDb denotes historical modeled output only." },
+          "motorwayOnlyDb": { "type": "null", "description": "The model includes the motorway and selected surrounding roads; their contributions cannot be separated from this dataset." },
+          "metric": { "const": "Lden" }, "units": { "const": "dB(A)" }, "scenario": { "const": "original" },
+          "modelYear": { "type": ["integer", "null"] }, "forecastYear": { "type": ["integer", "null"] }, "sourceUrl": { "type": ["string", "null"], "format": "uri" }, "description": { "type": "string", "description": "Danish/English estimate, provenance and limitations. Scalar/range model output is rounded to one decimal only in prose." }
+        }
+      },
       "AddressReport": {
         "type": "object", "required": ["schemaVersion", "language", "address", "description", "proximity", "noise", "landRequirements", "projectInformation", "provenance", "limitations"],
         "properties": {
@@ -94,9 +114,10 @@
             }
           },
           "noise": {
-            "type": "object", "required": ["status", "ldenDb", "audible", "exceedsGuideline", "reason", "officialDocuments", "current2035", "legacyModel"],
+            "type": "object", "required": ["status", "ldenDb", "audible", "exceedsGuideline", "reason", "officialDocuments", "current2035", "legacyModel", "expectedWithProject"],
             "properties": {
               "status": { "enum": ["legacy_model_available", "official_address_level_data_unavailable"] }, "ldenDb": { "type": "null" }, "audible": { "type": "null" }, "exceedsGuideline": { "type": "null" },
+              "expectedWithProject": { "$ref": "#/components/schemas/ExpectedWithProject" },
               "current2035": { "type": "object", "required": ["status", "band"], "properties": { "status": { "const": "address_level_contours_unavailable" }, "band": { "type": "null" } } },
               "legacyModel": { "type": ["object", "null"], "properties": { "metadata": { "type": "object", "additionalProperties": true }, "scenarios": { "type": "array", "items": { "$ref": "#/components/schemas/NoiseScenario" } } } },
               "reason": { "type": "string" }, "officialDocuments": { "type": "array", "items": { "type": "object", "additionalProperties": true } }

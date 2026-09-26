@@ -10,6 +10,8 @@ const dawaAddress = {
   husnr: '180',
   postnr: '9000',
   postnrnavn: 'Aalborg',
+  kommunekode: '0851',
+  vejkode: '6090',
   x: 9.85,
   y: 57,
 }
@@ -75,6 +77,9 @@ test('uses non-fuzzy DAWA search and preserves Danish characters and ampersands'
   assert.equal(result.text, 'Nørholmsvej 180, 9000 Aalborg')
   assert.equal(result.precision, 'access_address')
   assert.equal(result.longitude, 9.85)
+  assert.equal(result.municipalityCode, '0851')
+  assert.equal(result.roadCode, '6090')
+  assert.equal(result.houseNumber, '180')
 })
 
 test('resolves a chosen UUID with a direct DAWA lookup', async () => {
@@ -204,4 +209,25 @@ test('Vite registers the API for development and preview without consuming other
     middleware({ url: '/api/address-report', method: 'OPTIONS' }, res, () => assert.fail('API should be handled'))
     assert.equal(res.statusCode, 204)
   }
+})
+
+test('address reports lead with the expected original model value while preserving legacy null fields', () => {
+  const report = buildAddressReport({ ...address, municipalityCode: '0851', roadCode: '6090', houseNumber: '180' }, 'en', {
+    ...data,
+    officialNoisePoints: { type: 'FeatureCollection', features: [{
+      type: 'Feature', id: 'source.point', geometry: { type: 'Point', coordinates: [9.85, 57] },
+      properties: { sourceRecordId: 123, roadCode: '6090', houseNumber: '180', sourceFloor: 1, sourceFloorCode: 1, sourceDoor: null, valuesDb: { original: 56.217, reference: 40.123, variant: 65.432 } },
+    }] },
+    officialNoisePointsMetadata: { municipalityCode: '0851', modelYear: 2021, forecastYear: 2040, sourceUrl: 'https://example.com/official-receivers' },
+  })
+  assert.equal(report.schemaVersion, '1.0')
+  assert.equal(report.noise.expectedWithProject.valueDb, 56.217)
+  assert.equal(report.noise.expectedWithProject.status, 'point_value_found')
+  assert.equal(report.noise.expectedWithProject.scenario, 'original')
+  assert.equal(report.noise.status, 'legacy_model_available')
+  assert.equal(report.noise.ldenDb, null)
+  assert.equal(report.noise.audible, null)
+  assert.equal(report.noise.exceedsGuideline, null)
+  assert.match(report.description, /^Expected road noise with the motorway: 56.2 dB\(A\) Lden/)
+  assert.match(report.description, /2021 model.*2040/)
 })

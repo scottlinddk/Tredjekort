@@ -16,6 +16,16 @@ export interface DataSourceEntry {
 
 export const DATA_SOURCES: DataSourceEntry[] = [
   {
+    id: 'official-noise-points',
+    datasetKey: 'officialNoisePoints',
+    citations: [
+      'Vejdirektoratet public WFS stoej_punkt_9095; complete 2,641-record dwelling snapshot retrieved 2026-09-26, covering 2,364 road-code/house-number combinations',
+      'VVM 2021, forecast traffic 2040, facade Lden values for reference, original proposal and variant. Scenario mapping verified against the published report’s dwelling-count tables.',
+      'Matched by Aalborg municipality, road code, house number and geographic consistency. Multiple dwelling records produce a range; undocumented zero values are treated as unavailable. Includes selected surrounding roads.',
+    ],
+    url: 'https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej',
+  },
+  {
     id: 'official-noise',
     datasetKey: 'officialNoise',
     citations: [

@@ -31,6 +31,9 @@ export function AboutRoute() {
       <section className="project-limitations">
         <h2>{da ? 'Officielle data på det interaktive kort' : 'Official data on the interactive map'}</h2>
         <p>{da
+          ? 'Ved adresseopslag vises forventet vejstøj i dB(A) med den nye motorvej. Resultatet kommer fra officielle boligberegninger eller kortets støjinterval, hvis der ikke er en matchende boligberegning. Flere registrerede boliger vises som et spænd. Grundlaget er VVM 2021 med trafik i 2040 og omfatter også udvalgte omkringliggende veje.'
+          : 'Address lookup shows expected road noise in dB(A) with the new motorway. Results use official dwelling calculations, or the mapped noise band when no dwelling calculation matches. Multiple registered dwellings are shown as a range. The source is the 2021 assessment with 2040 traffic and also includes selected surrounding roads.'}</p>
+        <p>{da
           ? 'Du kan nu se støjpolygonerne fra VVM 2021 med trafikprognose 2040: oprindeligt forslag, reference uden projekt og variant. De er en ældre beregningsmodel og er adskilt fra de nyere 2035-kort nedenfor.'
           : 'Explore noise polygons from the 2021 assessment with a 2040 traffic forecast: original design, reference without the project, and variant. This is an older model, kept separate from the newer 2035 maps below.'}</p>
         <p>{da

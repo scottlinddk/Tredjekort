@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises'
 import { promisify } from 'node:util'
 import { gunzip } from 'node:zlib'
 import { distance, point, pointToLineDistance } from '@turf/turf'
-import { describeNoiseScenarios, lookupNoiseScenario, prepareNoiseScenarios } from './official-noise.js'
+import { describeNoiseScenarios, expectedWithProject, lookupNoiseScenario, prepareNoiseScenarios } from './official-noise.js'
 import { lookupLandRequirements, nearestOfficialDesign } from './official-project.js'
 
 const DAWA_URL = 'https://api.dataforsyningen.dk/adgangsadresser'
@@ -35,7 +35,9 @@ export function loadMapData() {
     readFile(new URL('../src/data/official-alignment.geojson', import.meta.url), 'utf8'),
     readFile(new URL('../src/data/official-land-requirements.geojson', import.meta.url), 'utf8'),
     readFile(new URL('../src/data/official-spatial-data.json', import.meta.url), 'utf8'),
-  ]).then(([alignment, noiseScreens, localRoads, junctions, projectInformation, officialNoise, officialNoiseMetadata, officialAlignment, officialLandRequirements, officialSpatialData]) => {
+    readFile(new URL('../src/data/official-noise-points.geojson', import.meta.url), 'utf8'),
+    readFile(new URL('../src/data/official-noise-points-metadata.json', import.meta.url), 'utf8'),
+  ]).then(([alignment, noiseScreens, localRoads, junctions, projectInformation, officialNoise, officialNoiseMetadata, officialAlignment, officialLandRequirements, officialSpatialData, officialNoisePoints, officialNoisePointsMetadata]) => {
     const metadata = JSON.parse(officialNoiseMetadata)
     return {
       alignment: JSON.parse(alignment),
@@ -48,6 +50,8 @@ export function loadMapData() {
       officialAlignment: JSON.parse(officialAlignment),
       officialLandRequirements: JSON.parse(officialLandRequirements),
       officialSpatialData: JSON.parse(officialSpatialData),
+      officialNoisePoints: JSON.parse(officialNoisePoints),
+      officialNoisePointsMetadata: JSON.parse(officialNoisePointsMetadata),
     }
   }).catch((error) => {
     dataPromise = undefined
@@ -100,6 +104,9 @@ function toAddress(record) {
     latitude,
     coordinateReferenceSystem: 'EPSG:4326',
     precision: 'access_address',
+    municipalityCode: record.kommunekode != null ? String(record.kommunekode).padStart(4, '0') : null,
+    roadCode: record.vejkode != null ? String(record.vejkode).padStart(4, '0') : null,
+    houseNumber: String(record.husnr),
     sourceUrl: `${DAWA_URL}/${record.id}`,
   }
 }
@@ -175,6 +182,14 @@ export function buildAddressReport(address, language, data) {
   const distanceText = nearestAlignment?.distanceMeters.toLocaleString(language === 'da' ? 'da-DK' : 'en-GB')
   const noiseResults = (data.officialNoiseScenarios ?? []).map(({ collection, metadata }) => lookupNoiseScenario(origin, collection, metadata))
   const noiseDescription = describeNoiseScenarios(noiseResults, data.officialNoiseMetadata, language)
+  const expectedNoise = expectedWithProject({
+    scenarios: noiseResults,
+    metadata: data.officialNoiseMetadata,
+    language,
+    address,
+    pointCollection: data.officialNoisePoints,
+    pointMetadata: data.officialNoisePointsMetadata,
+  })
   const officialDesign = nearestOfficialDesign(origin, data.officialAlignment)
   const landRequirements = lookupLandRequirements(origin, data.officialLandRequirements)
   if (landRequirements) {
@@ -186,9 +201,10 @@ export function buildAddressReport(address, language, data) {
   const officialDesignDescription = officialDesign ? language === 'da'
     ? ` Den nærmeste officielle projekterede centerlinje ligger cirka ${officialDesign.distanceMeters.toLocaleString('da-DK')} meter væk; disse linjer omfatter også ramper og lokalveje.`
     : ` The nearest official design centreline is approximately ${officialDesign.distanceMeters.toLocaleString('en-GB')} metres away; these lines also include ramps and local roads.` : ''
-  const description = language === 'da'
+  const contextDescription = language === 'da'
     ? `${address.text} ligger ${nearestAlignment ? `cirka ${distanceText} meter fra den nærmeste tegnede motorvejslinje` : 'i et område uden en tilgængelig motorvejslinje i datasættet'}. Afstanden er målt i fugleflugtslinje til kortets omtrentlige geometri.${officialDesignDescription} ${nearbyScreens.length ? `Der er ${nearbyScreens.length} tegnede støjskærmsstrækninger inden for 2 km af adressen.` : 'Kortet viser ingen støjskærmsstrækninger inden for 2 km af adressen.'} Dette siger ikke, om en skærm beskytter adressen. ${noiseDescription} Afstanden kan ikke afgøre, om vejstøjen kan høres. ${landRequirements?.description ?? ''} Se de officielle støjkort og projektmaterialer for dokumentation.`
     : `${address.text} is ${nearestAlignment ? `approximately ${distanceText} metres from the nearest mapped motorway alignment` : 'in an area without an available motorway alignment in this dataset'}. This is a straight-line distance to approximate map geometry.${officialDesignDescription} ${nearbyScreens.length ? `There are ${nearbyScreens.length} mapped noise-barrier sections within 2 km of the address.` : 'The map contains no noise-barrier sections within 2 km of the address.'} This does not establish whether a barrier protects the address. ${noiseDescription} The distance cannot establish whether road noise will be audible. ${landRequirements?.description ?? ''} Consult the official noise maps and project documents.`
+  const description = `${expectedNoise.description} ${contextDescription}`
   const limitations = language === 'da' ? [
     'Vejlinjer og støjskærme er digitaliseret og omtrentlige. Afstande er afrundet til 10 meter, men placeringen kan afvige med flere hundrede meter.',
     'Afstande er til kortets linjer og punkter, ikke til matrikelgrænser, vejkant eller tilkørselsruter.',
@@ -222,13 +238,14 @@ export function buildAddressReport(address, language, data) {
     },
     landRequirements,
     noise: {
-      status: noiseResults.length ? 'legacy_model_available' : 'official_address_level_data_unavailable',
+      status: noiseResults.length || expectedNoise.basis === 'address_receivers' ? 'legacy_model_available' : 'official_address_level_data_unavailable',
       ldenDb: null,
       audible: null,
       exceedsGuideline: null,
+      expectedWithProject: expectedNoise,
       reason: language === 'da'
-        ? 'Appen kan slå ældre officielle støjintervaller op, men har ikke præcise dB-værdier eller georefererede støjkonturer for det aktuelle 2035-materiale. Afstandszoner er ikke støjniveauer.'
-        : 'The app can look up older official noise bands, but has no exact dB values or georeferenced contours for the current 2035 documents. Distance zones are not noise levels.',
+        ? 'Appen kan slå historiske modelværdier for matchede boligposter og ældre støjintervaller op. De isolerer ikke motorvejens bidrag og beskriver ikke det aktuelle 2035-materiale. Afstandszoner er ikke støjniveauer.'
+        : 'The app can look up historical model values for matched dwelling records and older noise bands. These do not isolate the motorway contribution or describe the current 2035 material. Distance zones are not noise levels.',
       current2035: { status: 'address_level_contours_unavailable', band: null },
       legacyModel: noiseResults.length ? { metadata: data.officialNoiseMetadata, scenarios: noiseResults } : null,
       officialDocuments: (data.projectInformation.documents ?? []).filter((document) => document.category === 'noise'),

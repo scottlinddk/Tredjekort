@@ -1,0 +1,116 @@
+{
+  "layer": "stoej_punkt_9095",
+  "serviceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=vvm%3Astoej_punkt_9095&outputFormat=application%2Fjson&srsName=CRS%3A84&count=10000",
+  "numberMatched": 2641,
+  "numberReturned": 2641,
+  "rawSha256": "f8aee19899a388589e3ba4139f83ba2daa1987dda107ae2cc168c32447dddb1e",
+  "retrievedAt": "2026-09-26T11:53:28.736Z",
+  "crs": "OGC:CRS84",
+  "coordinateOrder": [
+    "longitude",
+    "latitude"
+  ],
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-26",
+  "file": "src/data/official-noise-points.geojson",
+  "sha256": "c1c20f2021ed6ef45535a6eed8e15323dace8cc931cb5727374404c0874fc928",
+  "sourceUrl": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej",
+  "modelYear": 2021,
+  "forecastYear": 2040,
+  "sourceUpdatedAt": null,
+  "sourceDateNote": "The point service exposes no calculation/update timestamp. Model identification is verified against the 2021 report, not inferred from retrieval time.",
+  "indicator": "Lden",
+  "units": "dB(A)",
+  "measurementType": "modelled-facade-noise",
+  "method": "Nord2000 / SoundPLAN 8.1, four weather classes; facade results linked to dwelling records",
+  "methodSourceUrl": "https://api.vejdirektoratet.dk/sites/default/files/2021-02/Milj%C3%B8konsekvensrapport_Egholmlinjen.pdf",
+  "methodSourcePrintedPages": [
+    76,
+    77
+  ],
+  "scenarioSourcePrintedPages": [
+    81,
+    88,
+    91
+  ],
+  "scenarioSourcePdfPages": [
+    84,
+    91,
+    94
+  ],
+  "scenarioSourceTables": [
+    "5-7",
+    "5-9",
+    "5-10"
+  ],
+  "scenarioFields": {
+    "reference": "lden_sce01",
+    "original": "lden_sce02",
+    "variant": "lden_sce03"
+  },
+  "scenarioVerification": {
+    "reference": {
+      "sourceField": "lden_sce01",
+      "binCounts": [
+        346,
+        218,
+        38,
+        8
+      ],
+      "above58Db": 610
+    },
+    "original": {
+      "sourceField": "lden_sce02",
+      "binCounts": [
+        538,
+        83,
+        28,
+        2
+      ],
+      "above58Db": 651
+    },
+    "variant": {
+      "sourceField": "lden_sce03",
+      "binCounts": [
+        539,
+        77,
+        28,
+        2
+      ],
+      "above58Db": 646
+    }
+  },
+  "municipalityCode": "0851",
+  "municipalityNote": "Aalborg matching scope, not a field in the source. Require municipality plus road/house match and coordinate consistency; do not join road codes across Denmark.",
+  "matching": {
+    "keys": [
+      "municipalityCode",
+      "roadCode",
+      "houseNumber"
+    ],
+    "maximumCoordinateDistanceM": 50,
+    "coordinateGuardPurpose": "Additional consistency guard after exact address-key matching, never a nearest-address fallback.",
+    "multipleUnits": "Aggregate the minimum and maximum of all matched dwelling rows; do not choose a floor arbitrarily.",
+    "floorSemantics": "Source floor codes are retained without converting them to DAWA floor labels.",
+    "zeroValuePolicy": "Raw zero values are retained but normalized to null because their meaning is not documented.",
+    "incompleteAddressPolicy": "If any matched unit is missing a scenario value, do not present a partial range as complete."
+  },
+  "counts": {
+    "records": 2641,
+    "addresses": 2364,
+    "zeroValuesByScenario": {
+      "reference": 6,
+      "original": 18,
+      "variant": 20
+    }
+  },
+  "roadScope": "Motorway and selected crossing/nearby existing roads; not every road in the study area.",
+  "limitations": [
+    "Historical 2021 EIA design and 2040 traffic forecast, not measured noise or the current detailed design.",
+    "These are facade/dwelling model results, not the 1.5-metre landscape contour values.",
+    "The with-project result includes selected surrounding roads; no isolated new-motorway contribution is provided.",
+    "A difference between scenarios is a change in modelled total noise, not the standalone noise level of the motorway.",
+    "Source decimals describe model output, not measurement accuracy. Display sensible rounding and retain provenance.",
+    "Current 2035 PDFs lack a verified geographic registration and are not converted into address values."
+  ]
+}
