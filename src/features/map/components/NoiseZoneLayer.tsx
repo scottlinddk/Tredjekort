@@ -61,17 +61,17 @@ export function NoiseZoneLayer({ visible, colorScheme, opacity }: NoiseZoneLayer
     // a route unmount), so getLayer must be guarded here too.
     if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
     map.setLayoutProperty(LAYER_IDS.noiseBufferFill, 'visibility', visible ? 'visible' : 'none')
-  }, [map, visible])
+  }, [map, visible, buffers])
 
   useEffect(() => {
     if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
     map.setPaintProperty(LAYER_IDS.noiseBufferFill, 'fill-color', buildNoiseFillColorExpression(colorScheme))
-  }, [map, colorScheme])
+  }, [map, colorScheme, buffers])
 
   useEffect(() => {
     if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseBufferFill)) return
     map.setPaintProperty(LAYER_IDS.noiseBufferFill, 'fill-opacity', opacity)
-  }, [map, opacity])
+  }, [map, opacity, buffers])
 
   return null
 }

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-26",
+  "project": {
+    "title": "3. Limfjordsforbindelse",
+    "phase": {"da": "Under projektering", "en": "Detailed design"},
+    "expectedOpeningYear": 2034,
+    "lengthKm": 20,
+    "lanes": 4,
+    "sourceUpdatedAt": "2026-09-09",
+    "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse"
+  },
+  "facts": [
+    {
+      "id": "official-geographic-data",
+      "title": {"da": "Officielle kortdata med tydelig årgang", "en": "Official map data with explicit dates"},
+      "summary": {"da": "Appen indeholder nu Vejdirektoratets støjpolygoner fra VVM 2021 med trafikfremskrivning til 2040, opdelt i oprindeligt forslag, reference uden projekt og variant. Hertil kommer officielle projektlinjer og permanente/midlertidige arealbehov fra fase 3 i 2025. De nyere 2035-støjkort findes særskilt som PDF.", "en": "The app now contains Vejdirektoratet's 2021 EIA noise polygons for 2040 traffic, split into original design, reference without the project and variant. Official 2025 phase-three project lines and permanent/temporary land requirements are also included. Newer 2035 noise maps are linked separately as PDFs."},
+      "sourceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetCapabilities",
+      "sourceUpdatedAt": "2025-06-12"
+    },
+    {
+      "id": "land-requirements",
+      "title": {"da": "Arealbehov og berørte ejendomme", "en": "Land requirements and affected properties"},
+      "summary": {"da": "Vejdirektoratet angiver cirka 260 hektar til vejanlægget og 90 hektar midlertidige arbejdsarealer. Omkring 160 ejendomme berøres i forskelligt omfang; cirka 25–30 yderligere ejendomme forventes totaleksproprieret ud over de godt ti allerede overtagne. Den uvildige Ekspropriationskommission træffer konkrete afgørelser; kortet afgør ikke en ejendoms retsstilling.", "en": "Vejdirektoratet estimates about 260 hectares for the road and 90 hectares for temporary work areas. Around 160 properties are affected to differing degrees; approximately 25–30 additional properties are expected to be acquired entirely, beyond the ten-plus already acquired. The independent Expropriation Commission makes individual decisions; this map does not determine a property's legal position."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/arealbehov",
+      "sourceUpdatedAt": "2026-02-06"
+    },
+    {
+      "id": "route-and-crossings",
+      "title": {"da": "20 km motorvej via Egholm", "en": "20 km motorway via Egholm"},
+      "summary": {"da": "En fire-sporet forlængelse af E39 forbinder E45 syd for Dall med Hirtshalsmotorvejen i nord. Fjorden krydses i en sænketunnel syd for Egholm og på lavbroer over Nørredyb.", "en": "A four-lane extension of E39 connects E45 south of Dall with the Hirtshals motorway in the north. The fjord crossing uses an immersed tunnel south of Egholm and low bridges across Nørredyb."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "five-interchanges",
+      "title": {"da": "Fem tilslutningsanlæg", "en": "Five local-road interchanges"},
+      "summary": {"da": "De fem tilslutninger ligger ved Hobrovej, Ny Nibevej, Nørholmsvej, Thistedvej og Høvejen. Kortets øvrige markører omfatter også motorvejsender og lokale vejændringer; de er ikke fem ekstra tilslutningsanlæg.", "en": "The five interchanges serve Hobrovej, Ny Nibevej, Nørholmsvej, Thistedvej and Høvejen. Other map markers include motorway endpoints and local-road changes; these are not five additional interchanges."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "tunnel",
+      "title": {"da": "Egholmtunnelen", "en": "The Egholm tunnel"},
+      "summary": {"da": "Tunnelkonstruktionen bliver cirka 2 km lang, inklusive overgangstunneler og ramper, under fjordens 10 meter dybe sejlrende. Hovedtunnelen samles af elementer støbt på land; overgangene udføres i tørlagte byggegruber.", "en": "The tunnel structure will be about 2 km long, including transition tunnels and ramps, beneath the 10-metre-deep shipping channel. Its main section uses elements cast on land; transitions are constructed in drained excavations."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "bridges-and-wildlife",
+      "title": {"da": "Broer, stier og faunapassager", "en": "Bridges, paths and wildlife crossings"},
+      "summary": {"da": "Projektbeskrivelsen oplyser 22 nye broer syd for fjorden og 18 bygværker nord for fjorden: 11 faunapassager, 6 vejbroer og en stibro. Østerådalen krydses af to parallelle vejbroer på cirka 700 meter hver.", "en": "The project description lists 22 new bridges south of the fjord and 18 structures to the north: 11 wildlife crossings, six road bridges and one path bridge. Two parallel road bridges, about 700 metres each, cross Østerådalen."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "noise-screens",
+      "title": {"da": "Cirka 5,3 km støjskærme", "en": "About 5.3 km of noise screens"},
+      "summary": {"da": "De offentliggjorte strækningslængder er Dall 1,0 km (6 m høj), Dall Villaby 1,4 km (6–7 m), Drastrup 1,4 km samlet på begge sider (5–6 m) og Nørholmsvej 1,5 km (6 m). Skærme dæmper støjen, men fjerner den ikke; virkningen aftager med afstanden.", "en": "Published lengths are Dall 1.0 km (6 m high), Dall Villaby 1.4 km (6–7 m), Drastrup 1.4 km across both sides combined (5–6 m) and Nørholmsvej 1.5 km (6 m). Screens reduce noise but do not eliminate it, and their effect decreases with distance."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "noise-insulation",
+      "title": {"da": "Støjisolering og beregningsgrundlag", "en": "Noise insulation and calculation basis"},
+      "summary": {"da": "Vejdirektoratet oplyser, at ejere kan søge tilskud til støjisolering, hvis boligen har over 63 dB efter anlæg. Støjskærmsundersøgelsen på websiden omtaler 2040; de nyere offentliggjorte kort er mærket Trafik 2035. Appens afstandsvurdering dokumenterer ikke støjniveau eller ret til tilskud.", "en": "Vejdirektoratet states that owners can apply for noise-insulation support if their home exceeds 63 dB after construction. The screen study described on the webpage refers to 2040; newer published maps are labelled Traffic 2035. This app's distance assessment does not establish a noise level or eligibility for support."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "official-noise-maps",
+      "title": {"da": "Officielle støjkort med og uden projekt", "en": "Official noise maps with and without the project"},
+      "summary": {"da": "Dokumentsamlingen indeholder parvise Trafik 2035-kort for Hobrovej–Nørholmsvej, fjordkrydsningen og Lindholm–E39. Kortene kan bruges til at læse den officielle beregnede udbredelse. PDF-kortene er ikke omregnet til støjværdier for adresser i denne app.", "en": "The document collection contains paired Traffic 2035 maps for Hobrovej–Nørholmsvej, the fjord crossing and Lindholm–E39. They show the officially calculated noise extent. These PDFs have not been converted into address-specific noise values in this app."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter",
+      "sourceUpdatedAt": "2026-09-15"
+    },
+    {
+      "id": "nature-and-egholm",
+      "title": {"da": "Erstatningsnatur og Egholm", "en": "Replacement habitats and Egholm"},
+      "summary": {"da": "Projektets forside beskriver etablering af dobbelt så meget natur, som motorvejen inddrager, samt 21 hektar landindvinding syd for Egholm med mulige levesteder for oddere. Den konkrete udformning fremgår af miljøvurderingerne og er ikke indtegnet som ejendomsgrænser i appen.", "en": "The project homepage describes replacement habitat covering twice the area used by the motorway and 21 hectares of reclamation south of Egholm with potential otter habitats. Environmental assessments describe the detailed design; this app does not map it as property boundaries."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse",
+      "sourceUpdatedAt": "2026-09-09"
+    },
+    {
+      "id": "design-optimisation",
+      "title": {"da": "Justeringer under detailprojektering", "en": "Changes during detailed design"},
+      "summary": {"da": "Motorvejens bredde reduceres fra 29 til 26–27 meter uden smallere kørespor. Tilslutninger ved Ny Nibevej og Høvejen ændres for at beskytte vandboringer, mens ændringen ved Nørholmsvej skal gøre tunnelelementerne ensartede. Den nordlige udfletning genbruger mere af den eksisterende E39.", "en": "The motorway width is reduced from 29 to 26–27 metres without narrowing traffic lanes. Ny Nibevej and Høvejen interchange changes protect water boreholes, while the Nørholmsvej change allows uniform tunnel elements. The northern interchange reuses more of the existing E39."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet",
+      "sourceUpdatedAt": "2026-06-09"
+    },
+    {
+      "id": "dall-review",
+      "title": {"da": "Sydlig udfletning undersøges særskilt", "en": "Separate assessment of the southern interchange"},
+      "summary": {"da": "Ændringen ved Dall kræver en ny miljøkonsekvensvurdering. Forslaget flytter motorvejen tættere på Dall og Dall Kirke, undgår asbestdepotet på Svenstrupholm og mindsker indgrebet i beskyttet natur i Østerådalen. Der blev holdt borgermøde den 27. januar 2026. Den endelige placering kan derfor ændres.", "en": "The Dall change requires a new environmental impact assessment. The proposal moves the motorway closer to Dall and its church, avoids the Svenstrupholm asbestos depot and reduces its footprint in protected Østerådalen habitat. A public meeting took place on 27 January 2026. The final alignment may therefore change."},
+      "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/det-arbejder-vi-paa-lige-nu",
+      "sourceUpdatedAt": "2026-07-10"
+    }
+  ],
+  "timeline": [
+    {"id":"construction-act","period":{"da":"1. juli 2024","en":"1 July 2024"},"title":{"da":"Anlægslov","en":"Construction act"},"summary":{"da":"Den offentliggjorte tidslinje angiver anlægsloven som projektets startpunkt.","en":"The published timeline identifies the construction act as the project's starting point."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"},
+    {"id":"design","period":{"da":"1. kvartal 2025 – 1. kvartal 2027","en":"Q1 2025 – Q1 2027"},"title":{"da":"Projektering","en":"Detailed design"},"summary":{"da":"Planlagt periode for projektering. Linjebesigtigelse er angivet til 1.–3. kvartal 2025 og detailbesigtigelse til 1.–4. kvartal 2026.","en":"Planned design period. Alignment inspections are listed for Q1–Q3 2025 and detailed inspections for Q1–Q4 2026."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"},
+    {"id":"tenders","period":{"da":"1. kvartal 2026 – 1. kvartal 2027","en":"Q1 2026 – Q1 2027"},"title":{"da":"Udbud af entrepriser","en":"Construction tenders"},"summary":{"da":"Vejledende udbudsperiode i den offentliggjorte tidsplan.","en":"Indicative tender period in the published schedule."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"},
+    {"id":"land-acquisition","period":{"da":"4. kvartal 2026 – 4. kvartal 2027","en":"Q4 2026 – Q4 2027"},"title":{"da":"Ekspropriation","en":"Land acquisition"},"summary":{"da":"Planlagt periode for ekspropriation. De enkelte ejendomme og forretninger følger særskilt myndighedsbehandling.","en":"Planned expropriation period. Individual properties and proceedings are handled separately by the authorities."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"},
+    {"id":"construction","period":{"da":"1. kvartal 2027 – 4. kvartal 2034","en":"Q1 2027 – Q4 2034"},"title":{"da":"Udførelse af entrepriser","en":"Main construction"},"summary":{"da":"Den overordnede tidsplan viser hovedentrepriser i denne periode; forberedende arbejder og erstatningsnatur er allerede sat i gang i 2026.","en":"The overall schedule places main construction in this period; preparatory work and replacement habitats have already begun in 2026."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"},
+    {"id":"opening","period":{"da":"Udgangen af 2034","en":"End of 2034"},"title":{"da":"Forventet ibrugtagning","en":"Expected opening"},"summary":{"da":"Tunnel og installationer testes i 2034 inden forventet åbning ved årets udgang. Tidsplanen kan ændre sig.","en":"The tunnel and its installations are tested during 2034 before the expected opening at the end of the year. The schedule may change."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/tidsplan","sourceUpdatedAt":"2025-04-29"}
+  ],
+  "documents": [
+    {"id":"noise-south-with","category":"noise","title":{"da":"Hobrovej–Nørholmsvej · med projekt","en":"Hobrovej–Nørholmsvej · with project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-06/Hobrovej%20-%20N%C3%B8rholmsvej%20-%20trafik%202035%20med%20projekt.pdf","format":"PDF","publishedMonth":"2026-06","forecastYear":2035,"scenario":"with-project","region":"south"},
+    {"id":"noise-south-without","category":"noise","title":{"da":"Hobrovej–Nørholmsvej · uden projekt","en":"Hobrovej–Nørholmsvej · without project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-06/Hobrovej%20-%20N%C3%B8rholmsvej%20-%20trafik%202035%20uden%20projekt%20.pdf","format":"PDF","publishedMonth":"2026-06","forecastYear":2035,"scenario":"without-project","region":"south"},
+    {"id":"noise-fjord-with","category":"noise","title":{"da":"Fjordkrydsningen · med projekt","en":"Fjord crossing · with project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-09/Fjordkrydsningen%20med%20projekt.pdf","format":"PDF","date":"2026-04-07","publishedMonth":"2026-09","drawingNumber":"9095-29007 A","forecastYear":2035,"scenario":"with-project","region":"fjord","measurementHeightM":1.5,"indicator":"Lden"},
+    {"id":"noise-fjord-without","category":"noise","title":{"da":"Fjordkrydsningen · uden projekt","en":"Fjord crossing · without project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-09/Fjordkrydsningen%20uden%20projekt.pdf","format":"PDF","publishedMonth":"2026-09","forecastYear":2035,"scenario":"without-project","region":"fjord"},
+    {"id":"noise-north-with","category":"noise","title":{"da":"Lindholm–E39 · med projekt","en":"Lindholm–E39 · with project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Nord%20%E2%80%93%20Lindholm%20til%20E39%20Hirtshalsmotorvejen%20%28Trafik%202035%20med%20projekt%29.pdf","format":"PDF","publishedMonth":"2026-08","forecastYear":2035,"scenario":"with-project","region":"north"},
+    {"id":"noise-north-without","category":"noise","title":{"da":"Lindholm–E39 · uden projekt","en":"Lindholm–E39 · without project"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Nord%20%E2%80%93%20Lindholm%20til%20E39%20Hirtshalsmotorvejen%20%28Trafik%202035%20uden%20projekt%29.pdf","format":"PDF","publishedMonth":"2026-08","forecastYear":2035,"scenario":"without-project","region":"north"},
+    {"id":"route-overview","category":"overview","title":{"da":"Officielt oversigtskort","en":"Official route overview"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-09/Kort_3.limfjord_02.png","format":"PNG","publishedMonth":"2026-09"},
+    {"id":"official-timeline","category":"overview","title":{"da":"Officiel tidsplan","en":"Official schedule"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2025-01/tidslinje_Limfjord_1.png","format":"PNG","publishedMonth":"2025-01"},
+    {"id":"noise-screen-overview","category":"overview","title":{"da":"Officielt kort over støjskærme","en":"Official noise-screen overview"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2025-08/Egholmlinjen_st%C3%B8jsk%C3%A6rme.jpg","format":"JPG","publishedMonth":"2025-08"},
+    {"id":"inspection-north-hovej-e39","category":"design","title":{"da":"Detailbesigtigelse · Høvejen–E39","en":"Detailed inspection · Høvejen–E39"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Detailbesigtigelse%20Nord%20den%2019.%20august%20-%20H%C3%B8vejen%20til%20E39_0.pdf","format":"PDF","date":"2026-08-19","publishedMonth":"2026-08"},
+    {"id":"inspection-north-norredyb-hovej","category":"design","title":{"da":"Detailbesigtigelse · Nørredyb–Høvejen","en":"Detailed inspection · Nørredyb–Høvejen"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Detailbesigtigelse%20Nord%20onsdag%20den%2019.%20august%20-%20N%C3%B8rredyb%20til%20H%C3%B8vejen%20%282%29.pdf","format":"PDF","date":"2026-08-19","publishedMonth":"2026-08"},
+    {"id":"inspection-fjord","category":"design","title":{"da":"Detailbesigtigelse · fjordkrydsningen","en":"Detailed inspection · fjord crossing"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-03/Detailbesigtigelse%203.%20marts%20af%20Fjordkrydsningen.pdf","format":"PDF","date":"2026-03-03","publishedMonth":"2026-03"},
+    {"id":"inspection-norholmsvej","category":"design","title":{"da":"Nørholmsvej og Mølholmsvejs forlængelse","en":"Nørholmsvej and Mølholmsvej extension"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-04/Pr%C3%A6sentation%20af%20N%C3%B8rholmsvej%20og%20M%C3%B8lholmsvejs%20forl%C3%A6ngelse.pdf","format":"PDF","date":"2026-04-15","publishedMonth":"2026-04"},
+    {"id":"inspection-ny-nibevej","category":"design","title":{"da":"Ny Nibevej–station 107.600","en":"Ny Nibevej–chainage 107.600"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-04/Pr%C3%A6sentation%20af%20Ny%20Nibevej%20til%20st.%20107.600.pdf","format":"PDF","date":"2026-04-15","publishedMonth":"2026-04"},
+    {"id":"inspection-ostera-citysyd","category":"design","title":{"da":"Østerådalen–vest for City Syd","en":"Østerådalen–west of City Syd"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-04/Pr%C3%A6sentation%20af%20%C3%98ster%C3%A5dalen%20til%20vest%20for%20City%20Syd.pdf","format":"PDF","date":"2026-04-14","publishedMonth":"2026-04"},
+    {"id":"inspection-citysyd-nibevej","category":"design","title":{"da":"Vest for City Syd–Ny Nibevej","en":"West of City Syd–Ny Nibevej"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-04/Pr%C3%A6sentation%20Vest%20for%20City%20Syd%20til%20Ny%20Nibevej%20.pdf","format":"PDF","date":"2026-04-14","publishedMonth":"2026-04"},
+    {"id":"dall-proposed-alignment","category":"design","title":{"da":"Forslag til ændret sydlig udfletning","en":"Proposed southern-interchange change"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-01/Kort_forslag%20til%20ny%20linjef%C3%B8ring%20ved%20sydlig%20udfletning.pdf","format":"PDF","publishedMonth":"2026-01"},
+    {"id":"preparatory-activities","category":"environment","title":{"da":"Miljøvurdering af forberedende anlægsaktiviteter","en":"Environmental assessment of preparatory works"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Teknisk%20notat%20med%20vurdering%20af%20forberedende%20anl%C3%A6gsaktiviteter%2C%20som%20ikke%20er%20vurderet%20i%20MKV%202021%20og%202023%20%E2%80%93%20august%202026.pdf","format":"PDF","publishedMonth":"2026-08"},
+    {"id":"nibevej-soil","category":"environment","title":{"da":"Miljøundersøgelse · Nibevej 120","en":"Environmental investigation · Nibevej 120"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-07/Milj%C3%B8teknisk%20unders%C3%B8gelsesrapport%2C%20Nibevej%20120%20-%20juli%202026.pdf","format":"PDF","publishedMonth":"2026-07"},
+    {"id":"molholm-soil","category":"environment","title":{"da":"Miljøundersøgelse · Mølholm Enge","en":"Environmental investigation · Mølholm Enge"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-05/Orienterende%20milj%C3%B8teknisk%20unders%C3%B8gelse%20M%C3%B8lholm%20Enge%20-%20maj%202026.pdf","format":"PDF","publishedMonth":"2026-05"},
+    {"id":"egholm-habitat","category":"environment","title":{"da":"Erstatningsnatur og odderhabitat på Egholm","en":"Replacement habitats and otter habitat on Egholm"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-08/Bygherrevurdering%20af%20erstatningsnatur%20og%20odderhabitat%20p%C3%A5%20Egholm%20-%20marts%202026.pdf","format":"PDF","publishedMonth":"2026-08"},
+    {"id":"work-road","category":"environment","title":{"da":"Arbejdsvej · Ny Nibevej–Nørholmsvej","en":"Construction access road · Ny Nibevej–Nørholmsvej"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2026-04/Milj%C3%B8beskrivelse%20af%20arbejdsvej%20fra%20Ny%20Nibevej%20til%20N%C3%B8rholmsvej%20-%20april%202026_0.pdf","format":"PDF","publishedMonth":"2026-04"},
+    {"id":"noise-calculations-2023","category":"environment","title":{"da":"Baggrund · støjberegninger 2023 (2045-scenarier)","en":"Background · 2023 noise calculations (2045 scenarios)"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2023-12/Opdaterede%20st%C3%B8jberegninger%20-%203.%20Limfjordsforbindelse_wcag.pdf","format":"PDF","publishedMonth":"2023-12","forecastYear":2045},
+    {"id":"traffic-calculations-2023","category":"environment","title":{"da":"Baggrund · trafikberegninger 2023","en":"Background · 2023 traffic calculations"},"url":"https://api.vejdirektoratet.dk/sites/default/files/2023-12/Trafikberegninger%20-%203.%20Limfjordsforbindelse_wcag.pdf","format":"PDF","publishedMonth":"2023-12"},
+    {"id":"land-requirements","category":"land","title":{"da":"Arealbehov og ekspropriation","en":"Land requirements and expropriation"},"url":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/arealbehov","format":"HTML","date":"2026-02-06"},
+    {"id":"all-official-documents","category":"overview","title":{"da":"Alle officielle dokumenter og vejbyggelinjer","en":"All official documents and road reservation lines"},"url":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter","format":"HTML","date":"2026-09-15"},
+    {"id":"official-contact","category":"overview","title":{"da":"Kontakt Vejdirektoratet om projektet","en":"Contact Vejdirektoratet about the project"},"url":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/kontakt","format":"HTML"}
+  ],
+  "updates": [
+    {"id":"north-inspection","date":"2026-08-19","title":{"da":"Detailbesigtigelse nord for fjorden","en":"Detailed inspection north of the fjord"},"summary":{"da":"Præsentationer for Nørredyb–Høvejen og Høvejen–E39 fra detailbesigtigelsen er offentliggjort i dokumentsamlingen.","en":"Presentations for Nørredyb–Høvejen and Høvejen–E39 from the detailed inspection are published in the document collection."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter","sourceUpdatedAt":"2026-09-15"},
+    {"id":"summer-work","date":"2026-07-10","title":{"da":"Adgangsvej ved Egholm og undersøgelser på land","en":"Egholm access road and land investigations"},"summary":{"da":"Sommerstatus beskriver anlæg af cirka 1.500 meter midlertidig adgangsdæmning og en bådlanding syd for Egholm. Arkæologiske undersøgelser til vands er afsluttet; udgravninger sydvest for IKEA og geotekniske, miljømæssige og naturmæssige undersøgelser fortsætter.","en":"The summer update describes a temporary access embankment of about 1,500 metres and a boat landing south of Egholm. Marine archaeological investigations are complete; excavations southwest of IKEA and geotechnical, environmental and habitat investigations continue."},"sourceUrl":"https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/det-arbejder-vi-paa-lige-nu","sourceUpdatedAt":"2026-07-10"},
+    {"id":"replacement-meadow","date":"2026-07-09","title":{"da":"Erstatningsnatur ved Nørholmsvej","en":"Replacement habitat at Nørholmsvej"},"summary":{"da":"Arbejdet med det første engområde er i gang: 7,5 hektar eng, otte vandhuller til strandtudser og ledelinjer for flagermus.","en":"Work has begun on the first meadow area: 7.5 hectares of meadow, eight ponds for natterjack toads and guiding vegetation for bats."},"sourceUrl":"https://www.vejdirektoratet.dk/node/17836","sourceUpdatedAt":"2026-07-09"},
+    {"id":"materials-consultation","date":"2026-07-09","title":{"da":"Råstoffer nær Hobrovej","en":"Construction materials near Hobrovej"},"summary":{"da":"Vejdirektoratet annoncerede høring om udnyttelse af egnede sand- og grusmaterialer nord for Hobrovej nær IKEA. Nyheden beskriver en høring, ikke en endelig tilladelse.","en":"Vejdirektoratet announced consultation on extracting suitable sand and gravel north of Hobrovej near IKEA. The announcement describes a consultation, not final permission."},"sourceUrl":"https://www.vejdirektoratet.dk/node/17835","sourceUpdatedAt":"2026-07-09"}
+  ],
+  "limitations": [
+    {"da": "Det håndtegnede vejforløb og støjskærmene er omtrentlige digitaliseringer. Det særskilte officielle projektlag og areallag er daterede designudtræk fra 2025, ikke opmålingsdata, matrikelgrænser eller ekspropriationsafgørelser.", "en": "The hand-traced route and noise screens are approximate digitizations. The separate official project and land layers are dated 2025 design snapshots, not survey data, cadastral boundaries or expropriation decisions."},
+    {"da": "Afstandsbånd og officielle støjkonturer er to forskellige lag. Et opslag i de officielle polygoner giver et beregnet interval for det valgte historiske scenarie, ikke et præcist eller målt støjniveau ved en bolig. Ingen polygon betyder ukendt, ikke støjfrit.", "en": "Distance bands and official noise contours are separate layers. A lookup in the official polygons returns a modelled band for the selected historical scenario, not an exact or measured noise level at a dwelling. No polygon means unknown, not noise-free."},
+    {"da": "Støjpolygonerne kommer fra VVM 2021 og trafikår 2040. De officielle 2035-støjkort er nyere PDF-dokumenter og er ikke konverteret til adresseværdier. Årgange og scenarier må ikke blandes. Visningspolygonerne er forenklet cirka én meter; API'et bruger de oprindelige koordinater.", "en": "Noise polygons come from the 2021 EIA and 2040 traffic forecast. Official 2035 noise maps are newer PDF documents and have not been converted into address values. Do not mix years or scenarios. Display polygons are simplified by about one metre; the API uses original coordinates."},
+    {"da": "Tidsplanen er vejledende, og projektets udformning kan blive ændret under detailprojekteringen. Oplysningerne er et dateret øjebliksbillede, ikke en løbende myndighedsopdatering.", "en": "The schedule is indicative and the design can change during detailed planning. This information is a dated snapshot, not a live authority feed."}
+  ]
+}

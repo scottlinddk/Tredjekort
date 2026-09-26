@@ -1,58 +1,107 @@
 # 3. Limfjordsforbindelse — interaktivt kort
 
-Interactive map of the planned 3. Limfjordsforbindelse motorway (Egholmlinjen) west of
-Aalborg. React + TypeScript + Vite + MapLibre GL.
+Danish-first interactive map of the planned motorway west of Aalborg via Egholm.
+React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
 
-## Features
+## What is included
 
-- **Dotted planned alignments** — the motorway (surveyed / provisional / schematic
-  confidence tiers) and the planned local roads from Vejdirektoratet's
-  *Præsentation af Nørholmsvej og Mølholmsvejs forlængelse* (detailbesigtigelse,
-  April 2026) all render as dotted lines, since none of them exist yet.
-- **Danish-first UI** — Danish is the default language with an English toggle in the
-  header (persisted in `localStorage`, see `src/shared/i18n/`).
-- **Address search with road-noise verdict** — look up any Danish address
-  (autocomplete via DAWA), the map marks it and reports whether residents are likely
-  to hear road noise, based on straight-line distance to the planned alignment.
-  This is a distance-based estimate, not an acoustic model.
+- A mobile map with a collapsible tool dock in its own layout area. Search,
+  layers and information share one panel; controls never cover the map.
+- Danish/English address search, keyboard navigation, shareable address/scenario
+  links, a route overview button and direct address-report JSON links.
+- Official geographic noise scenarios from the **2021 environmental assessment,
+  with 2040 traffic forecasts**. Original proposal, reference and variant remain
+  distinct from the newer design and newer noise maps.
+- Official **2025 phase 3** design centerlines and permanent/temporary land
+  requirement areas, kept distinct from the existing approximate road traces.
+- All six published **2035 noise PDFs**, paired by region and with/without project,
+  plus project facts, dated updates, the published schedule, inspection documents,
+  environmental material and landowner information.
+- Corrected published noise-screen lengths: approximately **5.3 km**. The two
+  Drastrup geometries share one 1.4 km published total; unknown individual side
+  lengths are null, so they are not accidentally counted twice.
 
-## Address API
+The source review is dated **26 September 2026**. Each project fact and document
+retains its official source. File upload months and drawing/revision dates are
+separate. See the in-app Project overview and Data sources pages.
+The [source review and import guide](docs/DATA_SOURCES.md) records source queries,
+model assumptions, geometry defects, checksums and the reproducible importer.
 
-`GET /api/addresses?q=<query>` — a Vercel serverless function
-([api/addresses.js](api/addresses.js)) proxying
-[DAWA / Dataforsyningen](https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#autocomplete)
-address autocomplete. In development the Vite dev server proxies the same path
-directly to DAWA (see `vite.config.ts`), and the frontend also falls back to calling
-DAWA directly if the endpoint is unavailable.
+## Address report API
 
-## Development
+`GET /api/address-report?address=<street, house number, postcode>&lang=da`
+
+Or use the access-address UUID returned by autocomplete or an ambiguity response:
+
+`GET /api/address-report?id=<DAWA-access-address-UUID>&lang=en`
 
 ```sh
-npm install
-npm run dev     # dev server with /api/addresses proxy
-npm run build   # type-check + production build
-npm run lint    # oxlint
+curl --get 'http://localhost:5173/api/address-report' \
+  --data-urlencode 'address=Nørholmsvej 180, 9000 Aalborg' \
+  --data-urlencode 'lang=da'
 ```
 
-## Data caveats
+The response contains the resolved address and coordinates, a prose description,
+map proximity results, official historic noise-model results, sources and data
+limitations. `lang` supports `da` (default) and `en`. Access addresses do not
+distinguish apartment floors or doors. No API key is required; GET supports CORS.
 
-Road geometry is approximated from Vejdirektoratet's public planning documents; it is
-not official survey data. The full corridor (Sdr. Svenstrup to Vadum) is traced from
-the Nov 2024 declaration drawings (deklarationsrids E9095, jnr. EMN-2024-618886), a
-scanned 8-sheet document without a machine-readable coordinate grid; the Dall and
-Vadum interchange ends were digitized more carefully (`confidence: "surveyed"`), while
-the middle stretch (Drastrup, Sofiendal, Hasseris, the Egholm fjord crossing itself,
-and Lindholm/Voerbjerg) is a shape traced from those same sheets and anchored to known
-junction points rather than pixel-registered to the sheets' own grid
-(`confidence: "provisional"`) — treat it as indicative of the route's real shape, not
-survey-accurate. The local-road lines (relocated Nørholmsvej over the motorway at
-interchange TSA 12 – Mølholm, and the Mølholmsvej/Nørholmsvej extension north-east to
-the Løvstikkevej area) follow the maps in the detailed-inspection presentation of 15
-April 2026, but the source is a raster PDF without a coordinate grid, so absolute
-placement is anchored to known reference points (Egholm, the motorway station ladder)
-and may be off by a few hundred metres. The noise bands and the address verdict are
-simplified distance-based approximations, not the official Lden noise study (drawing
-9095-29011). The planned noise-screen stretches (Dall, Dall Villaby, Nibevej,
-Nørholmsvej) come from Vejdirektoratet's separate Nov 2023 updated noise calculations
-report, which gives lengths and heights but only illustrative city-scale maps, so
-their geometry is likewise approximate. See the in-app disclaimer for details.
+The API returns **noise bands from polygons, not an invented exact decibel
+value**. It preserves model year and scenario. Polygon holes, points outside the
+mapped contours, boundaries and conflicting bands are handled explicitly. An
+unmapped point is not proof of low noise. Exact `ldenDb`, audibility and compliance
+remain null. The 2021/2040 model does not establish the current 2035 design's impact,
+noise-insulation eligibility, or the noise attributable only to the new motorway.
+
+Text search is non-fuzzy. Multiple matches return `409` with candidates instead of
+silently choosing an address. Other responses include `400` invalid input, `404`
+not found, `405` unsupported method, `502` upstream failure and `504` timeout.
+
+- Human-readable documentation and a request form: `/api-docs.html`
+- Machine-readable specification: `/openapi.json`
+- Autocomplete remains available at `/api/addresses?q=<query>`.
+
+The report uses the same implementation in Vercel, `npm run dev`, and
+`npm run preview`. A static-file-only host cannot run the API. Vercel bundles the
+source datasets through `vercel.json`; address queries and responses are not cached.
+The app's general project data are a versioned snapshot, while DAWA lookups are live.
+The full-precision snapshot is about 19.5 MB compressed; local cold-start validation
+observed roughly 625 MB peak process memory and 1.6 seconds to load/index it.
+The browser loads a separate 3.9 MB display file only when an official noise layer
+is selected.
+
+## Development and checks
+
+Use Node 24, or a version matching `package.json`'s engines.
+
+```sh
+npm ci
+npm run dev
+npm test
+npm run lint
+npm run build
+npm run preview
+```
+
+Tests cover address validation/ambiguity/upstream failures, geographic lookups,
+noise-model boundaries and holes, scenario coverage, provenance and grouped screen
+lengths. GitHub Actions runs tests, lint and a production build on pull requests.
+The existing context-provider fast-refresh lint warnings are non-fatal.
+
+## Data interpretation
+
+Official geographic layers retain their documented vintage and semantics.
+Phase 3 centerlines include ramps and local-road details, so their distance is not
+necessarily a distance to the motorway's main carriageway. Published land polygons
+are planning information, not a determination of an individual property's legal
+expropriation status.
+
+The original app's motorway/local-road traces and screen geometry remain approximate
+manual digitizations. Even the legacy `surveyed` confidence value is not official
+survey certification. Distances are rounded to 10 metres but the approximate traces
+can be misplaced by hundreds of metres. Distance zones are geometric buffers only;
+**they are never labeled as decibel bands or used to predict audibility**.
+
+The latest 2035 PDF noise maps are linked in full; they have not been converted into
+reliable address-level contours. The separately identified 2021/2040 polygons are
+an older official model and must not be treated as updated 2035 calculations.

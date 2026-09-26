@@ -1,0 +1,117 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Tredjekort address report API",
+    "version": "1.0.0",
+    "description": "Read map data and Danish or English prose by Danish access address. Includes official 2021 noise-model polygons forecasting 2040, distinct from the current 2035 PDF material; exact dB values, audibility and compliance remain null. Includes official 2025 design centreline distances and land-requirement point lookups, with explicit limits."
+  },
+  "servers": [{ "url": "/" }],
+  "paths": {
+    "/api/address-report": {
+      "get": {
+        "operationId": "getAddressReport",
+        "summary": "Map data and prose for a Danish access address",
+        "description": "Provide exactly one of address or id. No key is required. Text search is non-fuzzy; multiple matches return 409 with candidates. GET and OPTIONS support cross-origin requests. Responses are not cached. Dataset facts are a reviewed snapshot, while DAWA address lookup is live.",
+        "parameters": [
+          { "name": "address", "in": "query", "description": "Street, house number and postcode, without floor or door. Mutually exclusive with id. No control characters or wildcards.", "schema": { "type": "string", "minLength": 3, "maxLength": 200 }, "example": "Nørholmsvej 180, 9000 Aalborg" },
+          { "name": "id", "in": "query", "description": "DAWA access-address UUID, for example from /api/addresses autocomplete or a 409 response. Mutually exclusive with address.", "schema": { "type": "string", "format": "uuid" } },
+          { "name": "lang", "in": "query", "description": "Language for description, noise reason and limitations. Original map properties and bilingual project data retain their source language.", "schema": { "type": "string", "enum": ["da", "en"], "default": "da" } }
+        ],
+        "responses": {
+          "200": { "description": "Resolved address report", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AddressReport" } } } },
+          "400": { "$ref": "#/components/responses/InvalidQuery" },
+          "404": { "description": "No access address found", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "405": { "description": "Unsupported method. Allow: GET, OPTIONS.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "409": { "description": "Ambiguous search: choose a candidate and repeat with its id", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "500": { "description": "Map dataset or report unavailable", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "502": { "description": "Address service unavailable or invalid upstream response", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "504": { "description": "Address lookup exceeded the eight-second timeout", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "options": { "operationId": "addressReportOptions", "summary": "CORS preflight", "responses": { "204": { "description": "Empty response. Allowed methods: GET, OPTIONS; allowed origin: *." } } }
+    }
+  },
+  "components": {
+    "responses": {
+      "InvalidQuery": { "description": "Missing, duplicate, unknown or invalid query parameter", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+    },
+    "schemas": {
+      "Address": {
+        "type": "object",
+        "required": ["id", "text", "longitude", "latitude", "coordinateReferenceSystem", "precision", "sourceUrl"],
+        "properties": {
+          "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" },
+          "longitude": { "type": "number", "minimum": -180, "maximum": 180 }, "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+          "coordinateReferenceSystem": { "const": "EPSG:4326" }, "precision": { "const": "access_address" }, "sourceUrl": { "type": "string", "format": "uri" }
+        }
+      },
+      "MapFeature": {
+        "type": "object", "required": ["type", "geometry", "properties"],
+        "properties": {
+          "type": { "const": "Feature" },
+          "geometry": { "type": "object", "required": ["type", "coordinates"], "properties": { "type": { "const": "LineString" }, "coordinates": { "type": "array", "items": { "type": "array", "minItems": 2, "items": { "type": "number" } } } } },
+          "properties": { "type": "object", "additionalProperties": true, "description": "Original map metadata including source, confidence, notes and available geometry-specific facts. All geometry is approximate regardless of legacy confidence labels." }
+        }
+      },
+      "NearbyFeature": {
+        "type": "object", "required": ["distanceMeters", "feature"],
+        "properties": { "distanceMeters": { "type": "number", "minimum": 0, "multipleOf": 10 }, "feature": { "$ref": "#/components/schemas/MapFeature" } }
+      },
+      "NoiseBand": {
+        "type": "object", "required": ["lowerDb", "upperDb", "label"],
+        "properties": { "lowerDb": { "type": "number" }, "upperDb": { "type": ["number", "null"], "description": "Null for the source top category labelled 78 dB, whose upper bound is not specified." }, "label": { "type": "string", "description": "Original published band label." } }
+      },
+      "NoiseScenario": {
+        "type": "object", "required": ["scenario", "forecastYear", "modelYear", "status", "band", "candidateBands", "matchedFeatureIds", "sourceGeometryIssueFeatureIds", "onBoundary", "belowMappedThreshold"],
+        "properties": {
+          "scenario": { "enum": ["original", "reference", "variant"] },
+          "scenarioLabel": { "type": ["object", "null"], "additionalProperties": { "type": "string" } },
+          "forecastYear": { "const": 2040 }, "modelYear": { "const": 2021 }, "metric": { "const": "Lden" }, "units": { "const": "dB(A)" },
+          "sourceUpdatedAt": { "type": "string" }, "reviewedAt": { "type": "string", "format": "date" }, "sourceUrl": { "type": "string", "format": "uri" }, "serviceUrl": { "type": "string", "format": "uri" }, "geometrySimplified": { "const": false },
+          "status": { "enum": ["band_found", "no_matching_contour", "boundary", "overlapping_bands", "source_geometry_invalid"] },
+          "band": { "anyOf": [{ "$ref": "#/components/schemas/NoiseBand" }, { "type": "null" }] },
+          "candidateBands": { "type": "array", "items": { "$ref": "#/components/schemas/NoiseBand" } },
+          "matchedFeatureIds": { "type": "array", "items": { "type": ["string", "number", "null"] } },
+          "sourceGeometryIssueFeatureIds": { "type": "array", "items": { "type": ["string", "number", "null"] }, "description": "Source features with known invalid polygon components whose bounding boxes contain the address. No definitive band is given there; valid components remain queryable elsewhere." },
+          "onBoundary": { "type": "boolean" }, "belowMappedThreshold": { "type": "null", "description": "An absent polygon never establishes noise below the mapped threshold." }
+        }
+      },
+      "AddressReport": {
+        "type": "object", "required": ["schemaVersion", "language", "address", "description", "proximity", "noise", "landRequirements", "projectInformation", "provenance", "limitations"],
+        "properties": {
+          "schemaVersion": { "const": "1.0" }, "language": { "enum": ["da", "en"] },
+          "address": { "$ref": "#/components/schemas/Address" }, "description": { "type": "string" },
+          "proximity": {
+            "type": "object", "required": ["method", "distanceRoundingMeters", "nearbyRadiusMeters", "withinMappedCorridor", "nearestAlignment", "nearestJunction", "nearbyLocalRoads", "nearbyNoiseScreens"],
+            "properties": {
+              "method": { "const": "geodesic_distance_to_approximate_map_geometry" }, "distanceRoundingMeters": { "const": 10 }, "nearbyRadiusMeters": { "const": 2000 },
+              "withinMappedCorridor": { "type": "boolean", "description": "True within 2 km of the mapped alignment. This is a proximity filter, not an impact boundary." },
+              "nearestAlignment": { "anyOf": [{ "$ref": "#/components/schemas/NearbyFeature" }, { "type": "null" }] },
+              "nearestOfficialDesign": { "type": ["object", "null"], "description": "Distance to the official 2025 design centreline network, including ramps and local roads. Contains distanceMeters rounded to 10m, featureId, original properties and source metadata; the large geometry is omitted.", "additionalProperties": true },
+              "nearestJunction": { "type": ["object", "null"], "description": "Original junction metadata plus distanceMeters rounded to 10 m. The nearest junction may be outside the nearby radius.", "additionalProperties": true },
+              "nearbyLocalRoads": { "type": "array", "items": { "$ref": "#/components/schemas/NearbyFeature" } },
+              "nearbyNoiseScreens": { "type": "array", "items": { "$ref": "#/components/schemas/NearbyFeature" }, "description": "Recorded sections within 2 km. Proximity does not establish barrier effectiveness. Group lengths must not be double-counted." }
+            }
+          },
+          "noise": {
+            "type": "object", "required": ["status", "ldenDb", "audible", "exceedsGuideline", "reason", "officialDocuments", "current2035", "legacyModel"],
+            "properties": {
+              "status": { "enum": ["legacy_model_available", "official_address_level_data_unavailable"] }, "ldenDb": { "type": "null" }, "audible": { "type": "null" }, "exceedsGuideline": { "type": "null" },
+              "current2035": { "type": "object", "required": ["status", "band"], "properties": { "status": { "const": "address_level_contours_unavailable" }, "band": { "type": "null" } } },
+              "legacyModel": { "type": ["object", "null"], "properties": { "metadata": { "type": "object", "additionalProperties": true }, "scenarios": { "type": "array", "items": { "$ref": "#/components/schemas/NoiseScenario" } } } },
+              "reason": { "type": "string" }, "officialDocuments": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+            }
+          },
+          "landRequirements": { "type": ["object", "null"], "description": "Point lookup against permanent and temporary official 2025 planning areas. This does not establish property boundaries or expropriation.", "properties": { "status": { "enum": ["within_mapped_area", "boundary", "outside_mapped_areas", "source_geometry_invalid"] }, "matches": { "type": "array", "items": { "type": "object", "additionalProperties": true } }, "sourceGeometryIssues": { "type": "array", "items": { "type": "object", "additionalProperties": true }, "description": "Known invalid source polygon components whose bounding boxes contain the address." }, "establishesExpropriation": { "const": false }, "geometryIncluded": { "const": false }, "description": { "type": "string" }, "source": { "type": ["object", "null"], "additionalProperties": true } } },
+          "projectInformation": { "type": "object", "additionalProperties": true, "description": "Same reviewed project-information dataset as the web app: project, facts, timeline, documents, updates and limitations, with bilingual text and source URLs." },
+          "provenance": { "type": "object", "required": ["projectUrl", "addressProvider", "addressDocumentationUrl", "datasetReviewedAt", "geometryIsOfficialSurvey", "featureSources"], "properties": { "projectUrl": { "type": "string", "format": "uri" }, "addressProvider": { "type": "string" }, "addressDocumentationUrl": { "type": "string", "format": "uri" }, "datasetReviewedAt": { "type": "string", "format": "date" }, "geometryIsOfficialSurvey": { "const": false }, "featureSources": { "type": "string" } } },
+          "limitations": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object", "required": ["error"],
+        "properties": { "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" }, "candidates": { "type": "array", "maxItems": 10, "items": { "$ref": "#/components/schemas/Address" } }, "moreCandidates": { "type": "boolean" } } } }
+      }
+    }
+  }
+}

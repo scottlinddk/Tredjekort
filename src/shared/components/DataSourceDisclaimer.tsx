@@ -1,5 +1,4 @@
 import { useI18n } from '../i18n/I18nContext'
-import { CollapsiblePanel } from './CollapsiblePanel'
 
 const CONFIDENCE_LEVELS = ['surveyed', 'provisional', 'schematic'] as const
 
@@ -7,7 +6,8 @@ export function DataSourceDisclaimer() {
   const { t } = useI18n()
 
   return (
-    <CollapsiblePanel title={t('disclaimer.heading')} className="data-disclaimer">
+    <div className="data-disclaimer">
+      <h3>{t('disclaimer.heading')}</h3>
       <p>{t('disclaimer.geometry')}</p>
       <p>{t('disclaimer.noise')}</p>
       <p>{t('disclaimer.localRoads')}</p>
@@ -19,6 +19,6 @@ export function DataSourceDisclaimer() {
           </li>
         ))}
       </ul>
-    </CollapsiblePanel>
+    </div>
   )
 }

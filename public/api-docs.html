@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Address report API · 3. Limfjordsforbindelse</title>
+    <style>
+      :root { color-scheme: light dark; font-family: system-ui, sans-serif; line-height: 1.6; background: #f5f7f6; color: #142c2c; }
+      body { max-width: 850px; margin: auto; padding: 24px clamp(16px, 5vw, 48px) 64px; }
+      a { color: #086767; text-underline-offset: 3px; }
+      h1 { line-height: 1.15; font-size: clamp(2rem, 5vw, 3rem); }
+      h2 { margin-top: 2rem; line-height: 1.3; }
+      form, pre, .note { padding: 20px; border: 1px solid #b9cfca; border-radius: 12px; background: #fff; }
+      pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .875rem; }
+      code { font-size: .9em; overflow-wrap: anywhere; }
+      label { display: block; margin-top: 12px; font-weight: 650; }
+      input, select, button { box-sizing: border-box; min-height: 46px; padding: 10px 12px; font: inherit; border: 1px solid #537775; border-radius: 6px; }
+      input { width: 100%; }
+      button { display: block; margin-top: 20px; background: #086767; color: white; cursor: pointer; }
+      table { border-collapse: collapse; width: 100%; }
+      td, th { text-align: left; padding: 10px 8px; border-bottom: 1px solid #b9cfca; vertical-align: top; }
+      :focus-visible { outline: 3px solid #d67514; outline-offset: 3px; }
+      @media (prefers-color-scheme: dark) {
+        :root { background: #102020; color: #e2f0ec; }
+        form, pre, .note { background: #192d2c; border-color: #47635f; }
+        a { color: #91d9cc; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav><a href="/">← Back to the map</a></nav>
+    <h1>Map data by address</h1>
+    <p>A public, read-only JSON API for the 3. Limfjordsforbindelse map. Look up a Danish address to get a prose description, distances, nearby map features and the official project sources. No API key required.</p>
+    <p class="note"><strong>Official historic noise bands, with clear model dates.</strong> <code>noise.legacyModel.scenarios</code> looks up the published 2021 noise polygons for the 2040 forecast, using their original coordinates. This is distinct from the latest 2035 PDF maps. Exact <code>noise.ldenDb</code>, <code>noise.audible</code> and <code>noise.exceedsGuideline</code> remain <code>null</code>. Distance zones never determine a noise level.</p>
+    <h2>Try a report</h2>
+    <form action="/api/address-report" method="get">
+      <label for="address">Street, house number and postcode</label>
+      <input id="address" name="address" required minlength="3" maxlength="200" placeholder="Nørholmsvej 180, 9000 Aalborg" autocomplete="street-address" />
+      <label for="lang">Description language</label>
+      <select id="lang" name="lang"><option value="da">Dansk</option><option value="en">English</option></select>
+      <button type="submit">Open JSON report</button>
+    </form>
+    <h2>Request</h2>
+    <pre>GET /api/address-report?address=N%C3%B8rholmsvej%20180%2C%209000%20Aalborg&amp;lang=da</pre>
+    <p>Send exactly one of <code>address</code> (3–200 characters) or <code>id</code> (a DAWA access-address UUID). <code>lang</code> is <code>da</code> by default; <code>en</code> is also supported. Use an access address without floor or door. The address field uses DAWA search without fuzzy matching.</p>
+    <p>For an address chosen on the map or returned by <code>/api/addresses?q=...</code>, use its ID:</p>
+    <pre>GET /api/address-report?id=&lt;DAWA-access-address-UUID&gt;&amp;lang=en</pre>
+    <h2>What the response contains</h2>
+    <ul>
+      <li><code>address</code>: resolved name, ID, WGS84 coordinates and DAWA source URL.</li>
+      <li><code>description</code>: prose in the requested language.</li>
+      <li><code>proximity</code>: nearest approximate motorway segment and junction, plus local roads and noise-barrier sections within 2,000 metres. These line features retain GeoJSON geometry and source properties. <code>nearestOfficialDesign</code> separately gives distance to the official 2025 design centreline network, including ramps and local roads; its large geometry is omitted.</li>
+      <li><code>noise.legacyModel</code>: official 2021 model bands for the 2040 original, reference and variant scenarios, with source IDs, dates and lookup status. <code>noise.current2035</code> explicitly marks address-level contours unavailable for the current PDF material.</li>
+      <li><code>landRequirements</code>: whether the address point falls inside or on a boundary of official 2025 permanent or temporary land requirements. Source properties are included, without the large polygons. A known invalid polygon component gives <code>source_geometry_invalid</code> only within that component's bounding box; inspect <code>sourceGeometryIssues</code>. This does not establish expropriation or the position of a property boundary.</li>
+      <li><code>projectInformation</code>: shared project facts, timeline, updates and documents from the web app, with bilingual text.</li>
+      <li><code>provenance</code> and <code>limitations</code>: review date, sources and explicit limits of the data.</li>
+    </ul>
+    <p>Distances are geodesic distances to the approximate map geometry, rounded to 10 metres. Positions may differ by several hundred metres. The 2 km filter is a proximity filter, not an impact boundary. A nearby barrier does not establish noise protection. Barrier lengths may describe groups; do not sum them without checking the source.</p>
+    <h2>Reading noise bands</h2>
+    <p>Each legacy scenario returns <code>band: { lowerDb, upperDb, label }</code> only for a clear match. The model indicator is Lden and the units are dB(A). The top source category is labelled <code>78 dB</code>; its upper bound is unknown (<code>null</code>). The original model uses Nord2000 / SoundPLAN 8.1, a 10 × 10 metre calculation grid and a height of 1.5 metres. It includes the motorway and selected crossing and surrounding roads; some roads are excluded. These bands represent neither the motorway's isolated contribution nor complete exposure from every road. Do not subtract bands to invent an exact noise change.</p>
+    <ul>
+      <li><code>band_found</code>: one unambiguous published band.</li>
+      <li><code>no_matching_contour</code>: no available band at the point; this does not establish noise below 53 dB or the absence of noise.</li>
+      <li><code>boundary</code> or <code>overlapping_bands</code>: <code>band</code> is null; inspect <code>candidateBands</code>.</li>
+      <li><code>source_geometry_invalid</code>: the point is in the bounding box of a known self-intersecting source polygon component. No definitive band is given; affected feature IDs appear in <code>sourceGeometryIssueFeatureIds</code>. Valid components of the same feature remain queryable elsewhere.</li>
+    </ul>
+    <p>The API uses unsimplified source polygons. The map uses a display copy simplified by approximately one metre, so a visual edge can differ slightly. These are model bands, not measured or exact address-level sound values.</p>
+    <h2>Errors</h2>
+    <table>
+      <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>400</td><td>Missing, duplicate or invalid query parameters.</td></tr>
+        <tr><td>404</td><td>No matching access address.</td></tr>
+        <tr><td>405</td><td>Unsupported method. Use GET; OPTIONS supports CORS.</td></tr>
+        <tr><td>409</td><td>Ambiguous address. Choose one of <code>error.candidates</code> and repeat with its <code>id</code>. At most ten candidates are returned; <code>moreCandidates</code> indicates more matches.</td></tr>
+        <tr><td>500</td><td>The local map dataset could not be read or the report could not be generated.</td></tr>
+        <tr><td>502 / 504</td><td>Address service unavailable, invalid response or timeout. Retry later.</td></tr>
+      </tbody>
+    </table>
+    <p>Errors use <code>{ "error": { "code": "…", "message": "…" } }</code>. Messages are in English; successful descriptions support Danish and English. Responses use <code>Cache-Control: no-store</code> and allow cross-origin reads.</p>
+    <h2>Integration</h2>
+    <pre>const query = new URLSearchParams({
+  address: 'Nørholmsvej 180, 9000 Aalborg',
+  lang: 'en'
+})
+const response = await fetch(`/api/address-report?${query}`)
+const report = await response.json()
+if (!response.ok) throw new Error(report.error.message)
+console.log(report.description)</pre>
+    <p>The endpoint runs on Vercel, in local development and in the local preview server. A static-only hosting service cannot execute the API.</p>
+    <p><a href="/openapi.json">Download the OpenAPI 3.1 specification</a> · <a href="https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse">DAWA documentation</a> · <a href="https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse">Official project</a></p>
+  </body>
+</html>

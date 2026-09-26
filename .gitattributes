@@ -1,0 +1,5 @@
+src/data/official-*.geojson linguist-generated=true
+src/data/official-*.geojson.gz binary linguist-generated=true
+src/data/official-noise-metadata.json linguist-generated=true
+src/data/official-spatial-data.json linguist-generated=true
+public/data/official-noise-display.geojson linguist-generated=true

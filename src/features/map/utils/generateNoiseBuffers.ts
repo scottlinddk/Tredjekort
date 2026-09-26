@@ -1,17 +1,17 @@
 import { buffer, featureCollection, lineString } from '@turf/turf'
 import type { FeatureCollection, Polygon } from 'geojson'
 import type { AlignmentFeatureCollection } from '../types/road.types'
-import { NOISE_DB_BANDS } from '../constants/mapConfig'
+import { DISTANCE_BANDS } from '../constants/mapConfig'
 
 export interface NoiseBufferProperties {
   distanceMeters: number
-  dbLabel: string
+  distanceLabel: string
   bandIndex: number
 }
 
 /**
  * Generates concentric distance-buffer polygons around the road alignment, one per
- * dB band in `NOISE_DB_BANDS`.
+ * distance band in `DISTANCE_BANDS`.
  *
  * This is NOT an acoustic noise model. Real noise propagation depends on traffic volume,
  * speed, barriers, terrain, and building density, none of which are modeled here. This is
@@ -21,8 +21,8 @@ export interface NoiseBufferProperties {
 export function generateNoiseBuffers(
   alignment: AlignmentFeatureCollection,
 ): FeatureCollection<Polygon, NoiseBufferProperties> {
-  // Largest radius first so smaller (higher dB) rings paint on top of it.
-  const bands = NOISE_DB_BANDS.map((band, bandIndex) => ({ ...band, bandIndex })).sort(
+  // Largest radius first so smaller (closer) rings paint on top of it.
+  const bands = DISTANCE_BANDS.map((band, bandIndex) => ({ ...band, bandIndex })).sort(
     (a, b) => b.distanceMeters - a.distanceMeters,
   )
 
@@ -40,7 +40,7 @@ export function generateNoiseBuffers(
         ...f,
         properties: {
           distanceMeters: band.distanceMeters,
-          dbLabel: band.dbLabel,
+          distanceLabel: band.distanceLabel,
           bandIndex: band.bandIndex,
         },
       }))

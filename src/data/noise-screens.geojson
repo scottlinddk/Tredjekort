@@ -6,18 +6,34 @@
       "properties": {
         "id": "stojskaerm-dall",
         "name": "Støjskærm, Dall",
-        "length_m": 900,
+        "length_m": 1000,
         "height_m": "6",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs along the eastern side of E45 Nordjyske Motorvej near the Dall interchange. Geometry manually traced to align with the mapped road corridor."
+        "source": "Vejdirektoratet, Støj, project page updated 2026-06-09 (published lengths/heights); approximate geometry retained from the 2023 report digitization",
+        "note": "Runs along the eastern side of E45 Nordjyske Motorvej near the Dall interchange. Geometry manually traced to align with the mapped road corridor.",
+        "source_url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+        "source_updated_at": "2026-06-09",
+        "reviewed_at": "2026-09-26",
+        "length_is_approximate": true,
+        "group_id": "dall",
+        "group_length_m": 1000,
+        "length_scope": "feature"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8794187, 56.9792433],
-          [9.8803458, 56.9809962],
-          [9.8817013, 56.9827804]
+          [
+            9.8794187,
+            56.9792433
+          ],
+          [
+            9.8803458,
+            56.9809962
+          ],
+          [
+            9.8817013,
+            56.9827804
+          ]
         ]
       }
     },
@@ -29,18 +45,43 @@
         "length_m": 1400,
         "height_m": "6-7",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs along the 3. Limfjordsforbindelse east of Dallvej (6 m) and west of Dallvej (7 m) at Dall Villaby. Geometry manually traced to align with the mapped road corridor."
+        "source": "Vejdirektoratet, Støj, project page updated 2026-06-09 (published lengths/heights); approximate geometry retained from the 2023 report digitization",
+        "note": "Published location: west of E45 at Dall Villaby, heights 6-7 m. Geometry is schematic and is not an official survey line.",
+        "source_url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+        "source_updated_at": "2026-06-09",
+        "reviewed_at": "2026-09-26",
+        "length_is_approximate": true,
+        "group_id": "dall-villaby",
+        "group_length_m": 1400,
+        "length_scope": "feature"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8831355, 56.9855665],
-          [9.8850665, 56.9866888],
-          [9.8876843, 56.9880836],
-          [9.8909939, 56.9893135],
-          [9.8949947, 56.9904785],
-          [9.8963616, 56.9911196]
+          [
+            9.8831355,
+            56.9855665
+          ],
+          [
+            9.8850665,
+            56.9866888
+          ],
+          [
+            9.8876843,
+            56.9880836
+          ],
+          [
+            9.8909939,
+            56.9893135
+          ],
+          [
+            9.8949947,
+            56.9904785
+          ],
+          [
+            9.8963616,
+            56.9911196
+          ]
         ]
       }
     },
@@ -49,17 +90,30 @@
       "properties": {
         "id": "stojskaerm-nibevej-oest",
         "name": "Støjskærm, Nibevej (østlig side)",
-        "length_m": 1400,
+        "length_m": null,
         "height_m": "5-6",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Eastern side of the 3. Limfjordsforbindelse at Nibevej, near Drastrup. Screens run south of Nibevej (5 m) and north of Nibevej (6 m); the 1400 m length covers both sides combined. Geometry manually traced to align with the mapped road corridor."
+        "source": "Vejdirektoratet, Støj, project page updated 2026-06-09 (published lengths/heights); approximate geometry retained from the 2023 report digitization",
+        "note": "The official length of about 1400 m covers east and west sides at Drastrup combined; an individual side length is not published. Heights are 5-6 m. Geometry is schematic and is not an official survey line.",
+        "source_url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+        "source_updated_at": "2026-06-09",
+        "reviewed_at": "2026-09-26",
+        "length_is_approximate": true,
+        "group_id": "drastrup",
+        "group_length_m": 1400,
+        "length_scope": "group"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8607359, 57.0064162],
-          [9.8614018, 57.0043614]
+          [
+            9.8607359,
+            57.0064162
+          ],
+          [
+            9.8614018,
+            57.0043614
+          ]
         ]
       }
     },
@@ -68,17 +122,30 @@
       "properties": {
         "id": "stojskaerm-nibevej-vest",
         "name": "Støjskærm, Nibevej (vestlig side)",
-        "length_m": 1400,
+        "length_m": null,
         "height_m": "5-6",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Western side of the 3. Limfjordsforbindelse at Nibevej, near Drastrup. Screens run south of Nibevej (5 m) and north of Nibevej (6 m); the 1400 m length covers both sides combined. Geometry manually traced to align with the mapped road corridor."
+        "source": "Vejdirektoratet, Støj, project page updated 2026-06-09 (published lengths/heights); approximate geometry retained from the 2023 report digitization",
+        "note": "The official length of about 1400 m covers east and west sides at Drastrup combined; an individual side length is not published. Heights are 5-6 m. Geometry is schematic and is not an official survey line.",
+        "source_url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+        "source_updated_at": "2026-06-09",
+        "reviewed_at": "2026-09-26",
+        "length_is_approximate": true,
+        "group_id": "drastrup",
+        "group_length_m": 1400,
+        "length_scope": "group"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.8592631, 57.0063423],
-          [9.8598106, 57.0042157]
+          [
+            9.8592631,
+            57.0063423
+          ],
+          [
+            9.8598106,
+            57.0042157
+          ]
         ]
       }
     },
@@ -90,17 +157,41 @@
         "length_m": 1500,
         "height_m": "6",
         "confidence": "schematic",
-        "source": "Vejdirektoratet, Opdaterede støjberegninger for den 3. Limfjordsforbindelse, november 2023, Tabel 6",
-        "note": "Runs along the eastern side of the 3. Limfjordsforbindelse both north and south of Nørholmsvej, at interchange TSA 12 - Mølholm. Geometry manually traced to align with the mapped road corridor."
+        "source": "Vejdirektoratet, Støj, project page updated 2026-06-09 (published lengths/heights); approximate geometry retained from the 2023 report digitization",
+        "note": "Runs along the eastern side of the 3. Limfjordsforbindelse both north and south of Nørholmsvej, at interchange TSA 12 - Mølholm. Geometry manually traced to align with the mapped road corridor.",
+        "source_url": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+        "source_updated_at": "2026-06-09",
+        "reviewed_at": "2026-09-26",
+        "length_is_approximate": true,
+        "group_id": "norholmsvej",
+        "group_length_m": 1500,
+        "length_scope": "feature"
       },
       "geometry": {
         "type": "LineString",
         "coordinates": [
-          [9.854018, 57.0333071],
-          [9.8520017, 57.0380989],
-          [9.8497809, 57.0435384]
+          [
+            9.854018,
+            57.0333071
+          ],
+          [
+            9.8520017,
+            57.0380989
+          ],
+          [
+            9.8497809,
+            57.0435384
+          ]
         ]
       }
     }
-  ]
+  ],
+  "metadata": {
+    "reviewedAt": "2026-09-26",
+    "sourceUrl": "https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/stoej",
+    "sourceUpdatedAt": "2026-06-09",
+    "plannedTotalLengthM": 5300,
+    "lengthAggregation": "Sum group_length_m once per distinct group_id. Null length_m means the individual feature length is not published. Do not measure the schematic geometry to infer official lengths.",
+    "geometryQuality": "schematic"
+  }
 }

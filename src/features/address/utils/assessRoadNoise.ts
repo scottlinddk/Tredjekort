@@ -1,6 +1,6 @@
 import { point, pointToLineDistance } from '@turf/turf'
 import type { AlignmentFeatureCollection } from '../../map/types/road.types'
-import { NOISE_DB_BANDS } from '../../map/constants/mapConfig'
+import { DISTANCE_BANDS } from '../../map/constants/mapConfig'
 
 export type NoiseLevel = 'high' | 'moderate' | 'low' | 'minimal'
 
@@ -9,21 +9,17 @@ export interface NoiseAssessment {
   level: NoiseLevel
 }
 
-// Beyond this distance open-country motorway noise is generally below ambient levels.
-// Like the buffer bands, this is a rule-of-thumb threshold, not an acoustic result.
-const FAINTLY_AUDIBLE_LIMIT_METERS = 1500
+// Proximity categories only: this threshold makes no claim about audibility.
+const OUTER_PROXIMITY_LIMIT_METERS = 1500
 
-const bandDistances = NOISE_DB_BANDS.map((band) => band.distanceMeters)
+const bandDistances = DISTANCE_BANDS.map((band) => band.distanceMeters)
 const outerDistance = Math.max(...bandDistances)
 const innerDistance = Math.min(...bandDistances)
 
 /**
- * Estimates whether residents at a point will hear road noise from the planned
- * motorway, using straight-line distance to the nearest alignment segment.
- *
- * This is NOT an acoustic model: terrain, noise barriers, traffic volume and the
- * tunnel section (which emits little surface noise) are all ignored. The verdict
- * levels reuse the same distance bands as the map's noise overlay.
+ * Measures straight-line distance to the app's approximate alignment.
+ * The legacy level names are proximity categories, not predicted noise levels.
+ * No acoustic result or audibility verdict can be inferred from this calculation.
  */
 export function assessRoadNoise(
   longitude: number,
@@ -44,7 +40,7 @@ export function assessRoadNoise(
       ? 'high'
       : distanceMeters < outerDistance
         ? 'moderate'
-        : distanceMeters < FAINTLY_AUDIBLE_LIMIT_METERS
+        : distanceMeters < OUTER_PROXIMITY_LIMIT_METERS
           ? 'low'
           : 'minimal'
 

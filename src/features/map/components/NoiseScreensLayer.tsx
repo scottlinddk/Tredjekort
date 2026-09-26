@@ -45,7 +45,7 @@ export function NoiseScreensLayer({ visible }: NoiseScreensLayerProps) {
     // a route unmount), so getLayer must be guarded here too.
     if (!map || !map.style || !map.getLayer(LAYER_IDS.noiseScreensLine)) return
     map.setLayoutProperty(LAYER_IDS.noiseScreensLine, 'visibility', visible ? 'visible' : 'none')
-  }, [map, visible])
+  }, [map, visible, noiseScreens])
 
   return null
 }

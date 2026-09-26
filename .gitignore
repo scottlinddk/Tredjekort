@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 .vercel
+/tmp/
 
 # Local worktree for the monitor's CI data branch (see monitor/ci-config.json)
 /monitor-data/

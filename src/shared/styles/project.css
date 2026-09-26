@@ -1,0 +1,33 @@
+.project-overview { max-width: 1080px; margin-inline: auto; }
+.project-overview > section { margin-block: 2.75rem; scroll-margin-top: 1rem; }
+.project-overview h2 { font-family: var(--font-display); line-height: 1.25; }
+.project-overview h3 { font-size: 1.05rem; margin: 0 0 .5rem; }
+.project-lead { max-width: 65ch; font-size: 1.1rem; color: var(--color-graphite); }
+.project-eyebrow { font-size: .8rem; font-family: var(--font-mono); color: var(--color-graphite); }
+.project-stats { display: grid; grid-template-columns: repeat(3, 1fr); margin-block: 1.5rem; border-block: var(--border-hairline); }
+.project-stats > div { display: flex; flex-direction: column; padding: 1rem .5rem; gap: .3rem; }
+.project-stats strong { font-size: clamp(1.4rem, 4vw, 2.25rem); font-family: var(--font-display); }
+.project-stats span { font-size: .85rem; color: var(--color-graphite); }
+.project-shortcuts { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; }
+.project-shortcuts a { display: inline-flex; align-items: center; min-height: 44px; }
+.project-document-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.project-document { display: flex; flex-direction: column; gap: .6rem; padding: 1rem; border: var(--border-hairline); border-radius: var(--radius); text-decoration: none; color: var(--color-ink); background: var(--color-accent-soft); }
+.project-document:hover { border-color: var(--color-survey-blue); }
+.project-document > span { color: var(--color-graphite); font-size: .8rem; }
+.project-document > span:last-child { color: var(--color-survey-blue); }
+.project-document__format { font-family: var(--font-mono); }
+.project-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+.project-fact { padding-block: .75rem; }
+.project-fact p { margin-block: .5rem; }
+.project-fact a, .project-timeline a { font-size: .85rem; }
+.project-timeline { list-style: none; border-left: 2px solid var(--color-fjord); padding-left: 1.5rem; }
+.project-timeline li { margin-block: 1.5rem; }
+.project-links { padding-left: 1.25rem; }
+.project-links li { margin-block: .8rem; }
+.project-limitations { padding: 1.25rem; border: var(--border-hairline); border-radius: var(--radius); }
+.project-limitations h2 { margin-top: 0; }
+@media (max-width: 640px) {
+  .project-document-grid, .project-facts { grid-template-columns: 1fr; }
+  .project-facts { gap: .5rem; }
+  .project-overview > section { margin-block: 2rem; }
+}

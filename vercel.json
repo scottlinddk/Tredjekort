@@ -2,8 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "outputDirectory": "dist",
+  "functions": {
+    "api/address-report.js": {
+      "includeFiles": "src/data/**",
+      "maxDuration": 15
+    }
+  },
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|data/|assets/|openapi\\.json$|api-docs\\.html$).*)", "destination": "/index.html" }
   ],
   "headers": [
     {

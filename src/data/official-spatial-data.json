@@ -1,0 +1,2461 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-26",
+  "publisher": "Vejdirektoratet",
+  "sourceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetCapabilities",
+  "noise": {
+    "layer": "vvm_analysedata_e9095_stoej_polygon",
+    "serviceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=vvm%3Avvm_analysedata_e9095_stoej_polygon&outputFormat=application%2Fjson&srsName=CRS%3A84&count=10000",
+    "numberMatched": 696,
+    "numberReturned": 696,
+    "rawSha256": "eacebeac645efcb3351101a99cf80ff90db12d332ce71623b451d776bfeecad2",
+    "retrievedAt": "2026-09-26T10:40:44.036Z",
+    "crs": "OGC:CRS84",
+    "coordinateOrder": [
+      "longitude",
+      "latitude"
+    ],
+    "title": {
+      "da": "Officiel støj · VVM 2021, trafik 2040",
+      "en": "Official noise · EIA 2021, traffic 2040"
+    },
+    "sourceUrl": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej",
+    "forecastYear": 2040,
+    "modelYear": 2021,
+    "sourceUpdatedAt": "2021-02-11",
+    "sourcePageUpdatedAt": "2023-11-24",
+    "reviewedAt": "2026-09-26",
+    "units": "dB(A)",
+    "indicator": "Lden",
+    "scenarios": [
+      {
+        "id": "original",
+        "sourceValue": "Forslag 1",
+        "label": {
+          "da": "Med projekt · oprindeligt forslag",
+          "en": "With project · original design"
+        }
+      },
+      {
+        "id": "reference",
+        "sourceValue": "Forslag x",
+        "label": {
+          "da": "Uden projekt · reference",
+          "en": "Without project · reference"
+        }
+      },
+      {
+        "id": "variant",
+        "sourceValue": "Forslag 3",
+        "label": {
+          "da": "Med projekt · variant",
+          "en": "With project · variant design"
+        }
+      }
+    ],
+    "method": "Nord2000 / SoundPLAN 8.1, four weather classes",
+    "measurementHeightM": 1.5,
+    "calculationGridM": [
+      10,
+      10
+    ],
+    "roadScope": "Motorway and selected crossing/nearby existing roads; not every road in the study area.",
+    "methodSourceUrl": "https://api.vejdirektoratet.dk/sites/default/files/2021-02/Milj%C3%B8konsekvensrapport_Egholmlinjen.pdf",
+    "methodSourcePages": [
+      76,
+      77
+    ],
+    "counts": {
+      "sourceFeatures": 696,
+      "noiseBands": 694,
+      "studyAreas": 2,
+      "bandsByScenario": {
+        "original": 234,
+        "variant": 233,
+        "reference": 227
+      }
+    },
+    "coverage": {
+      "kind": "source-study-area",
+      "scenario": "variant",
+      "note": "Two identical study-area features are retained with their original IDs and variant scenario. No absence of a noise band establishes a quiet address or a below-threshold level."
+    },
+    "apiFile": "src/data/official-noise.geojson.gz",
+    "apiSha256": "b9e86b80ee5b9af03d3afbb47f4832aa6a7abfd477926b29fa6ed0f2c0b46724",
+    "geometrySimplified": false,
+    "sourceInvalidGeometryIds": [
+      "vvm_analysedata_e9095_stoej_polygon.1916736",
+      "vvm_analysedata_e9095_stoej_polygon.1916806"
+    ],
+    "displayFile": "/data/official-noise-display.geojson",
+    "displaySimplification": {
+      "toleranceMetresApprox": 1,
+      "preserveTopology": true,
+      "method": "Shapely 2.1.2; local affine metre approximation at 57N; invalid source rings repaired only for display"
+    },
+    "limitations": [
+      "Historical 2021 EIA design and 2040 traffic forecast; not the latest 2035 detailed-design PDFs or measured noise.",
+      "Bands represent modelled road-traffic noise in the scenario, not the isolated contribution of the new motorway.",
+      "The model includes selected roads, not all roads; the report says it is intended for scenario comparison rather than a complete exposure assessment.",
+      "The source top category is labelled 78 dB without a stated upper bound; preserve that label.",
+      "The source contains two self-intersecting noise polygons, listed explicitly; original API geometries are retained.",
+      "A point on a contour boundary can match adjacent bands; report ambiguity rather than a precise dB value.",
+      "An address outside all returned bands has no mapped band; do not infer zero noise or a value below 53 dB."
+    ]
+  },
+  "alignment": {
+    "layer": "vvm_e9095_analysedata_linje_projekt_fase_3",
+    "serviceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=vvm%3Avvm_e9095_analysedata_linje_projekt_fase_3&outputFormat=application%2Fjson&srsName=CRS%3A84&count=10000",
+    "numberMatched": 2,
+    "numberReturned": 2,
+    "rawSha256": "70e7d996a3d84c19c9d21a1db4012aa7d4931e34e393260526e8f03a1035f99b",
+    "retrievedAt": "2026-09-26T10:40:45.649Z",
+    "crs": "OGC:CRS84",
+    "coordinateOrder": [
+      "longitude",
+      "latitude"
+    ],
+    "file": "src/data/official-alignment.geojson",
+    "retainedFeatures": 1,
+    "excludedType": "Vej prj krop",
+    "lineSegments": 14072,
+    "sourceUpdatedAt": "2025-06-11 11:52",
+    "bbox": [
+      9.83716839,
+      56.95200257,
+      9.9460204,
+      57.12904723
+    ],
+    "geometrySimplified": false,
+    "invalidGeometryComponents": [
+      {
+        "index": 521,
+        "bbox": [
+          9.85734806,
+          57.06204517,
+          9.85734806,
+          57.06204517
+        ],
+        "reason": "Too few points in geometry component[9.85734806 57.06204517]"
+      },
+      {
+        "index": 889,
+        "bbox": [
+          9.88584727,
+          57.08552357,
+          9.88584727,
+          57.08552357
+        ],
+        "reason": "Too few points in geometry component[9.88584727 57.08552357]"
+      },
+      {
+        "index": 1057,
+        "bbox": [
+          9.88803618,
+          57.08585826,
+          9.88803618,
+          57.08585826
+        ],
+        "reason": "Too few points in geometry component[9.88803618 57.08585826]"
+      },
+      {
+        "index": 1234,
+        "bbox": [
+          9.88127309,
+          56.97541202,
+          9.88127309,
+          56.97541202
+        ],
+        "reason": "Too few points in geometry component[9.88127309 56.97541202]"
+      },
+      {
+        "index": 1404,
+        "bbox": [
+          9.88168247,
+          56.97796079,
+          9.88168247,
+          56.97796079
+        ],
+        "reason": "Too few points in geometry component[9.88168247 56.97796079]"
+      },
+      {
+        "index": 1501,
+        "bbox": [
+          9.85735845,
+          57.00557758,
+          9.85735845,
+          57.00557758
+        ],
+        "reason": "Too few points in geometry component[9.85735845 57.00557758]"
+      },
+      {
+        "index": 1672,
+        "bbox": [
+          9.86198063,
+          57.0053114,
+          9.86198063,
+          57.0053114
+        ],
+        "reason": "Too few points in geometry component[9.86198063 57.0053114]"
+      },
+      {
+        "index": 1840,
+        "bbox": [
+          9.86324418,
+          57.00541855,
+          9.86324418,
+          57.00541855
+        ],
+        "reason": "Too few points in geometry component[9.86324418 57.00541855]"
+      },
+      {
+        "index": 2033,
+        "bbox": [
+          9.85797784,
+          57.03913008,
+          9.85797784,
+          57.03913008
+        ],
+        "reason": "Too few points in geometry component[9.85797784 57.03913008]"
+      },
+      {
+        "index": 2312,
+        "bbox": [
+          9.86381274,
+          57.06772759,
+          9.86381274,
+          57.06772759
+        ],
+        "reason": "Too few points in geometry component[9.86381274 57.06772759]"
+      },
+      {
+        "index": 2480,
+        "bbox": [
+          9.86474605,
+          57.06717484,
+          9.86474605,
+          57.06717484
+        ],
+        "reason": "Too few points in geometry component[9.86474605 57.06717484]"
+      },
+      {
+        "index": 2482,
+        "bbox": [
+          9.86526563,
+          57.06694616,
+          9.86526563,
+          57.06694616
+        ],
+        "reason": "Too few points in geometry component[9.86526563 57.06694616]"
+      },
+      {
+        "index": 2651,
+        "bbox": [
+          9.86699625,
+          57.06647005,
+          9.86699625,
+          57.06647005
+        ],
+        "reason": "Too few points in geometry component[9.86699625 57.06647005]"
+      },
+      {
+        "index": 2743,
+        "bbox": [
+          9.86249525,
+          57.01320078,
+          9.86249525,
+          57.01320078
+        ],
+        "reason": "Too few points in geometry component[9.86249525 57.01320078]"
+      },
+      {
+        "index": 2840,
+        "bbox": [
+          9.83738083,
+          57.03623782,
+          9.83738083,
+          57.03623782
+        ],
+        "reason": "Too few points in geometry component[9.83738083 57.03623782]"
+      },
+      {
+        "index": 3008,
+        "bbox": [
+          9.84167623,
+          57.03649111,
+          9.84167623,
+          57.03649111
+        ],
+        "reason": "Too few points in geometry component[9.84167623 57.03649111]"
+      },
+      {
+        "index": 3187,
+        "bbox": [
+          9.85570876,
+          57.04137679,
+          9.85570876,
+          57.04137679
+        ],
+        "reason": "Too few points in geometry component[9.85570876 57.04137679]"
+      },
+      {
+        "index": 3362,
+        "bbox": [
+          9.86046119,
+          57.04341594,
+          9.86046119,
+          57.04341594
+        ],
+        "reason": "Too few points in geometry component[9.86046119 57.04341594]"
+      },
+      {
+        "index": 3533,
+        "bbox": [
+          9.86449288,
+          57.0445938,
+          9.86449288,
+          57.0445938
+        ],
+        "reason": "Too few points in geometry component[9.86449288 57.0445938]"
+      },
+      {
+        "index": 3726,
+        "bbox": [
+          9.87523438,
+          56.97243227,
+          9.87523438,
+          56.97243227
+        ],
+        "reason": "Too few points in geometry component[9.87523438 56.97243227]"
+      },
+      {
+        "index": 3728,
+        "bbox": [
+          9.8784182,
+          56.97099965,
+          9.8784182,
+          56.97099965
+        ],
+        "reason": "Too few points in geometry component[9.8784182 56.97099965]"
+      },
+      {
+        "index": 3898,
+        "bbox": [
+          9.88048763,
+          56.97057493,
+          9.88048763,
+          56.97057493
+        ],
+        "reason": "Too few points in geometry component[9.88048763 56.97057493]"
+      },
+      {
+        "index": 4077,
+        "bbox": [
+          9.86411767,
+          56.99154737,
+          9.86411767,
+          56.99154737
+        ],
+        "reason": "Too few points in geometry component[9.86411767 56.99154737]"
+      },
+      {
+        "index": 4119,
+        "bbox": [
+          9.87856206,
+          56.97448451,
+          9.87856206,
+          56.97448451
+        ],
+        "reason": "Too few points in geometry component[9.87856206 56.97448451]"
+      },
+      {
+        "index": 4757,
+        "bbox": [
+          9.86274857,
+          57.06560386,
+          9.86274857,
+          57.06560386
+        ],
+        "reason": "Too few points in geometry component[9.86274857 57.06560386]"
+      },
+      {
+        "index": 4759,
+        "bbox": [
+          9.89079913,
+          57.08449586,
+          9.89079913,
+          57.08449586
+        ],
+        "reason": "Too few points in geometry component[9.89079913 57.08449586]"
+      },
+      {
+        "index": 4927,
+        "bbox": [
+          9.91628625,
+          57.09749611,
+          9.91628625,
+          57.09749611
+        ],
+        "reason": "Too few points in geometry component[9.91628625 57.09749611]"
+      },
+      {
+        "index": 5193,
+        "bbox": [
+          9.94342776,
+          57.12102351,
+          9.94342776,
+          57.12102351
+        ],
+        "reason": "Too few points in geometry component[9.94342776 57.12102351]"
+      },
+      {
+        "index": 5459,
+        "bbox": [
+          9.87906916,
+          56.97252987,
+          9.87906916,
+          56.97252987
+        ],
+        "reason": "Too few points in geometry component[9.87906916 56.97252987]"
+      },
+      {
+        "index": 5461,
+        "bbox": [
+          9.87908202,
+          56.97254449,
+          9.87908202,
+          56.97254449
+        ],
+        "reason": "Too few points in geometry component[9.87908202 56.97254449]"
+      },
+      {
+        "index": 6156,
+        "bbox": [
+          9.91272113,
+          57.09968553,
+          9.91272113,
+          57.09968553
+        ],
+        "reason": "Too few points in geometry component[9.91272113 57.09968553]"
+      },
+      {
+        "index": 6327,
+        "bbox": [
+          9.91410726,
+          57.09987566,
+          9.91410726,
+          57.09987566
+        ],
+        "reason": "Too few points in geometry component[9.91410726 57.09987566]"
+      },
+      {
+        "index": 6503,
+        "bbox": [
+          9.91555962,
+          57.10033623,
+          9.91555962,
+          57.10033623
+        ],
+        "reason": "Too few points in geometry component[9.91555962 57.10033623]"
+      },
+      {
+        "index": 6678,
+        "bbox": [
+          9.91421405,
+          57.09355174,
+          9.91421405,
+          57.09355174
+        ],
+        "reason": "Too few points in geometry component[9.91421405 57.09355174]"
+      },
+      {
+        "index": 6680,
+        "bbox": [
+          9.91504283,
+          57.09405505,
+          9.91504283,
+          57.09405505
+        ],
+        "reason": "Too few points in geometry component[9.91504283 57.09405505]"
+      },
+      {
+        "index": 6830,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6831,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6832,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6833,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6834,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6835,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6836,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6837,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6838,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6839,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6840,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6841,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6842,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6843,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6844,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6845,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6846,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6847,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6848,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6849,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6850,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6851,
+        "bbox": [
+          9.87962249,
+          56.98043306,
+          9.87962249,
+          56.98043306
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043306]"
+      },
+      {
+        "index": 6853,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6854,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6855,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6856,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6857,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6858,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6859,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6860,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6861,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6862,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6863,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6864,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6865,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6866,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6867,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6868,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6869,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6870,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6871,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6872,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6873,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6874,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6875,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6876,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6877,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6878,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6879,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6880,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6881,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6882,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6883,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6884,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6885,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6886,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6887,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6888,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6889,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6890,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6891,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6892,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6893,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6894,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6895,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6896,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6897,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6898,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6899,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6900,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6901,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6902,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6903,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6904,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6905,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6906,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6907,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6908,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6909,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6910,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 6911,
+        "bbox": [
+          9.87962249,
+          56.98043307,
+          9.87962249,
+          56.98043307
+        ],
+        "reason": "Too few points in geometry component[9.87962249 56.98043307]"
+      },
+      {
+        "index": 7085,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7086,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7087,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7088,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7089,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7090,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7091,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7092,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7093,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7094,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7095,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7096,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7097,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7098,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7099,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7100,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7101,
+        "bbox": [
+          9.8816034,
+          56.98335469,
+          9.8816034,
+          56.98335469
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.98335469]"
+      },
+      {
+        "index": 7103,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7104,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7105,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7106,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7107,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7108,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7109,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7110,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7111,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7112,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7113,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7114,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7115,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7116,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7117,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7118,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7119,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7120,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7121,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7122,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7123,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7124,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7125,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7126,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7127,
+        "bbox": [
+          9.8816034,
+          56.9833547,
+          9.8816034,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.8816034 56.9833547]"
+      },
+      {
+        "index": 7129,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7130,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7131,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7132,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7133,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7134,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7135,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7136,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7137,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7138,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7139,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7140,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7141,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7142,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7143,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7144,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7145,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7146,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7147,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7148,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7149,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7150,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7151,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7152,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7153,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7154,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7155,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7156,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7157,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7158,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7159,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7160,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7161,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7162,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7163,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7164,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7165,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7166,
+        "bbox": [
+          9.88160342,
+          56.9833547,
+          9.88160342,
+          56.9833547
+        ],
+        "reason": "Too few points in geometry component[9.88160342 56.9833547]"
+      },
+      {
+        "index": 7377,
+        "bbox": [
+          9.85002305,
+          57.03824134,
+          9.85002305,
+          57.03824134
+        ],
+        "reason": "Too few points in geometry component[9.85002305 57.03824134]"
+      },
+      {
+        "index": 7553,
+        "bbox": [
+          9.85002305,
+          57.03824134,
+          9.85002305,
+          57.03824134
+        ],
+        "reason": "Too few points in geometry component[9.85002305 57.03824134]"
+      },
+      {
+        "index": 7910,
+        "bbox": [
+          9.85988832,
+          57.01445439,
+          9.85988832,
+          57.01445439
+        ],
+        "reason": "Too few points in geometry component[9.85988832 57.01445439]"
+      },
+      {
+        "index": 8174,
+        "bbox": [
+          9.90955662,
+          57.09497904,
+          9.90955662,
+          57.09497904
+        ],
+        "reason": "Too few points in geometry component[9.90955662 57.09497904]"
+      },
+      {
+        "index": 8344,
+        "bbox": [
+          9.9127646,
+          57.09732886,
+          9.9127646,
+          57.09732886
+        ],
+        "reason": "Too few points in geometry component[9.9127646 57.09732886]"
+      },
+      {
+        "index": 8444,
+        "bbox": [
+          9.85080017,
+          57.03285623,
+          9.85080017,
+          57.03285623
+        ],
+        "reason": "Too few points in geometry component[9.85080017 57.03285623]"
+      },
+      {
+        "index": 8617,
+        "bbox": [
+          9.84736334,
+          57.03513545,
+          9.84736334,
+          57.03513545
+        ],
+        "reason": "Too few points in geometry component[9.84736334 57.03513545]"
+      },
+      {
+        "index": 9056,
+        "bbox": [
+          9.85724368,
+          57.01216189,
+          9.85724368,
+          57.01216189
+        ],
+        "reason": "Too few points in geometry component[9.85724368 57.01216189]"
+      },
+      {
+        "index": 9225,
+        "bbox": [
+          9.85655942,
+          57.01319863,
+          9.85655942,
+          57.01319863
+        ],
+        "reason": "Too few points in geometry component[9.85655942 57.01319863]"
+      },
+      {
+        "index": 9414,
+        "bbox": [
+          9.89195669,
+          57.08327694,
+          9.89195669,
+          57.08327694
+        ],
+        "reason": "Too few points in geometry component[9.89195669 57.08327694]"
+      },
+      {
+        "index": 9689,
+        "bbox": [
+          9.86388568,
+          56.99256846,
+          9.86388568,
+          56.99256846
+        ],
+        "reason": "Too few points in geometry component[9.86388568 56.99256846]"
+      },
+      {
+        "index": 9890,
+        "bbox": [
+          9.86230676,
+          56.99151352,
+          9.86230676,
+          56.99151352
+        ],
+        "reason": "Too few points in geometry component[9.86230676 56.99151352]"
+      },
+      {
+        "index": 9906,
+        "bbox": [
+          9.89092899,
+          57.08480418,
+          9.89092899,
+          57.08480418
+        ],
+        "reason": "Too few points in geometry component[9.89092899 57.08480418]"
+      },
+      {
+        "index": 10094,
+        "bbox": [
+          9.88966079,
+          57.08598901,
+          9.88966079,
+          57.08598901
+        ],
+        "reason": "Too few points in geometry component[9.88966079 57.08598901]"
+      },
+      {
+        "index": 10194,
+        "bbox": [
+          9.91707598,
+          57.09685319,
+          9.91707598,
+          57.09685319
+        ],
+        "reason": "Too few points in geometry component[9.91707598 57.09685319]"
+      },
+      {
+        "index": 10363,
+        "bbox": [
+          9.9201301,
+          57.09881515,
+          9.9201301,
+          57.09881515
+        ],
+        "reason": "Too few points in geometry component[9.9201301 57.09881515]"
+      },
+      {
+        "index": 10460,
+        "bbox": [
+          9.8657442,
+          56.99416596,
+          9.8657442,
+          56.99416596
+        ],
+        "reason": "Too few points in geometry component[9.8657442 56.99416596]"
+      },
+      {
+        "index": 10628,
+        "bbox": [
+          9.8643688,
+          56.99455902,
+          9.8643688,
+          56.99455902
+        ],
+        "reason": "Too few points in geometry component[9.8643688 56.99455902]"
+      },
+      {
+        "index": 10822,
+        "bbox": [
+          9.85002305,
+          57.03824134,
+          9.85002305,
+          57.03824134
+        ],
+        "reason": "Too few points in geometry component[9.85002305 57.03824134]"
+      },
+      {
+        "index": 10998,
+        "bbox": [
+          9.86218755,
+          56.99148783,
+          9.86218755,
+          56.99148783
+        ],
+        "reason": "Too few points in geometry component[9.86218755 56.99148783]"
+      },
+      {
+        "index": 11174,
+        "bbox": [
+          9.86141261,
+          56.99258742,
+          9.86141261,
+          56.99258742
+        ],
+        "reason": "Too few points in geometry component[9.86141261 56.99258742]"
+      },
+      {
+        "index": 11443,
+        "bbox": [
+          9.88934079,
+          57.08330648,
+          9.88934079,
+          57.08330648
+        ],
+        "reason": "Too few points in geometry component[9.88934079 57.08330648]"
+      },
+      {
+        "index": 11526,
+        "bbox": [
+          9.88980187,
+          57.08353753,
+          9.88980187,
+          57.08353753
+        ],
+        "reason": "Too few points in geometry component[9.88980187 57.08353753]"
+      },
+      {
+        "index": 11907,
+        "bbox": [
+          9.89507307,
+          57.08751743,
+          9.89507307,
+          57.08751743
+        ],
+        "reason": "Too few points in geometry component[9.89507307 57.08751743]"
+      },
+      {
+        "index": 12181,
+        "bbox": [
+          9.9158621,
+          57.09833834,
+          9.9158621,
+          57.09833834
+        ],
+        "reason": "Too few points in geometry component[9.9158621 57.09833834]"
+      },
+      {
+        "index": 12362,
+        "bbox": [
+          9.85924136,
+          57.00965718,
+          9.85924136,
+          57.00965718
+        ],
+        "reason": "Too few points in geometry component[9.85924136 57.00965718]"
+      },
+      {
+        "index": 12530,
+        "bbox": [
+          9.86022869,
+          57.01219198,
+          9.86022869,
+          57.01219198
+        ],
+        "reason": "Too few points in geometry component[9.86022869 57.01219198]"
+      },
+      {
+        "index": 12698,
+        "bbox": [
+          9.86067414,
+          57.01311729,
+          9.86067414,
+          57.01311729
+        ],
+        "reason": "Too few points in geometry component[9.86067414 57.01311729]"
+      },
+      {
+        "index": 12709,
+        "bbox": [
+          9.84630059,
+          57.03600247,
+          9.84630059,
+          57.03600247
+        ],
+        "reason": "Too few points in geometry component[9.84630059 57.03600247]"
+      },
+      {
+        "index": 12902,
+        "bbox": [
+          9.84866708,
+          57.03605685,
+          9.84866708,
+          57.03605685
+        ],
+        "reason": "Too few points in geometry component[9.84866708 57.03605685]"
+      },
+      {
+        "index": 13076,
+        "bbox": [
+          9.85654032,
+          57.01333053,
+          9.85654032,
+          57.01333053
+        ],
+        "reason": "Too few points in geometry component[9.85654032 57.01333053]"
+      },
+      {
+        "index": 13244,
+        "bbox": [
+          9.85693385,
+          57.01418963,
+          9.85693385,
+          57.01418963
+        ],
+        "reason": "Too few points in geometry component[9.85693385 57.01418963]"
+      },
+      {
+        "index": 13599,
+        "bbox": [
+          9.85080791,
+          57.03673356,
+          9.85080791,
+          57.03673356
+        ],
+        "reason": "Too few points in geometry component[9.85080791 57.03673356]"
+      },
+      {
+        "index": 13871,
+        "bbox": [
+          9.86349959,
+          56.99358679,
+          9.86349959,
+          56.99358679
+        ],
+        "reason": "Too few points in geometry component[9.86349959 56.99358679]"
+      },
+      {
+        "index": 14060,
+        "bbox": [
+          9.86551382,
+          56.99418671,
+          9.86551382,
+          56.99418671
+        ],
+        "reason": "Too few points in geometry component[9.86551382 56.99418671]"
+      }
+    ],
+    "note": "Includes project road centerlines, ramps and local details; not solely the motorway axis. A dated design snapshot, not a survey or the latest 2026 design."
+  },
+  "landRequirements": {
+    "layer": "vvm_e9095_analysedata_polygon_areal_fase_3",
+    "serviceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=vvm%3Avvm_e9095_analysedata_polygon_areal_fase_3&outputFormat=application%2Fjson&srsName=CRS%3A84&count=10000",
+    "numberMatched": 2,
+    "numberReturned": 2,
+    "rawSha256": "4c5918c093c705797d76969623403696df660c1505b576a44ac855d7fc0bfce0",
+    "retrievedAt": "2026-09-26T10:42:51.523Z",
+    "crs": "OGC:CRS84",
+    "coordinateOrder": [
+      "longitude",
+      "latitude"
+    ],
+    "file": "src/data/official-land-requirements.geojson",
+    "sourceUpdatedAt": "2025-06-12 08:12",
+    "geometrySimplified": false,
+    "note": "Permanent and temporary design land requirements, not cadastral boundaries or decisions about individual properties."
+  }
+}
