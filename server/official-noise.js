@@ -1,4 +1,112 @@
-import { bbox, booleanPointInPolygon } from '@turf/turf'
+import { bbox, booleanPointInPolygon, distance, point } from '@turf/turf'
+
+const RECEIVER_COORDINATE_LIMIT_METERS = 50
+
+function normaliseCode(value) {
+  const text = String(value ?? '').trim()
+  return /^\d{1,4}$/.test(text) ? text.padStart(4, '0') : null
+}
+
+function normaliseHouseNumber(value) {
+  const text = String(value ?? '').trim().replace(/\s+/g, '').toUpperCase()
+  const house = /^(\d+)([A-ZÆØÅ]?)$/.exec(text)
+  return house ? `${Number(house[1])}${house[2]}` : text
+}
+
+function matchAddressReceivers(address, collection, metadata) {
+  const empty = (status) => ({ status, receivers: [] })
+  if (!collection || !metadata) return empty('dataset_unavailable')
+  const municipality = normaliseCode(address?.municipalityCode)
+  const road = normaliseCode(address?.roadCode)
+  const house = normaliseHouseNumber(address?.houseNumber)
+  if (!municipality || !road || !house) return empty('address_keys_unavailable')
+  // The source has no municipality column. Its verified Aalborg scope is an
+  // essential part of the key; a road code alone is not unique across Denmark.
+  if (municipality !== '0851' || normaliseCode(metadata.municipalityCode) !== '0851') return empty('outside_municipality')
+  const matches = collection.features.filter((feature) => normaliseCode(feature.properties.roadCode) === road
+    && normaliseHouseNumber(feature.properties.houseNumber) === house)
+  if (!matches.length) return empty('not_matched')
+  const origin = point([address.longitude, address.latitude])
+  const receivers = []
+  for (const feature of matches) {
+    if (feature.geometry?.type !== 'Point' || feature.geometry.coordinates.length < 2
+      || !feature.geometry.coordinates.slice(0, 2).every(Number.isFinite)) return empty('coordinate_mismatch')
+    const coordinateDistanceMeters = distance(origin, feature, { units: 'meters' })
+    // Do not transfer a historical house number's data to a relocated or reused
+    // current address, or choose the nearest source receiver instead of its key.
+    if (coordinateDistanceMeters > RECEIVER_COORDINATE_LIMIT_METERS) return empty('coordinate_mismatch')
+    const properties = feature.properties
+    const value = properties.valuesDb?.original
+    receivers.push({
+      sourceRecordId: properties.sourceRecordId,
+      sourceFeatureId: properties.sourceFeatureId ?? feature.id ?? null,
+      valueDb: Number.isFinite(value) && value > 0 ? value : null,
+      sourceFloor: properties.sourceFloor ?? null,
+      sourceFloorCode: properties.sourceFloorCode ?? properties.rawSourceProperties?.sp_etage ?? null,
+      sourceDoor: properties.sourceDoor ?? null,
+      coordinateDistanceMeters: Math.round(coordinateDistanceMeters * 10) / 10,
+    })
+  }
+  // An incomplete address group must not become a falsely complete min/max.
+  return { status: receivers.every((receiver) => receiver.valueDb !== null) ? 'matched' : 'incomplete', receivers }
+}
+
+export function expectedWithProject({ scenarios, metadata, language, address, pointCollection, pointMetadata }) {
+  const original = scenarios.find((scenario) => scenario.scenario === 'original')
+  const receiverMatch = matchAddressReceivers(address, pointCollection, pointMetadata)
+  const useReceivers = receiverMatch.status === 'matched'
+  const values = receiverMatch.receivers.map((receiver) => receiver.valueDb)
+  const receiverRange = useReceivers ? { minDb: Math.min(...values), maxDb: Math.max(...values), receiverCount: values.length } : null
+  const valueDb = receiverRange && receiverRange.minDb === receiverRange.maxDb ? receiverRange.minDb : null
+  const status = useReceivers ? (valueDb === null ? 'point_range_found' : 'point_value_found') : original?.status ?? 'model_unavailable'
+  const band = !useReceivers && status === 'band_found' ? original.band : null
+  const source = useReceivers ? pointMetadata : original ?? metadata
+  const modelYear = source?.modelYear ?? null
+  const forecastYear = source?.forecastYear ?? null
+  const format = (value) => value.toLocaleString(language === 'da' ? 'da-DK' : 'en-GB', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+  const rangeText = receiverRange && `${format(receiverRange.minDb)}${format(receiverRange.minDb) === format(receiverRange.maxDb) ? '' : `–${format(receiverRange.maxDb)}`}`
+  const estimate = useReceivers ? `${rangeText} dB(A)` : band?.upperDb === null ? language === 'da'
+    ? `offentliggjort kategori ${band.label} (øverste grænse ikke oplyst)`
+    : `published category ${band.label} (upper bound unspecified)` : band?.label
+  const vintage = modelYear && forecastYear ? language === 'da'
+    ? `Det er det oprindelige forslag fra modellen fra ${modelYear} med trafikprognose for ${forecastYear}.`
+    : `This is the original proposal in the ${modelYear} model, forecasting traffic in ${forecastYear}.` : ''
+  const missingReasons = language === 'da' ? {
+    model_unavailable: 'Det oprindelige scenarie er ikke tilgængeligt.',
+    no_matching_contour: 'Der er hverken en sikkert matchet modelværdi for adressen eller en støjkontur ved adressepunktet.',
+    boundary: 'Adressepunktet ligger på en støjkonturgrænse, så der kan ikke vælges ét interval.',
+    overlapping_bands: 'Modstridende støjintervaller overlapper ved adressepunktet.',
+    source_geometry_invalid: 'En fejl i kildens støjgeometri gør opslaget ved adressepunktet usikkert.',
+  } : {
+    model_unavailable: 'The original scenario is unavailable.',
+    no_matching_contour: 'There is neither a safely matched address model value nor a noise contour at the address point.',
+    boundary: 'The address point lies on a noise-contour boundary, so a single band cannot be selected.',
+    overlapping_bands: 'Conflicting noise bands overlap at the address point.',
+    source_geometry_invalid: 'Invalid source noise geometry makes the address-point lookup uncertain.',
+  }
+  const description = language === 'da'
+    ? `${estimate ? `Forventet vejstøj med motorvejen: ${estimate} Lden.` : `Forventet vejstøj med motorvejen kan ikke angives sikkert. ${missingReasons[status] ?? ''}`} ${useReceivers ? receiverRange.receiverCount > 1 ? `Værdierne dækker ${receiverRange.receiverCount} registrerede bolig-/modtagerposter ved adressen og er afrundet til én decimal.` : 'Værdien er en offentliggjort modelberegning for en registreret bolig-/modtagerpost, afrundet til én decimal.' : band ? 'Intervallet kommer fra den officielle støjkontur ved adressepunktet; der beregnes ingen middelværdi.' : 'Manglende data betyder ikke støj under 53 dB.'} ${vintage} Beregningen omfatter motorvejen og udvalgte omgivende veje; motorvejens isolerede bidrag kan ikke angives. Det er ikke en måling eller det aktuelle 2035-materiale.`
+    : `${estimate ? `Expected road noise with the motorway: ${estimate} Lden.` : `Expected road noise with the motorway cannot be stated reliably. ${missingReasons[status] ?? ''}`} ${useReceivers ? receiverRange.receiverCount > 1 ? `The values cover ${receiverRange.receiverCount} registered dwelling/receiver records at the address and are rounded to one decimal place.` : 'The value is a published model calculation for one registered dwelling/receiver record, rounded to one decimal place.' : band ? 'The range comes from the official noise contour at the address point; no midpoint is calculated.' : 'Missing data does not establish noise below 53 dB.'} ${vintage} The calculation includes the motorway and selected surrounding roads; the motorway-only contribution is unavailable. This is not a measurement or the current 2035 material.`
+  return {
+    status,
+    basis: useReceivers ? 'address_receivers' : band ? 'contour_band' : 'unavailable',
+    valueDb,
+    receiverRange,
+    receivers: receiverMatch.receivers,
+    receiverDataStatus: receiverMatch.status,
+    receiverCoordinateLimitMeters: RECEIVER_COORDINATE_LIMIT_METERS,
+    band,
+    exactDb: null,
+    motorwayOnlyDb: null,
+    metric: 'Lden',
+    units: 'dB(A)',
+    scenario: 'original',
+    modelYear,
+    forecastYear,
+    sourceUrl: source?.sourceUrl ?? null,
+    description,
+  }
+}
 
 export function prepareNoiseScenarios(collection, metadata) {
   const grouped = new Map()

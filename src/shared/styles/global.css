@@ -568,6 +568,57 @@ body {
   font: 600 0.9rem var(--font-display);
 }
 
+.address-report__expected {
+  margin-bottom: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-accent-soft);
+  border-left: 3px solid var(--color-survey-blue);
+  border-radius: var(--radius);
+}
+
+.address-report__expected .address-report__noise-value {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  column-gap: var(--space-2);
+  margin: var(--space-2) 0 var(--space-1);
+  font-family: var(--font-display);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.address-report__noise-value strong {
+  font-size: clamp(1.65rem, 5vw, 2.1rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.address-report__noise-value span {
+  font-size: 0.85rem;
+}
+
+.address-report__noise-model {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.address-report__details {
+  margin-bottom: var(--space-3);
+}
+
+.address-report__details summary {
+  display: list-item;
+  min-height: 44px;
+  padding: var(--space-3) 0;
+  color: var(--color-survey-blue);
+  cursor: pointer;
+}
+
+.address-report__details > p,
+.address-report__details > a {
+  font-size: 0.8rem;
+}
+
 .address-report__design {
   margin-bottom: var(--space-4);
   padding-bottom: var(--space-3);

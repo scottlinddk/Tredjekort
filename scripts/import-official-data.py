@@ -3,6 +3,7 @@
 Requires Python 3.10+ and shapely==2.1.2 (only for import/display validation).
 Run: python scripts/import-official-data.py
 Use --cache-dir tmp/pdfs --offline to reproduce from previously downloaded raw files.
+Use --points-only to refresh only the verified address/facade-noise snapshot.
 The API snapshot retains every source coordinate; only the browser copy is simplified.
 """
 import argparse
@@ -28,6 +29,7 @@ LAYERS = {
     'noise': 'vvm_analysedata_e9095_stoej_polygon',
     'alignment': 'vvm_e9095_analysedata_linje_projekt_fase_3',
     'land': 'vvm_e9095_analysedata_polygon_areal_fase_3',
+    'noise-points': 'stoej_punkt_9095',
 }
 SCENARIOS = [
     {'id': 'original', 'sourceValue': 'Forslag 1', 'label': {'da': 'Med projekt · oprindeligt forslag', 'en': 'With project · original design'}},
@@ -125,13 +127,101 @@ def invalid_components(geometry):
     return issues
 
 
+def import_noise_points(cache, offline, reviewed):
+    """Import facade results only after identifying all scenarios against report tables."""
+    data, source = load_layer('noise-points', cache, offline)
+    scenario_fields = {'reference': 'lden_sce01', 'original': 'lden_sce02', 'variant': 'lden_sce03'}
+    # Exact published fingerprints: report tables 5-7, 5-9 and 5-10 respectively.
+    # Refuse an updated/different source model rather than silently relabelling it.
+    expected = {'reference': [346, 218, 38, 8], 'original': [538, 83, 28, 2], 'variant': [539, 77, 28, 2]}
+    bins = [(58, 63), (63, 68), (68, 73), (73, float('inf'))]
+    fingerprints, zero_counts = {}, {}
+    for scenario, field in scenario_fields.items():
+        values = [f['properties'][field] for f in data['features']]
+        if any(not isinstance(v, (int, float)) or not math.isfinite(v) or v < 0 or v > 150 for v in values):
+            raise ValueError('Unexpected facade noise value in ' + field)
+        fingerprint = [sum(low <= value < high for value in values) for low, high in bins]
+        if fingerprint != expected[scenario]:
+            raise ValueError(f'Noise-point scenario fingerprint changed: {scenario}: {fingerprint}; verify its model before importing')
+        fingerprints[scenario] = {'sourceField': field, 'binCounts': fingerprint, 'above58Db': sum(v > 58 for v in values)}
+        zero_counts[scenario] = sum(value == 0 for value in values)
+    records = set()
+    features = []
+    address_positions = {}
+    for item in data['features']:
+        props = item['properties']
+        record_id = props['id']
+        if not isinstance(record_id, int) or record_id in records:
+            raise ValueError('Facade records must have unique stable integer IDs')
+        records.add(record_id)
+        if item['geometry']['type'] != 'Point':
+            raise ValueError('Facade data contains a non-point feature')
+        bbox = checked_geometry(item['geometry'])
+        road = str(props['vej_kode']).zfill(4)
+        house = str(props['hus_nr']).strip().upper()
+        raw_values = {scenario: props[field] for scenario, field in scenario_fields.items()}
+        # Zero exists in the source, but its meaning is undocumented. Never show
+        # it as measured silence or use it when calculating a scenario difference.
+        values = {key: value if value > 0 else None for key, value in raw_values.items()}
+        address_positions.setdefault((road, house), set()).add(tuple(item['geometry']['coordinates']))
+        features.append({'type': 'Feature', 'id': 'stoej_punkt_9095.' + str(record_id),
+            'geometry': item['geometry'], 'bbox': bbox,
+            'properties': {'sourceRecordId': record_id, 'sourceFeatureId': item['id'],
+                'roadCode': road, 'houseNumber': house, 'sourceFloor': props['etage'],
+                'sourceFloorCode': props['sp_etage'], 'sourceDoor': props['side_doernr'],
+                'buildingUseCode': props['enh_anvend_kode'], 'valuesDb': values,
+                'rawValuesDb': raw_values, 'rawSourceProperties': props}})
+    if len(features) != 2641 or any(len(v) != 1 for v in address_positions.values()):
+        raise ValueError('Facade source coverage/address-position structure changed; review before importing')
+    features.sort(key=lambda f: f['properties']['sourceRecordId'])
+    collection = {'type': 'FeatureCollection', 'features': features}
+    payload = encode(collection)
+    output = ROOT / 'src' / 'data'
+    write_json(output / 'official-noise-points.geojson', collection)
+    metadata = {**source, 'schemaVersion': 1, 'reviewedAt': reviewed,
+        'file': 'src/data/official-noise-points.geojson', 'sha256': hashlib.sha256(payload).hexdigest(),
+        'sourceUrl': PAGE, 'modelYear': 2021, 'forecastYear': 2040, 'sourceUpdatedAt': None,
+        'sourceDateNote': 'The point service exposes no calculation/update timestamp. Model identification is verified against the 2021 report, not inferred from retrieval time.',
+        'indicator': 'Lden', 'units': 'dB(A)', 'measurementType': 'modelled-facade-noise',
+        'method': 'Nord2000 / SoundPLAN 8.1, four weather classes; facade results linked to dwelling records',
+        'methodSourceUrl': 'https://api.vejdirektoratet.dk/sites/default/files/2021-02/Milj%C3%B8konsekvensrapport_Egholmlinjen.pdf',
+        'methodSourcePrintedPages': [76, 77], 'scenarioSourcePrintedPages': [81, 88, 91],
+        'scenarioSourcePdfPages': [84, 91, 94], 'scenarioSourceTables': ['5-7', '5-9', '5-10'],
+        'scenarioFields': scenario_fields, 'scenarioVerification': fingerprints,
+        'municipalityCode': '0851',
+        'municipalityNote': 'Aalborg matching scope, not a field in the source. Require municipality plus road/house match and coordinate consistency; do not join road codes across Denmark.',
+        'matching': {'keys': ['municipalityCode', 'roadCode', 'houseNumber'],
+            'maximumCoordinateDistanceM': 50,
+            'coordinateGuardPurpose': 'Additional consistency guard after exact address-key matching, never a nearest-address fallback.',
+            'multipleUnits': 'Aggregate the minimum and maximum of all matched dwelling rows; do not choose a floor arbitrarily.',
+            'floorSemantics': 'Source floor codes are retained without converting them to DAWA floor labels.',
+            'zeroValuePolicy': 'Raw zero values are retained but normalized to null because their meaning is not documented.',
+            'incompleteAddressPolicy': 'If any matched unit is missing a scenario value, do not present a partial range as complete.'},
+        'counts': {'records': len(features), 'addresses': len(address_positions), 'zeroValuesByScenario': zero_counts},
+        'roadScope': 'Motorway and selected crossing/nearby existing roads; not every road in the study area.',
+        'limitations': [
+            'Historical 2021 EIA design and 2040 traffic forecast, not measured noise or the current detailed design.',
+            'These are facade/dwelling model results, not the 1.5-metre landscape contour values.',
+            'The with-project result includes selected surrounding roads; no isolated new-motorway contribution is provided.',
+            'A difference between scenarios is a change in modelled total noise, not the standalone noise level of the motorway.',
+            'Source decimals describe model output, not measurement accuracy. Display sensible rounding and retain provenance.',
+            'Current 2035 PDFs lack a verified geographic registration and are not converted into address values.'
+        ]}
+    write_json(output / 'official-noise-points-metadata.json', metadata, pretty=True)
+    print(json.dumps({'noisePointRecords': len(features), 'addresses': len(address_positions), 'bytes': len(payload)}))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cache-dir', type=Path, default=ROOT / 'tmp' / 'official-data')
     parser.add_argument('--offline', action='store_true')
+    parser.add_argument('--points-only', action='store_true')
     args = parser.parse_args()
     args.cache_dir.mkdir(parents=True, exist_ok=True)
     reviewed = date.today().isoformat()
+    import_noise_points(args.cache_dir, args.offline, reviewed)
+    if args.points_only:
+        return
     noise, noise_source = load_layer('noise', args.cache_dir, args.offline)
     features, display, invalid_ids = [], [], []
     for item in noise['features']:

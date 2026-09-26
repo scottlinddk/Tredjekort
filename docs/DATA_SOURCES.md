@@ -93,6 +93,73 @@ band result, not zero noise or proof of a value below 53 dB.
 
 ## Current project material
 
+### Address and dwelling noise predictions
+
+The same official WFS additionally exposes `stoej_punkt_9095`, a separate
+**2,641-record facade/dwelling calculation dataset** covering **2,364 unique
+road-code and house-number addresses**. This layer was discovered separately from
+the `e9095`-named contour layers. Its capabilities describe calculations before
+the project and with the original and variant Egholm designs; they also state
+that the EIA data is generally not kept up to date.
+
+`src/data/official-noise-points.geojson` retains every source coordinate and raw
+property, alongside normalized road/house keys and scenario values.
+`src/data/official-noise-points-metadata.json` records the complete-response count,
+query URL, retrieval time, raw-response and output hashes, matching policy and
+scenario verification. The source's integer `id` is the stable record identity;
+its generated WFS `fid` changes between requests and is retained only as provenance.
+
+The scenario fields were verified against **all four noise-bin counts** in each
+of the 2021 report's three dwelling tables, not assigned from field names alone:
+
+| Point field | Scenario | Counts in 58–63 / 63–68 / 68–73 / >73 dB bins | Total above 58 dB | Report table / printed page |
+| --- | --- | --- | --- | --- |
+| `lden_sce01` | Reference, without project | 346 / 218 / 38 / 8 | 610 | 5-7 / 81 |
+| `lden_sce02` | Original project design | 538 / 83 / 28 / 2 | 651 | 5-9 / 88 |
+| `lden_sce03` | Variant project design | 539 / 77 / 28 / 2 | 646 | 5-10 / 91 |
+
+The importer refuses to import a changed count fingerprint without renewed source
+verification. Run `python scripts/import-official-data.py --points-only` to refresh
+this dataset alone, or `--cache-dir <directory> --offline --points-only` to rebuild
+from a downloaded response. A normal full import includes the point dataset.
+
+The values are **modelled facade Lden dB(A)**, using the 2021 EIA design and 2040
+traffic, with planned noise mitigation included in the project scenarios.
+They are not measurements and not the current 2035 design. Unlike the landscape
+contours, these dwelling/floor results are not all at 1.5 metres above terrain.
+They model the motorway and selected nearby/crossing roads, so a with-project
+value cannot be described as the isolated contribution of the new motorway.
+Subtracting scenario dB values describes a change in modelled noise; it does not
+give a standalone motorway noise level.
+
+The layer has no municipality, calculation-date or update-date field. Model year
+is supported by the exact report-table match. `sourceUpdatedAt` is therefore null;
+the contour layer's update timestamp must not be copied onto the point dataset.
+Address matching is restricted to Aalborg municipality (`0851`), then requires
+the exact road code and normalized house number, with an additional 50-metre
+coordinate-consistency guard. The guard is not a nearest-address lookup.
+A source sample at road `1043`, house `1`, matches DAWA's Carlo Wognsens Vej 1,
+9000 Aalborg and its coordinates to approximately one centimetre.
+
+All rows for each source road/house address share the same geographic point, but
+several addresses contain multiple dwelling/floor/door records. The source floor
+codes range from 1 to 4 and are preserved without assuming they equal DAWA floor
+labels. Show the range across all matching dwelling records, not one arbitrarily
+selected floor. A single matched record can supply its rounded model value, with
+the model year and scope still visible. Existing-address or coordinate-only
+lookups without verified address keys must not borrow a nearby home's prediction.
+
+Raw zero values occur in 6 reference, 18 original and 20 variant records. Their
+meaning is undocumented, so the normalized `valuesDb` maps them to null while
+retaining `rawValuesDb` and the complete original properties. Never present these
+zeros as silence or use them to calculate a scenario difference. If any matched
+unit lacks a scenario value, a partial range must not be presented as complete;
+use the labelled contour fallback or state that the address prediction is
+unavailable. Model decimals do not establish measurement accuracy; UI rounding
+must not imply greater precision than the source supports.
+
+### Current documents
+
 `src/data/project-information.json` records bilingual summaries with their source
 URLs and page update dates. The document catalogue was checked against the
 [official collection](https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter),

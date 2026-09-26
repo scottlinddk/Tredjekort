@@ -95,7 +95,6 @@ export function MapRoute() {
           <div className="map-tools__content" hidden={!activePanel}>
             {/* Keep search mounted when its section is hidden, preserving its map marker. */}
             <section id="map-panel-search" hidden={activePanel !== 'search'} aria-label={t('search.label')}>
-              <p className="map-tools__intro">{t('search.intro')}</p>
               <AddressSearch />
             </section>
             <section id="map-panel-layers" hidden={activePanel !== 'layers'} aria-label={t('map.panel.layers')}>
