@@ -1,0 +1,100 @@
+{
+  "layer": "vvm_analysedata_e9095_stoej_polygon",
+  "serviceUrl": "https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetFeature&typeNames=vvm%3Avvm_analysedata_e9095_stoej_polygon&outputFormat=application%2Fjson&srsName=CRS%3A84&count=10000",
+  "numberMatched": 696,
+  "numberReturned": 696,
+  "rawSha256": "eacebeac645efcb3351101a99cf80ff90db12d332ce71623b451d776bfeecad2",
+  "retrievedAt": "2026-09-26T10:40:44.036Z",
+  "crs": "OGC:CRS84",
+  "coordinateOrder": [
+    "longitude",
+    "latitude"
+  ],
+  "title": {
+    "da": "Officiel støj · VVM 2021, trafik 2040",
+    "en": "Official noise · EIA 2021, traffic 2040"
+  },
+  "sourceUrl": "https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej",
+  "forecastYear": 2040,
+  "modelYear": 2021,
+  "sourceUpdatedAt": "2021-02-11",
+  "sourcePageUpdatedAt": "2023-11-24",
+  "reviewedAt": "2026-09-26",
+  "units": "dB(A)",
+  "indicator": "Lden",
+  "scenarios": [
+    {
+      "id": "original",
+      "sourceValue": "Forslag 1",
+      "label": {
+        "da": "Med projekt · oprindeligt forslag",
+        "en": "With project · original design"
+      }
+    },
+    {
+      "id": "reference",
+      "sourceValue": "Forslag x",
+      "label": {
+        "da": "Uden projekt · reference",
+        "en": "Without project · reference"
+      }
+    },
+    {
+      "id": "variant",
+      "sourceValue": "Forslag 3",
+      "label": {
+        "da": "Med projekt · variant",
+        "en": "With project · variant design"
+      }
+    }
+  ],
+  "method": "Nord2000 / SoundPLAN 8.1, four weather classes",
+  "measurementHeightM": 1.5,
+  "calculationGridM": [
+    10,
+    10
+  ],
+  "roadScope": "Motorway and selected crossing/nearby existing roads; not every road in the study area.",
+  "methodSourceUrl": "https://api.vejdirektoratet.dk/sites/default/files/2021-02/Milj%C3%B8konsekvensrapport_Egholmlinjen.pdf",
+  "methodSourcePages": [
+    76,
+    77
+  ],
+  "counts": {
+    "sourceFeatures": 696,
+    "noiseBands": 694,
+    "studyAreas": 2,
+    "bandsByScenario": {
+      "original": 234,
+      "variant": 233,
+      "reference": 227
+    }
+  },
+  "coverage": {
+    "kind": "source-study-area",
+    "scenario": "variant",
+    "note": "Two identical study-area features are retained with their original IDs and variant scenario. No absence of a noise band establishes a quiet address or a below-threshold level."
+  },
+  "apiFile": "src/data/official-noise.geojson.gz",
+  "apiSha256": "b9e86b80ee5b9af03d3afbb47f4832aa6a7abfd477926b29fa6ed0f2c0b46724",
+  "geometrySimplified": false,
+  "sourceInvalidGeometryIds": [
+    "vvm_analysedata_e9095_stoej_polygon.1916736",
+    "vvm_analysedata_e9095_stoej_polygon.1916806"
+  ],
+  "displayFile": "/data/official-noise-display.geojson",
+  "displaySimplification": {
+    "toleranceMetresApprox": 1,
+    "preserveTopology": true,
+    "method": "Shapely 2.1.2; local affine metre approximation at 57N; invalid source rings repaired only for display"
+  },
+  "limitations": [
+    "Historical 2021 EIA design and 2040 traffic forecast; not the latest 2035 detailed-design PDFs or measured noise.",
+    "Bands represent modelled road-traffic noise in the scenario, not the isolated contribution of the new motorway.",
+    "The model includes selected roads, not all roads; the report says it is intended for scenario comparison rather than a complete exposure assessment.",
+    "The source top category is labelled 78 dB without a stated upper bound; preserve that label.",
+    "The source contains two self-intersecting noise polygons, listed explicitly; original API geometries are retained.",
+    "A point on a contour boundary can match adjacent bands; report ambiguity rather than a precise dB value.",
+    "An address outside all returned bands has no mapped band; do not infer zero noise or a value below 53 dB."
+  ]
+}

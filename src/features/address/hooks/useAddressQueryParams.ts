@@ -12,7 +12,7 @@ export interface UseAddressQueryParamsResult {
 
 /**
  * Persists the searched address text in the URL query string, so a search
- * result (and the noise band it reveals) can be bookmarked, shared, or
+ * result (and the distance zones it reveals) can be bookmarked, shared, or
  * restored with the browser's back/forward navigation. Only the human-
  * readable text is stored; the matching coordinates are re-resolved from it
  * so the URL stays short and free of opaque ids.
@@ -31,6 +31,9 @@ export function useAddressQueryParams(): UseAddressQueryParamsResult {
             next.delete(ADDRESS_QUERY_PARAM)
           } else {
             next.set(ADDRESS_QUERY_PARAM, text)
+            // React Router search-param setters do not queue like React state.
+            // Persist address and layer visibility together in one navigation.
+            if (!next.has('noiseScenario')) next.set('showNoiseBand', 'true')
           }
           return next
         },

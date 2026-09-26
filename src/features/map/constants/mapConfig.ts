@@ -24,7 +24,7 @@ export const CONFIDENCE_COLORS = {
 // Matches the --color-fjord design token in tokens.css.
 export const LOCAL_ROAD_COLOR = '#0e7490'
 
-// Planned noise barriers (Table 6, Nov 2023 updated noise study), rendered as a solid
+// Planned noise barriers (current official project page, June 2026), rendered as a solid
 // (not dotted) line since these are physical mitigation structures, not road alignment.
 export const NOISE_SCREEN_COLOR = '#7c2d12'
 
@@ -33,32 +33,20 @@ export const NOISE_SCREEN_COLOR = '#7c2d12'
 export const DOTTED_LINE_DASHARRAY: [number, number] = [0, 2.2]
 export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 
-// Vejdirektoratet has published a real Lden noise study (dB bands: 52-54, 54-56, 56-58,
-// 58-60, 60-62, 62-64, 64-66, 66-68, 68+) for station 102+200-110+800, "Detailbesigtigelse -
-// Stojkort", drawing 9095-29011, dated 2026-04-10, modeled for 2035 traffic with the project
-// built. That document is raster (not vector) and has not been georeferenced into this app,
-// an attempt to cross-reference it against the deklarationsrids station calibration produced
-// inconsistent results (~90-100m disagreement at shared chainage points) and was abandoned
-// rather than shipped. Revisit if a reliable georeferencing approach turns up.
-//
-// The bands below are still the same distance-based approximation as before (concentric
-// buffers around the road alignment, NOT a real acoustic propagation model), just labelled
-// with real dB ranges lifted from `OFFICIAL_NOISE_STUDY_REFERENCE.dbBandsLden` below. The dB
-// label on a given ring is illustrative (higher published bands placed closer to the road),
-// not a claim that the real contour for that dB range actually sits at that distance.
-// Ordered lowest to highest dB; index into this array is the band's `bandIndex` in the
-// generated GeoJSON, used to look up a color from `NOISE_COLOR_SCHEMES` below.
-export const NOISE_DB_BANDS = [
-  { distanceMeters: 700, dbLabel: '52-56 dB' },
-  { distanceMeters: 550, dbLabel: '56-58 dB' },
-  { distanceMeters: 425, dbLabel: '58-60 dB' },
-  { distanceMeters: 325, dbLabel: '60-62 dB' },
-  { distanceMeters: 225, dbLabel: '62-64 dB' },
-  { distanceMeters: 125, dbLabel: '64-68+ dB' },
+// Geometric proximity zones only. No acoustic measurement or modeled Lden value can
+// be inferred from a distance to the alignment. Official scenario maps are linked
+// from project-information.json and are not represented by these buffers.
+export const DISTANCE_BANDS = [
+  { distanceMeters: 700, distanceLabel: '550–700 m' },
+  { distanceMeters: 550, distanceLabel: '425–550 m' },
+  { distanceMeters: 425, distanceLabel: '325–425 m' },
+  { distanceMeters: 325, distanceLabel: '225–325 m' },
+  { distanceMeters: 225, distanceLabel: '125–225 m' },
+  { distanceMeters: 125, distanceLabel: '0–125 m' },
 ] as const
 
 // Three alternative color ramps users can toggle between for the noise bands, all running
-// from lowest dB (index 0) to highest (index 5). "warm" mirrors the yellow-to-red styling
+// from outermost (index 0) to innermost (index 5). "warm" mirrors the yellow-to-red styling
 // common on official Danish noise maps; "cool" is a blue-to-purple alternative for anyone
 // who finds the red end of "warm" reads as more alarming than intended; "red" is a
 // single-hue pale-to-dark-red ramp, matching the flat red fill this layer used before the
@@ -75,23 +63,3 @@ export const NOISE_BAND_OPACITY_DEFAULT = 0.18
 export const NOISE_BAND_OPACITY_MIN = 0.05
 export const NOISE_BAND_OPACITY_MAX = 0.6
 export const NOISE_BAND_OPACITY_STEP = 0.05
-
-export const OFFICIAL_NOISE_STUDY_REFERENCE = {
-  title: 'Detailbesigtigelse - Stojkort, 9095 3. Limfjordsforbindelse',
-  drawingNumber: '9095-29011',
-  date: '2026-04-10',
-  stationRange: '102+200 to 110+800',
-  dbBandsLden: [52, 54, 56, 58, 60, 62, 64, 66, 68],
-} as const
-
-// A separate, earlier Vejdirektoratet noise study, covering the whole route (not just
-// one station range) with aggregate impact figures and the planned noise-screen
-// stretches now in noise-screens.geojson. Also not the source for the buffers below.
-export const UPDATED_NOISE_CALCULATIONS_REFERENCE = {
-  title: 'Opdaterede stojberegninger for den 3. Limfjordsforbindelse',
-  date: '2023-11',
-  noiseAffectedHomes: { reference: 671, withProject: 682 },
-  noiseBurdenIndex: { reference: 102, withProject: 87 },
-  totalScreenLengthMeters: 5200,
-} as const
-

@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { addressApiPlugin } from './server/vite-api-plugin.js'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), addressApiPlugin()],
   server: {
     proxy: {
       // Mirrors the Vercel serverless function in api/addresses.js so `npm run dev`

@@ -5,10 +5,15 @@ import {
   NOISE_BAND_OPACITY_STEP,
   type NoiseColorScheme,
 } from '../constants/mapConfig'
+import { OFFICIAL_NOISE_SCENARIOS, isOfficialNoiseScenario, type NoiseMapMode } from '../constants/officialNoiseConfig'
 
 interface LayerToggleProps {
-  showNoise: boolean
-  onToggleNoise: (next: boolean) => void
+  noiseMode: NoiseMapMode
+  onNoiseModeChange: (next: NoiseMapMode) => void
+  showScreens: boolean
+  onToggleScreens: (next: boolean) => void
+  showOfficialDesign: boolean
+  onToggleOfficialDesign: (next: boolean) => void
   colorScheme: NoiseColorScheme
   onColorSchemeChange: (next: NoiseColorScheme) => void
   opacity: number
@@ -16,8 +21,12 @@ interface LayerToggleProps {
 }
 
 export function LayerToggle({
-  showNoise,
-  onToggleNoise,
+  noiseMode,
+  onNoiseModeChange,
+  showScreens,
+  onToggleScreens,
+  showOfficialDesign,
+  onToggleOfficialDesign,
   colorScheme,
   onColorSchemeChange,
   opacity,
@@ -28,52 +37,41 @@ export function LayerToggle({
   return (
     <div className="layer-toggle">
       <label>
+        <input type="checkbox" checked={showOfficialDesign} onChange={(event) => onToggleOfficialDesign(event.target.checked)} />
+        {t('legend.officialDesign')}
+      </label>
+      <label className="layer-toggle__group">
+        <span className="layer-toggle__group-label">{t('layers.overlay')}</span>
+        <select value={noiseMode} onChange={(event) => onNoiseModeChange(event.target.value as NoiseMapMode)}>
+          <option value="none">{t('layers.none')}</option>
+          <option value="distance">{t('layers.distance')}</option>
+          <optgroup label={t('officialNoise.title')}>
+            {OFFICIAL_NOISE_SCENARIOS.map((scenario) => <option key={scenario} value={scenario}>{t(`officialNoise.scenario.${scenario}`)}</option>)}
+          </optgroup>
+        </select>
+      </label>
+      {isOfficialNoiseScenario(noiseMode) && <p className="layer-toggle__note">{t('officialNoise.caveat')}</p>}
+      {noiseMode === 'distance' && <p className="layer-toggle__note">{t('legend.noiseBandsNote')}</p>}
+      <label>
         <input
           type="checkbox"
-          checked={showNoise}
-          onChange={(event) => onToggleNoise(event.target.checked)}
+          checked={showScreens}
+          onChange={(event) => onToggleScreens(event.target.checked)}
         />
-        {t('layers.noise')}
+        {t('legend.noiseScreen')}
       </label>
 
-      {showNoise && (
+      {noiseMode !== 'none' && (
         <div className="layer-toggle__noise-controls">
-          <div className="layer-toggle__group">
+          {noiseMode === 'distance' && <label className="layer-toggle__group">
             <span className="layer-toggle__group-label">{t('layers.colorScheme')}</span>
-            <label>
-              <input
-                type="radio"
-                name="noise-color-scheme"
-                value="warm"
-                checked={colorScheme === 'warm'}
-                onChange={() => onColorSchemeChange('warm')}
-              />
-              {t('layers.colorScheme.warm')}
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="noise-color-scheme"
-                value="cool"
-                checked={colorScheme === 'cool'}
-                onChange={() => onColorSchemeChange('cool')}
-              />
-              {t('layers.colorScheme.cool')}
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="noise-color-scheme"
-                value="red"
-                checked={colorScheme === 'red'}
-                onChange={() => onColorSchemeChange('red')}
-              />
-              {t('layers.colorScheme.red')}
-            </label>
-          </div>
+            <select value={colorScheme} onChange={(event) => onColorSchemeChange(event.target.value as NoiseColorScheme)}>
+              {(['warm', 'cool', 'red'] as const).map((scheme) => <option value={scheme} key={scheme}>{t(`layers.colorScheme.${scheme}`)}</option>)}
+            </select>
+          </label>}
 
           <label className="layer-toggle__group">
-            <span className="layer-toggle__group-label">{t('layers.opacity')}</span>
+            <span className="layer-toggle__group-label">{t('layers.opacity')} · {Math.round(opacity * 100)}%</span>
             <input
               type="range"
               min={NOISE_BAND_OPACITY_MIN}
