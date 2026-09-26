@@ -30,22 +30,18 @@ const translations = {
   'map.officialDocuments': { da: 'Officielle kort og støjdokumenter', en: 'Official maps and noise documents' },
 
   'legend.title': { da: 'Signaturforklaring', en: 'Legend' },
-  'legend.surveyed': { da: 'Optegnet fra tegninger', en: 'Traced from drawings' },
-  'legend.provisional': { da: 'Foreløbig (motorvej)', en: 'Provisional (motorway)' },
-  'legend.schematic': { da: 'Skitse (motorvej)', en: 'Schematic (motorway)' },
-  'legend.localRoad': { da: 'Planlagt lokalvej', en: 'Planned local road' },
   'legend.noiseScreen': { da: 'Planlagt støjskærm', en: 'Planned noise screen' },
-  'legend.officialDesign': { da: 'Officielt projektkort (2025)', en: 'Official design (2025)' },
+  'legend.officialDesign': { da: 'Officielt projektkort (2025) · med projekt', en: 'Official project map (2025) · with project' },
   'legend.permanentLand': { da: 'Permanent arealbehov', en: 'Permanent land requirements' },
   'legend.temporaryLand': { da: 'Midlertidigt arealbehov', en: 'Temporary land requirements' },
   'legend.plannedNote': {
-    da: 'Linjerne viser planlagte anlæg. Punkterede linjer er appens omtrentlige optegninger; den fuldt optrukne turkise linje er det officielle projektkort fra 2025.',
-    en: 'Lines show planned works. Dotted lines are the app’s approximate tracings; the solid teal line is the official 2025 design.',
+    da: 'Projektkortet fra 2025 viser planlagte vejlinjer, inklusive ramper og lokalveje, samt permanente og midlertidige arealbehov.',
+    en: 'The 2025 project map shows planned road lines, including ramps and local roads, plus permanent and temporary land requirements.',
   },
   'legend.noiseBands': { da: 'Afstand fra vejlinjen', en: 'Distance from the alignment' },
   'legend.noiseBandsNote': {
-    da: 'Zonerne viser kun afstand til den omtrentlige linjeføring. De viser ikke dB, støjgrænser eller sandsynligheden for at høre motorvejen. Se de officielle støjkort under Om projektet.',
-    en: 'Zones show only distance to the approximate alignment. They do not show decibels, noise limits or the likelihood of hearing the motorway. Find official noise maps in Project overview.',
+    da: 'Zonerne viser kun afstand til appens ældre optegnede vejlinje. De viser ikke dB, støjgrænser eller sandsynligheden for at høre motorvejen. Se de officielle støjkort under Om projektet.',
+    en: 'Zones show only distance to the app’s older traced road alignment. They do not show decibels, noise limits or the likelihood of hearing the motorway. Find official noise maps in Project overview.',
   },
 
   'layers.noise': { da: 'Afstandszoner og støjskærme', en: 'Distance zones and noise barriers' },
@@ -149,28 +145,12 @@ const translations = {
 
   'disclaimer.heading': { da: 'Om dette kort', en: 'About this map' },
   'disclaimer.geometry': {
-    da: 'Vejgeometrien er tilnærmet ud fra Vejdirektoratets offentlige plandokumenter. Det er ikke officielle opmålingsdata og bør kun bruges til generel orientering.',
-    en: 'Road geometry is approximated from Vejdirektoratet’s public planning documents. It is not official survey data and should not be used for anything beyond general orientation.',
+    da: 'Det officielle projektkort viser Vejdirektoratets projektlinjer fra 2025 med den nye forbindelse, inklusive ramper og lokalveje, samt permanente og midlertidige arealbehov. Det er en dateret projektversion; nyere ændringer kan mangle. Arealerne er ikke matrikelgrænser eller afgørelser om ekspropriation.',
+    en: 'The official project map shows Vejdirektoratet’s 2025 design with the new crossing, including ramps and local roads, plus permanent and temporary land requirements. It is a dated design snapshot; newer changes may be absent. The areas are not property boundaries or expropriation decisions.',
   },
   'disclaimer.noise': {
     da: 'Kortet adskiller afstandsringe fra officielle støjkonturer. Afstandsringene er ikke en akustisk model. De officielle konturer er fra VVM 2021 med trafik 2040 og må ikke forveksles med de nyere 2035-støjkort under Om projektet. Støjskærmenes offentliggjorte længder og højder er opdateret fra projektsiden i juni 2026 (ca. 5,3 km samlet); deres placering på kortet er stadig omtrentlig.',
     en: 'The map separates distance rings from official noise contours. Distance rings are not an acoustic model. Official contours come from the 2021 environmental assessment with 2040 traffic and must not be confused with the newer 2035 noise maps in Project overview. Published noise-barrier lengths and heights were updated from the June 2026 project page (about 5.3 km total); their positions on the map remain approximate.',
-  },
-  'disclaimer.confidence.surveyed': {
-    da: 'Optegnet efter Vejdirektoratets officielle deklarationsrids (E9095), georefereret til rigtige koordinater.',
-    en: 'Traced from Vejdirektoratet’s official registration drawings (E9095), georeferenced to real coordinates.',
-  },
-  'disclaimer.confidence.provisional': {
-    da: 'Optegnet efter officielle tegninger, men endnu ikke visuelt kontrolleret mod rampegeometrien. Betragt som omtrentlig.',
-    en: 'Traced from official drawings but not yet visually cross-checked against ramp geometry, treat as approximate.',
-  },
-  'disclaimer.confidence.schematic': {
-    da: 'Der findes ingen kildegeometri for denne strækning. Linjen er en omtrentlig pladsholder, ikke en præcis linjeføring.',
-    en: 'No source geometry exists for this stretch. The line is an approximate placeholder, not a precise alignment.',
-  },
-  'disclaimer.localRoads': {
-    da: 'De planlagte lokalveje (forlagt Nørholmsvej og Mølholmsvej/Nørholmsvejs forlængelse) er tegnet efter Vejdirektoratets præsentation til detailbesigtigelsen 15. april 2026. Formen følger præsentationens kort, men den absolutte placering er omtrentlig (forvent afvigelser på nogle hundrede meter).',
-    en: 'The planned local roads (the relocated Nørholmsvej and the Mølholmsvej/Nørholmsvej extension) are drawn from Vejdirektoratet’s detailed-inspection presentation of 15 April 2026. The shape follows the presentation maps, but absolute placement is approximate (expect offsets of a few hundred metres).',
   },
 
   'about.title': { da: 'Om 3. Limfjordsforbindelse', en: 'About the 3. Limfjordsforbindelse' },
@@ -240,12 +220,12 @@ const translations = {
     da: 'Alt data på dette site er hentet eller afledt fra de kilder, der er angivet nedenfor. Hvor geometri er tilnærmet eller afledt (fx GPS-spor eller afstandsringe), er det angivet.',
     en: 'Every dataset on this site is drawn or derived from the sources listed below. Where geometry is approximated or derived (e.g. GPS traces or distance rings), that is noted.',
   },
-  'sources.dataset.roadAlignment': { da: 'Motorvejens linjeføring', en: 'Motorway alignment' },
+  'sources.dataset.roadAlignment': { da: 'Ældre optegnet motorvejslinje', en: 'Older traced motorway alignment' },
   'sources.dataset.officialNoise': { da: 'Officielle støjpolygoner · VVM 2021 / trafik 2040', en: 'Official noise polygons · EIA 2021 / traffic 2040' },
   'sources.dataset.officialNoisePoints': { da: 'Officielle støjberegninger ved boliger · VVM 2021 / trafik 2040', en: 'Official dwelling noise calculations · EIA 2021 / traffic 2040' },
   'sources.dataset.officialDesign': { da: 'Officielle projektlinjer · 2025', en: 'Official design centerlines · 2025' },
   'sources.dataset.officialLand': { da: 'Officielle arealbehov · 2025', en: 'Official land requirements · 2025' },
-  'sources.dataset.localRoads': { da: 'Planlagte lokalveje', en: 'Planned local roads' },
+  'sources.dataset.localRoads': { da: 'Ældre optegnede lokalveje', en: 'Older traced local roads' },
   'sources.dataset.noiseBands': { da: 'Afstandszoner (ikke støjberegninger)', en: 'Distance zones (not noise calculations)' },
   'sources.dataset.noiseScreens': { da: 'Planlagte støjskærme', en: 'Planned noise screens' },
   'sources.dataset.junctions': { da: 'Tilslutningsanlæg', en: 'Junctions / interchanges' },

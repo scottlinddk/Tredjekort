@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMapInstance } from './MapInstanceContext'
-import { LAYER_IDS } from '../constants/mapConfig'
 import type { OfficialNoiseScenario } from '../constants/officialNoiseConfig'
 import type { OfficialNoiseData } from '../hooks/useOfficialNoise'
 
@@ -19,8 +18,7 @@ export function OfficialNoiseLayer({ data, scenario, opacity }: OfficialNoiseLay
   useEffect(() => {
     if (!map || !data) return
     map.addSource(SOURCE_ID, { type: 'geojson', data, attribution: 'Vejdirektoratet · VVM 2021 / 2040' })
-    const beforeId = map.getLayer(LAYER_IDS.roadAlignmentCasing) ? LAYER_IDS.roadAlignmentCasing
-      : map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id
+    const beforeId = map.getStyle().layers.find((layer) => layer.type === 'symbol')?.id
     map.addLayer({
       id: LAYER_ID,
       type: 'fill',

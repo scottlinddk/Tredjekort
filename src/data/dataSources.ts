@@ -40,7 +40,7 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     datasetKey: 'officialDesign',
     citations: [
       'Vejdirektoratet public WFS vvm_e9095_analysedata_linje_projekt_fase_3; Vej centerlinje feature, source timestamp 2025-06-11, 14,072 line segments',
-      'Includes project road lines, ramps and local details. Dated design snapshot; not exclusively the motorway axis or the latest 2026 design.',
+      'Default project map with the new crossing: includes project road lines, ramps and local details. Dated design snapshot; not exclusively the motorway axis or the latest 2026 design.',
     ],
     url: 'https://geocloud.vd.dk/geo/vvm/ows?service=WFS&version=2.0.0&request=GetCapabilities',
   },
@@ -59,6 +59,7 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     citations: [
       'Vejdirektoratet deklarationsrids E9095, jnr. EMN-2024-618886',
       'Owner GPS trace 2026-07 against Vejdirektoratet detailbesigtigelse plan sheets (MVK E45/E39)',
+      'Retained for optional distance zones, the older-route address comparison and API proximity results. This approximate trace is no longer drawn as a road layer; the default map uses the official 2025 project lines.',
     ],
     url: 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter',
   },
@@ -68,6 +69,7 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     citations: [
       'Vejdirektoratet, Præsentation af Nørholmsvej og Mølholmsvejs forlængelse, detailbesigtigelse 15. april 2026',
       'Owner GPS trace 2026-07 cross-checked against the above presentation',
+      'Retained for API nearby-local-road results. These approximate traces are no longer drawn as a separate map layer; local project roads are included in the official 2025 design.',
     ],
     url: 'https://api.vejdirektoratet.dk/sites/default/files/2026-04/Pr%C3%A6sentation%20af%20N%C3%B8rholmsvej%20og%20M%C3%B8lholmsvejs%20forl%C3%A6ngelse.pdf',
   },
@@ -75,7 +77,7 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     id: 'noise-bands',
     datasetKey: 'noiseBands',
     citations: [
-      'App-generated distance buffers around the approximate road alignment; these bands contain no measured or modeled dB values',
+      'Optional app-generated distance buffers around the older traced road alignment, retained separately from the official 2025 project lines; these bands contain no measured or modeled dB values',
       'Official Trafik 2035 PDFs for south, fjord crossing and north, with/without project, are linked separately in the project information. These PDFs are not the colored map layer.',
     ],
     url: 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/dokumenter',

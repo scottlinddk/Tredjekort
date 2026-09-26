@@ -31,9 +31,7 @@ export function useAddressQueryParams(): UseAddressQueryParamsResult {
             next.delete(ADDRESS_QUERY_PARAM)
           } else {
             next.set(ADDRESS_QUERY_PARAM, text)
-            // React Router search-param setters do not queue like React state.
-            // Persist address and layer visibility together in one navigation.
-            if (!next.has('noiseScenario')) next.set('showNoiseBand', 'true')
+            // Searching preserves the user's existing layer selection.
           }
           return next
         },

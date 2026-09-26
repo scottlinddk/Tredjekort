@@ -6,32 +6,14 @@ export const DEFAULT_MAP_CENTER: [number, number] = [9.89, 57.02]
 export const DEFAULT_MAP_ZOOM = 11.5
 
 export const LAYER_IDS = {
-  roadAlignmentLine: 'road-alignment-line',
-  roadAlignmentCasing: 'road-alignment-casing',
-  localRoadsLine: 'local-roads-line',
-  localRoadsCasing: 'local-roads-casing',
   noiseBufferFill: 'noise-buffer-fill',
   noiseScreensLine: 'noise-screens-line',
   junctionPoints: 'junction-points',
 } as const
 
-export const CONFIDENCE_COLORS = {
-  surveyed: '#1d4ed8',
-  provisional: '#a16207',
-  schematic: '#6b7280',
-} as const
-
-// Matches the --color-fjord design token in tokens.css.
-export const LOCAL_ROAD_COLOR = '#0e7490'
-
 // Planned noise barriers (current official project page, June 2026), rendered as a solid
 // (not dotted) line since these are physical mitigation structures, not road alignment.
 export const NOISE_SCREEN_COLOR = '#7c2d12'
-
-// Everything on this map is a planned road, none of it exists yet, so all alignments
-// render dotted. Zero-length dashes with a round line-cap produce true dots.
-export const DOTTED_LINE_DASHARRAY: [number, number] = [0, 2.2]
-export const DOTTED_LINE_DASHARRAY_SPARSE: [number, number] = [0, 3.2]
 
 // Geometric proximity zones only. No acoustic measurement or modeled Lden value can
 // be inferred from a distance to the alignment. Official scenario maps are linked
