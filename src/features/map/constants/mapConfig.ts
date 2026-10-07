@@ -9,7 +9,12 @@ export const LAYER_IDS = {
   noiseBufferFill: 'noise-buffer-fill',
   noiseScreensLine: 'noise-screens-line',
   junctionPoints: 'junction-points',
+  municipalProposalLine: 'municipal-proposal-line',
 } as const
+
+// Aalborg Kommune's proposal for Mølholmsvej/Annebergvej. Dashed violet, distinct from the
+// teal state design and the orange/blue land areas: a municipal, preliminary proposal.
+export const MUNICIPAL_PROPOSAL_COLOR = '#a21caf'
 
 // Planned noise barriers (current official project page, June 2026), rendered as a solid
 // (not dotted) line since these are physical mitigation structures, not road alignment.

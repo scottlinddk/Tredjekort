@@ -443,6 +443,53 @@ body {
   margin: var(--space-2) 0;
 }
 
+.municipal-proposal {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+  padding-bottom: var(--space-2);
+  border-bottom: var(--border-hairline);
+}
+
+.municipal-proposal__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.municipal-proposal__table caption {
+  text-align: left;
+  color: var(--color-graphite);
+  padding-bottom: var(--space-1);
+}
+
+.municipal-proposal__table th,
+.municipal-proposal__table td {
+  padding: var(--space-1) var(--space-1) var(--space-1) 0;
+  border-top: var(--border-hairline);
+  vertical-align: top;
+  text-align: left;
+  font-weight: 400;
+}
+
+.municipal-proposal__table thead th {
+  color: var(--color-graphite);
+  border-top: 0;
+}
+
+.municipal-proposal__table td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.municipal-proposal__undrawn {
+  display: block;
+  color: var(--color-graphite);
+  font-size: 0.72rem;
+}
+
 .layer-toggle__noise-controls {
   display: flex;
   flex-direction: column;
@@ -825,6 +872,11 @@ body {
 
 .legend-swatch--official-design {
   background: #0f766e;
+}
+
+.legend-swatch--municipal-proposal {
+  /* Dashed, matching the map line's dasharray. */
+  background: repeating-linear-gradient(90deg, #a21caf 0 6px, transparent 6px 10px);
 }
 
 .legend-swatch--permanent-land,

@@ -20,6 +20,9 @@ React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
   requirement areas shown by default as the with-project map. These replace the
   older traced motorway and local-road layers and their legend entries. Address
   searches preserve the selected layers; distance zones remain an opt-in overlay.
+- An opt-in layer for Aalborg Kommune's **preliminary proposal** for Mølholmsvej
+  and Annebergvej, with published traffic today and forecast for 2034 per section.
+  Sections without verified street geometry are listed but not drawn.
 - All six published **2035 noise PDFs**, paired by region and with/without project,
   plus project facts, dated updates, the published schedule, inspection documents,
   environmental material and landowner information.

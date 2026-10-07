@@ -13,6 +13,7 @@ import { useNoiseMapQueryParam } from '../features/map/hooks/useNoiseMapQueryPar
 import { useI18n } from '../shared/i18n/I18nContext'
 import { OfficialNoiseLayer } from '../features/map/components/OfficialNoiseLayer'
 import { OfficialDesignLayer } from '../features/map/components/OfficialDesignLayer'
+import { MunicipalProposalLayer } from '../features/map/components/MunicipalProposalLayer'
 import { useOfficialNoise } from '../features/map/hooks/useOfficialNoise'
 import { isOfficialNoiseScenario, type NoiseMapMode } from '../features/map/constants/officialNoiseConfig'
 
@@ -25,6 +26,8 @@ export function MapRoute() {
   const [opacity, setOpacity] = useState(() => isOfficialNoiseScenario(noiseMode) ? 0.35 : NOISE_BAND_OPACITY_DEFAULT)
   const [showScreens, setShowScreens] = useState(true)
   const [showOfficialDesign, setShowOfficialDesign] = useState(true)
+  // Opt-in: a preliminary municipal proposal, kept apart from the state project's design.
+  const [showMunicipalProposal, setShowMunicipalProposal] = useState(false)
   const officialScenario = isOfficialNoiseScenario(noiseMode) ? noiseMode : null
   const officialNoise = useOfficialNoise(officialScenario !== null)
   const [activePanel, setActivePanel] = useState<MapPanel | null>(() =>
@@ -45,6 +48,7 @@ export function MapRoute() {
     <div className={`map-route${activePanel ? ' map-route--panel-open' : ''}`}>
       <MapCanvas>
         <OfficialDesignLayer visible={showOfficialDesign} />
+        <MunicipalProposalLayer visible={showMunicipalProposal} />
         <NoiseZoneLayer visible={noiseMode === 'distance'} colorScheme={colorScheme} opacity={opacity} />
         <OfficialNoiseLayer data={officialNoise.data} scenario={officialScenario} opacity={opacity} />
         <NoiseScreensLayer visible={showScreens} />
@@ -101,6 +105,8 @@ export function MapRoute() {
                 onToggleScreens={setShowScreens}
                 showOfficialDesign={showOfficialDesign}
                 onToggleOfficialDesign={setShowOfficialDesign}
+                showMunicipalProposal={showMunicipalProposal}
+                onToggleMunicipalProposal={setShowMunicipalProposal}
                 colorScheme={colorScheme}
                 onColorSchemeChange={setColorScheme}
                 opacity={opacity}
@@ -108,7 +114,7 @@ export function MapRoute() {
               />
               {officialScenario && officialNoise.isFetching && <p role="status">{t('officialNoise.loading')}</p>}
               {officialScenario && officialNoise.isError && <button type="button" className="map-tools__close" onClick={() => { void officialNoise.refetch() }}>{t('officialNoise.error')}</button>}
-              <MapLegend colorScheme={colorScheme} noiseMode={noiseMode} showScreens={showScreens} showOfficialDesign={showOfficialDesign} />
+              <MapLegend colorScheme={colorScheme} noiseMode={noiseMode} showScreens={showScreens} showOfficialDesign={showOfficialDesign} showMunicipalProposal={showMunicipalProposal} />
             </section>
             <section id="map-panel-info" hidden={activePanel !== 'info'} aria-label={t('map.panel.info')}>
               <p className="map-tools__intro">{t('map.approximation')}</p>

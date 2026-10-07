@@ -34,6 +34,25 @@ const translations = {
   'legend.officialDesign': { da: 'Officielt projektkort (2025) · med projekt', en: 'Official project map (2025) · with project' },
   'legend.permanentLand': { da: 'Permanent arealbehov', en: 'Permanent land requirements' },
   'legend.temporaryLand': { da: 'Midlertidigt arealbehov', en: 'Temporary land requirements' },
+  'legend.municipalProposal': { da: 'Kommunalt forslag · Mølholmsvej/Annebergvej', en: 'Municipal proposal · Mølholmsvej/Annebergvej' },
+  'municipalProposal.caveat': {
+    da: 'Aalborg Kommunes foreløbige forslag til ny udformning. Intet er besluttet, og forslaget skal undersøges, konkretiseres og budgetteres. Linjen er omtrentlig.',
+    en: 'Aalborg Kommune’s preliminary redesign proposal. Nothing has been decided; the proposal still has to be investigated, detailed and budgeted. The line is approximate.',
+  },
+  'municipalProposal.tableCaption': { da: 'Årsdøgntrafik (ÅDT), biler pr. døgn · forventet {year}', en: 'Annual average daily traffic (AADT), vehicles per day · forecast {year}' },
+  'municipalProposal.segment': { da: 'Strækning', en: 'Section' },
+  'municipalProposal.today': { da: 'I dag', en: 'Today' },
+  'municipalProposal.forecast': { da: 'Forventet', en: 'Forecast' },
+  'municipalProposal.newRoad': { da: 'Ny vej', en: 'New road' },
+  'municipalProposal.notDrawn': { da: 'Ikke indtegnet på kortet endnu', en: 'Not drawn on the map yet' },
+  'municipalProposal.comparison': { da: 'Til sammenligning kører der i dag ca. {count} biler i døgnet på {road}.', en: 'For comparison, {road} carries about {count} vehicles per day today.' },
+  'municipalProposal.closuresNotMapped': {
+    da: 'Forslaget omfatter lukning af sideveje med stiadgang. De berørte veje er ikke indtegnet, fordi de ikke kan aflæses sikkert af kommunens visualisering. Se kilden.',
+    en: 'The proposal includes closing side streets while keeping path access. The affected streets are not drawn because they cannot be read reliably from the municipality’s visualisation. See the source.',
+  },
+  'municipalProposal.source': { da: 'Aalborg Kommune: forslag og spørgsmål og svar', en: 'Aalborg Kommune: proposal and Q&A' },
+  'municipalProposal.loading': { da: 'Indlæser kommunens forslag …', en: 'Loading the municipal proposal…' },
+  'municipalProposal.error': { da: 'Kommunens forslag kunne ikke indlæses. Prøv igen.', en: 'The municipal proposal could not be loaded. Try again.' },
   'legend.plannedNote': {
     da: 'Projektkortet fra 2025 viser planlagte vejlinjer, inklusive ramper og lokalveje, samt permanente og midlertidige arealbehov.',
     en: 'The 2025 project map shows planned road lines, including ramps and local roads, plus permanent and temporary land requirements.',
@@ -232,6 +251,7 @@ const translations = {
   'sources.dataset.addressSearch': { da: 'Adressesøgning', en: 'Address search' },
   'sources.dataset.basemap': { da: 'Kortgrundlag', en: 'Basemap' },
   'sources.dataset.changesFeed': { da: 'Ændringsovervågning', en: 'Change monitoring feed' },
+  'sources.dataset.municipalProposal': { da: 'Kommunalt forslag · Mølholmsvej og Annebergvej', en: 'Municipal proposal · Mølholmsvej and Annebergvej' },
   'sources.dataset.projectInformation': { da: 'Projektoplysninger og officielle dokumenter', en: 'Project information and official documents' },
   'sources.viewSource': { da: 'Se kilde', en: 'View source' },
 } as const

@@ -193,3 +193,31 @@ point layer consists mainly of chainage labels and 36 rainwater-basin label anch
 not verified footprints or structure positions. Older noise-screen layers use a
 different design scenario. Environmental registrations likewise describe historical
 investigations, not the present condition of every address.
+
+## Municipal proposal: Mølholmsvej and Annebergvej
+
+Reviewed 7 October 2026 from
+[Aalborg Kommune's 3. Limfjordsforbindelse page](https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/)
+(questions and answers plus the visualisation "Forslag til ny udformning af
+Mølholmsvej og Annebergvej"). This is a **preliminary municipal proposal**, not part
+of Vejdirektoratet's project and not a decision. A citizens' meeting was held on
+5 October 2026. The layer is off by default.
+
+`src/data/municipal-road-proposal.geojson` stores the published annual average daily
+traffic per section. The visualisation labels the forecasts as AADT in 2034; that year
+is kept separate from the 2035 noise PDFs and the 2040 VVM model.
+
+| Section | Today | Forecast 2034 |
+| --- | --- | --- |
+| Mølholmsvej extension (new road) | null | 6,900 |
+| Mølholmsvej, Svalegårdsvej–Skydebanevej | 5,900 | 9,700 |
+| Annebergvej, Skydebanevej–Vestre Fjordvej | 4,200 | 8,200 |
+
+The visualisation has no coordinates. Only the extension is drawn, reusing the existing
+approximate owner GPS trace from `local-roads.geojson`. The two existing-street sections
+have `geometry: null` until verified street centrelines (for example DAWA `vejstykker`)
+are imported; the app lists them without drawing a line. The proposed side-street
+closures with path access are not listed by the municipality and cannot be identified
+reliably from the published image, so `metadata.closures.mapped` is `false`. The blue
+bars across the road in the visualisation are not defined by its caption and are not
+mapped.

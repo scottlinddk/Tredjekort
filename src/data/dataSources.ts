@@ -105,6 +105,16 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     url: 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/om-projektet',
   },
   {
+    id: 'municipal-road-proposal',
+    datasetKey: 'municipalProposal',
+    citations: [
+      'Aalborg Kommune, 3. Limfjordsforbindelse: Ny udformning af Mølholmsvej og Annebergvej, questions and answers and visualisation; reviewed 2026-10-07. A preliminary proposal, not a decision; citizens’ meeting 5 October 2026',
+      'AADT per section from the municipality: Mølholmsvej extension about 6,900 (new road); Svalegårdsvej–Skydebanevej about 5,900 today and 9,700 forecast; Skydebanevej–Vestre Fjordvej about 4,200 today and 8,200 forecast. The visualisation labels the forecasts as AADT in 2034',
+      'Only the extension is drawn, reusing the existing approximate owner GPS trace. The other sections and the proposed side-street closures are listed but not drawn until verified street geometry is available',
+    ],
+    url: 'https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/',
+  },
+  {
     id: 'project-information',
     datasetKey: 'projectInformation',
     citations: [

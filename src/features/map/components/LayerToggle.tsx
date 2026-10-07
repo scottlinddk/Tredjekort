@@ -5,6 +5,7 @@ import {
   NOISE_BAND_OPACITY_STEP,
   type NoiseColorScheme,
 } from '../constants/mapConfig'
+import { MunicipalProposalSummary } from './MunicipalProposalSummary'
 import { OFFICIAL_NOISE_SCENARIOS, isOfficialNoiseScenario, type NoiseMapMode } from '../constants/officialNoiseConfig'
 
 interface LayerToggleProps {
@@ -14,6 +15,8 @@ interface LayerToggleProps {
   onToggleScreens: (next: boolean) => void
   showOfficialDesign: boolean
   onToggleOfficialDesign: (next: boolean) => void
+  showMunicipalProposal: boolean
+  onToggleMunicipalProposal: (next: boolean) => void
   colorScheme: NoiseColorScheme
   onColorSchemeChange: (next: NoiseColorScheme) => void
   opacity: number
@@ -27,6 +30,8 @@ export function LayerToggle({
   onToggleScreens,
   showOfficialDesign,
   onToggleOfficialDesign,
+  showMunicipalProposal,
+  onToggleMunicipalProposal,
   colorScheme,
   onColorSchemeChange,
   opacity,
@@ -40,6 +45,11 @@ export function LayerToggle({
         <input type="checkbox" checked={showOfficialDesign} onChange={(event) => onToggleOfficialDesign(event.target.checked)} />
         {t('legend.officialDesign')}
       </label>
+      <label>
+        <input type="checkbox" checked={showMunicipalProposal} onChange={(event) => onToggleMunicipalProposal(event.target.checked)} />
+        {t('legend.municipalProposal')}
+      </label>
+      {showMunicipalProposal && <MunicipalProposalSummary />}
       <label className="layer-toggle__group">
         <span className="layer-toggle__group-label">{t('layers.overlay')}</span>
         <select value={noiseMode} onChange={(event) => onNoiseModeChange(event.target.value as NoiseMapMode)}>
