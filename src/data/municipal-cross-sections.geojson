@@ -1,0 +1,64 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "publisher": "Aalborg Kommune",
+    "title": {
+      "da": "Visualisering af tværsnit på Mølholmsvej",
+      "en": "Cross-section visualisation of Mølholmsvej"
+    },
+    "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+    "status": "preliminary-proposal",
+    "reviewedAt": "2026-10-07",
+    "georeferencing": {
+      "method": "The blue section marker's position on the road centreline in the 2000 by 363 px image \"Forslag til ny udformning af Mølholmsvej og Annebergvej\", transformed with the same affine fit as src/data/municipal-road-closures.geojson (reproduced from its sourceImagePx and publishedBarCoordinates pairs).",
+      "imageSizePx": [
+        2000,
+        363
+      ]
+    },
+    "note": "The figure marks section lines in blue, labelled B and C, but its caption does not define them. The visualisation is matched to the B marker on Mølholmsvej between Svalegårdsvej and Skydebanevej, where the plan shows homes on one side and a tree belt on the other, as the visualisation does. B is also marked on the Mølholmsvej extension (about px 44, 315) and twice on Annebergvej (about px 1060, 77 and px 1688, 185); those positions are not drawn. The position is approximate."
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "cross-section-b-molholmsvej",
+        "kind": "cross-section-illustration",
+        "section": "B",
+        "corridorRoad": "Mølholmsvej",
+        "between": [
+          "Svalegårdsvej",
+          "Skydebanevej"
+        ],
+        "image": {
+          "src": "/images/municipal/molholmsvej-snit-b.webp",
+          "widthPx": 1280,
+          "heightPx": 623
+        },
+        "caption": {
+          "da": "Mølholmsvej med én kørebane i hver retning, adskilt af en beplantet midterrabat, og med cykelsti og fortov i begge sider.",
+          "en": "Mølholmsvej with one traffic lane in each direction, separated by a planted central reserve, with a cycle track and footway on both sides."
+        },
+        "alt": {
+          "da": "Skitse set skråt ovenfra langs Mølholmsvej: to kørebaner med biler, adskilt af en grøn midterrabat med træer og buske. På begge sider cyklister på cykelsti og gående på fortov. Til venstre parcelhuse med haver og gadelamper, til højre et tæt bælte af træer.",
+          "en": "Sketch seen at an angle from above along Mølholmsvej: two carriageways with cars, separated by a green central reserve with trees and shrubs. Cyclists on a cycle track and pedestrians on a footway on both sides. Detached houses with gardens and street lights on the left, a dense belt of trees on the right."
+        },
+        "status": "preliminary-proposal",
+        "confidence": "schematic",
+        "sourceImagePx": [
+          706.6,
+          112.0
+        ],
+        "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+        "reviewedAt": "2026-10-07"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.8724411,
+          57.0482907
+        ]
+      }
+    }
+  ]
+}

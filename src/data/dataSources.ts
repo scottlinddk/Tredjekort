@@ -125,6 +125,15 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     url: 'https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/',
   },
   {
+    id: 'municipal-cross-sections',
+    datasetKey: 'municipalCrossSections',
+    citations: [
+      'Aalborg Kommune, visualisation of the redesigned Mølholmsvej: one lane each way, planted central reserve, cycle track and footway on both sides; reviewed 2026-10-07. A preliminary proposal, not a decision',
+      'Placed at the blue B section line on Mølholmsvej between Svalegårdsvej and Skydebanevej in “Forslag til ny udformning af Mølholmsvej og Annebergvej”, using the same affine fit as the road closures. Matching the visualisation to this marker is an interpretation; the caption does not define the section lines',
+    ],
+    url: 'https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/',
+  },
+  {
     id: 'project-information',
     datasetKey: 'projectInformation',
     citations: [

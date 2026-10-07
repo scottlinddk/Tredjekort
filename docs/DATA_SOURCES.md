@@ -216,8 +216,23 @@ is kept separate from the 2035 noise PDFs and the 2040 VVM model.
 The visualisation has no coordinates. Only the extension is drawn, reusing the existing
 approximate owner GPS trace from `local-roads.geojson`. The two existing-street sections
 have `geometry: null` until verified street centrelines are imported; the app lists
-them without drawing a line. The blue bars across the road in the visualisation are not
-defined by its caption and are not mapped.
+them without drawing a line. The blue bars across the road in the visualisation are
+section lines labelled B and C; the caption does not define them.
+
+### Cross-section visualisation
+
+The municipality's sketch of the redesigned Mølholmsvej (one lane each way, a planted
+central reserve, cycle track and footway on both sides) is bundled as
+`public/images/municipal/molholmsvej-snit-b.webp` and shown in a popup from a "B" marker.
+`src/data/municipal-cross-sections.geojson` places it at the B section line on Mølholmsvej
+between Svalegårdsvej and Skydebanevej (image pixel 706.6, 112 on the road centreline),
+transformed with the same affine fit as the closures. The test
+`tests/municipal-cross-sections.test.js` re-derives that transform from the closures'
+pixel/coordinate pairs and requires the point within 3 metres of it.
+
+Matching the sketch to this B marker is an interpretation: it shows homes on one side and
+a dense tree belt on the other, which fits this stretch. B is also drawn on the Mølholmsvej
+extension and twice on Annebergvej, and C at Johannesmindevej; those are not mapped.
 
 ### Proposed closures with path access
 

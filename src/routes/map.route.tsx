@@ -15,6 +15,7 @@ import { OfficialNoiseLayer } from '../features/map/components/OfficialNoiseLaye
 import { OfficialDesignLayer } from '../features/map/components/OfficialDesignLayer'
 import { MunicipalProposalLayer } from '../features/map/components/MunicipalProposalLayer'
 import { MunicipalClosuresLayer } from '../features/map/components/MunicipalClosuresLayer'
+import { MunicipalCrossSectionMarkers } from '../features/map/components/MunicipalCrossSectionMarkers'
 import { useOfficialNoise } from '../features/map/hooks/useOfficialNoise'
 import { isOfficialNoiseScenario, type NoiseMapMode } from '../features/map/constants/officialNoiseConfig'
 
@@ -55,6 +56,7 @@ export function MapRoute() {
         <NoiseScreensLayer visible={showScreens} />
         <MunicipalClosuresLayer visible={showMunicipalProposal} />
         <JunctionMarkers />
+        <MunicipalCrossSectionMarkers visible={showMunicipalProposal} />
         <aside className="map-tools" aria-label={t('map.tools')} onKeyDown={(event) => {
           if (event.key === 'Escape' && !event.defaultPrevented) closePanel()
         }}>

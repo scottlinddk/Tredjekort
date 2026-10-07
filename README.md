@@ -25,6 +25,7 @@ React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
   Sections without verified street geometry are listed but not drawn. The ten
   proposed side-street closures with path access are drawn and listed, georeferenced
   from the municipality's image and named from OpenStreetMap, since DAWA has closed.
+  A "B" marker on Mølholmsvej opens the municipality's cross-section visualisation.
 - All six published **2035 noise PDFs**, paired by region and with/without project,
   plus project facts, dated updates, the published schedule, inspection documents,
   environmental material and landowner information.
