@@ -10,11 +10,16 @@ export const LAYER_IDS = {
   noiseScreensLine: 'noise-screens-line',
   junctionPoints: 'junction-points',
   municipalProposalLine: 'municipal-proposal-line',
+  municipalClosureCasing: 'municipal-closure-casing',
+  municipalClosureLine: 'municipal-closure-line',
 } as const
 
 // Aalborg Kommune's proposal for Mølholmsvej/Annebergvej. Dashed violet, distinct from the
 // teal state design and the orange/blue land areas: a municipal, preliminary proposal.
 export const MUNICIPAL_PROPOSAL_COLOR = '#a21caf'
+
+// Proposed side-street closures with path access: red, as in the municipality's own drawing.
+export const MUNICIPAL_CLOSURE_COLOR = '#dc2626'
 
 // Planned noise barriers (current official project page, June 2026), rendered as a solid
 // (not dotted) line since these are physical mitigation structures, not road alignment.

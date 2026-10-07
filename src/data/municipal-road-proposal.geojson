@@ -15,8 +15,8 @@
       "aadtCurrent": 10500
     },
     "closures": {
-      "mapped": false,
-      "reason": "The published figure marks proposed closures of side-street access with path access retained, but the affected streets are not listed and cannot be identified reliably from the published image resolution."
+      "mapped": true,
+      "reason": "Georeferenced separately in src/data/municipal-road-closures.geojson: the red bars in the published figure, positioned by an affine fit to four junctions and named from OpenStreetMap (DAWA closed on 1 October 2026). Positions are approximate."
     },
     "crossings": {
       "mapped": false,

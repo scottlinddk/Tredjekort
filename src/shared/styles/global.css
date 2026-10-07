@@ -490,6 +490,32 @@ body {
   font-size: 0.72rem;
 }
 
+.municipal-closures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.municipal-closures__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.municipal-closures__list {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 0.78rem;
+}
+
+.municipal-closures__where {
+  display: block;
+  color: var(--color-graphite);
+  font-size: 0.72rem;
+}
+
 .layer-toggle__noise-controls {
   display: flex;
   flex-direction: column;
@@ -877,6 +903,12 @@ body {
 .legend-swatch--municipal-proposal {
   /* Dashed, matching the map line's dasharray. */
   background: repeating-linear-gradient(90deg, #a21caf 0 6px, transparent 6px 10px);
+}
+
+.legend-swatch--municipal-closure {
+  /* Red bar with a white casing, matching the map layer. */
+  background: #dc2626;
+  box-shadow: 0 0 0 1.5px #ffffff;
 }
 
 .legend-swatch--permanent-land,
