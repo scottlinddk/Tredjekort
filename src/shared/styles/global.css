@@ -382,6 +382,79 @@ body {
   box-shadow: 0 0 0 1px var(--color-ink);
 }
 
+/* Blue section label, as in the municipality's plan drawing. */
+.cross-section-marker {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  background: #1d4ed8;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.35);
+  color: #ffffff;
+  font: 700 0.8rem var(--font-body);
+  cursor: pointer;
+}
+
+/* Invisible ring that widens the hit area to 44px. */
+.cross-section-marker::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+}
+
+.cross-section-marker:hover,
+.cross-section-marker:focus-visible {
+  background: #1e3a8a;
+}
+
+.cross-section-popup .maplibregl-popup-content {
+  padding: var(--space-2);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.cross-section-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--color-paper);
+}
+
+.cross-section-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--color-paper);
+}
+
+.cross-section-figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.cross-section-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  background: #ffffff;
+}
+
+.cross-section-figure figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  padding-right: var(--space-3);
+}
+
+.cross-section-figure__note {
+  color: var(--color-graphite);
+  font-size: 0.72rem;
+}
+
 /* Column of interactive overlays in the map's top-left corner. */
 .map-overlays-left {
   position: absolute;
@@ -909,6 +982,18 @@ body {
   /* Red bar with a white casing, matching the map layer. */
   background: #dc2626;
   box-shadow: 0 0 0 1.5px #ffffff;
+}
+
+.legend-swatch--cross-section {
+  /* Miniature of the map's section marker. */
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1d4ed8;
+  color: #ffffff;
+  font: 700 0.65rem var(--font-body);
 }
 
 .legend-swatch--permanent-land,

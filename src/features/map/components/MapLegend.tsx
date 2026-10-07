@@ -29,6 +29,9 @@ export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDes
       {showMunicipalProposal && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--municipal-closure" /> {t('legend.municipalClosure')}
       </div>}
+      {showMunicipalProposal && <div className="map-legend__row">
+        <span className="legend-swatch legend-swatch--cross-section" aria-hidden="true">B</span> {t('legend.municipalCrossSection')}
+      </div>}
       {showScreens && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
       </div>}
