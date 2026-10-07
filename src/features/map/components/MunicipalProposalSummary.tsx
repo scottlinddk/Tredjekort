@@ -1,5 +1,6 @@
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { useMunicipalProposal } from '../hooks/useMunicipalProposal'
+import { MunicipalClosuresList } from './MunicipalClosuresList'
 
 const formatCount = (value: number, language: string) => value.toLocaleString(language === 'da' ? 'da-DK' : 'en-GB')
 
@@ -40,7 +41,7 @@ export function MunicipalProposalSummary() {
       <p className="layer-toggle__note">
         {t('municipalProposal.comparison', { road: metadata.comparison.road, count: formatCount(metadata.comparison.aadtCurrent, language) })}
       </p>
-      {!metadata.closures.mapped && <p className="layer-toggle__note">{t('municipalProposal.closuresNotMapped')}</p>}
+      {metadata.closures.mapped ? <MunicipalClosuresList /> : <p className="layer-toggle__note">{t('municipalProposal.closuresNotMapped')}</p>}
       <a className="map-tools__resource" href={metadata.sourceUrl} target="_blank" rel="noreferrer">{t('municipalProposal.source')} →</a>
     </div>
   )

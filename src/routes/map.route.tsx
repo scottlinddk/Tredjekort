@@ -14,6 +14,7 @@ import { useI18n } from '../shared/i18n/I18nContext'
 import { OfficialNoiseLayer } from '../features/map/components/OfficialNoiseLayer'
 import { OfficialDesignLayer } from '../features/map/components/OfficialDesignLayer'
 import { MunicipalProposalLayer } from '../features/map/components/MunicipalProposalLayer'
+import { MunicipalClosuresLayer } from '../features/map/components/MunicipalClosuresLayer'
 import { useOfficialNoise } from '../features/map/hooks/useOfficialNoise'
 import { isOfficialNoiseScenario, type NoiseMapMode } from '../features/map/constants/officialNoiseConfig'
 
@@ -52,6 +53,7 @@ export function MapRoute() {
         <NoiseZoneLayer visible={noiseMode === 'distance'} colorScheme={colorScheme} opacity={opacity} />
         <OfficialNoiseLayer data={officialNoise.data} scenario={officialScenario} opacity={opacity} />
         <NoiseScreensLayer visible={showScreens} />
+        <MunicipalClosuresLayer visible={showMunicipalProposal} />
         <JunctionMarkers />
         <aside className="map-tools" aria-label={t('map.tools')} onKeyDown={(event) => {
           if (event.key === 'Escape' && !event.defaultPrevented) closePanel()

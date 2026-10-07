@@ -46,8 +46,8 @@ test('only sections with verified geometry are drawn, in longitude-latitude orde
   assert.deepEqual(extension.geometry, traced.geometry)
 })
 
-test('unverified closures are declared as not mapped rather than guessed', () => {
-  assert.equal(proposal.metadata.closures.mapped, false)
-  assert.ok(proposal.metadata.closures.reason)
+test('closures are kept in their own file, not mixed into the traffic segments', () => {
+  assert.equal(proposal.metadata.closures.mapped, true)
+  assert.match(proposal.metadata.closures.reason, /municipal-road-closures\.geojson/)
   assert.ok(proposal.features.every(({ properties }) => properties.kind === 'segment'))
 })
