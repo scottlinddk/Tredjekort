@@ -193,3 +193,64 @@ point layer consists mainly of chainage labels and 36 rainwater-basin label anch
 not verified footprints or structure positions. Older noise-screen layers use a
 different design scenario. Environmental registrations likewise describe historical
 investigations, not the present condition of every address.
+
+## Municipal proposal: Mølholmsvej and Annebergvej
+
+Reviewed 7 October 2026 from
+[Aalborg Kommune's 3. Limfjordsforbindelse page](https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/)
+(questions and answers plus the visualisation "Forslag til ny udformning af
+Mølholmsvej og Annebergvej"). This is a **preliminary municipal proposal**, not part
+of Vejdirektoratet's project and not a decision. A citizens' meeting was held on
+5 October 2026. The layer is off by default.
+
+`src/data/municipal-road-proposal.geojson` stores the published annual average daily
+traffic per section. The visualisation labels the forecasts as AADT in 2034; that year
+is kept separate from the 2035 noise PDFs and the 2040 VVM model.
+
+| Section | Today | Forecast 2034 |
+| --- | --- | --- |
+| Mølholmsvej extension (new road) | null | 6,900 |
+| Mølholmsvej, Svalegårdsvej–Skydebanevej | 5,900 | 9,700 |
+| Annebergvej, Skydebanevej–Vestre Fjordvej | 4,200 | 8,200 |
+
+The visualisation has no coordinates. Only the extension is drawn, reusing the existing
+approximate owner GPS trace from `local-roads.geojson`. The two existing-street sections
+have `geometry: null` until verified street centrelines are imported; the app lists
+them without drawing a line. The blue bars across the road in the visualisation are not
+defined by its caption and are not mapped.
+
+### Proposed closures with path access
+
+The caption reads "De røde streger markerer vejlukning med stiadgang". The municipality
+does not list the affected streets, so `src/data/municipal-road-closures.geojson` is
+georeferenced from the image by `scripts/import-municipal-closures.py`:
+
+1. The ten red bars were measured in the 2000 by 363 pixel image (principal axis of each
+   bar's red pixels). Two detections split by the blue C marker are one bar.
+2. A least-squares affine transform maps the image to ETRS89 / UTM 32N, fitted to the
+   junctions of Mølholmsvej/Annebergvej with Svalegårdsvej, Skydebanevej, Vestre Kærvej
+   and Vestre Fjordvej. Residuals are 0.0 to 2.9 metres at about 1 metre per pixel.
+3. Every bar must intersect the side street recorded from a visual review of the image
+   overlaid with the street network, otherwise the importer fails.
+4. The published bars run along the redesigned road edge, so drawn as-is they sit on
+   today's main-road casing and look like a closure of the main road. Each closure is
+   drawn across its side street instead, 18 metres from the through route's centreline,
+   at right angles to the side street and with the published bar's length.
+   `publishedBarCoordinates` keeps the georeferenced bar itself.
+
+[DAWA closed on 1 October 2026](https://www.lovguiden.dk/det-offentlige/klimadatastyrelsen/2026-07-02-dawa-applikationen-lukker-1-oktober-2026-datafordeler-og-adressevaelger-overtager)
+and every `api.dataforsyningen.dk` DAWA endpoint now returns `410 Gone`. Street names and
+geometry therefore come from OpenStreetMap (© OpenStreetMap contributors, ODbL) through
+OpenFreeMap's OpenMapTiles vector tiles at zoom 14; the tile version is stored in
+`metadata.georeferencing.tileTemplate`. Danish OSM street names are largely imported from
+the official address register, but they are not the register itself. Five crossed ways have
+no OSM name and carry a positional description instead of an invented one. OSM also names
+the minor north-western branch at Svalegårdsvej "Mølholmsvej", so the through route is
+identified as the tertiary road carrying the corridor names, not by name alone.
+
+The result is schematic: the image is a low-resolution visualisation, and the
+municipality calls the closures principle proposals to be investigated further. It
+also states that access to all homes, businesses and institutions is kept.
+Tiles are cached under `tmp/municipal-closures`; rebuild offline with
+`python scripts/import-municipal-closures.py --offline`. The importer needs
+shapely 2.1.2, pyproj and mapbox-vector-tile.

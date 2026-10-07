@@ -8,9 +8,10 @@ interface MapLegendProps {
   noiseMode: NoiseMapMode
   showScreens: boolean
   showOfficialDesign: boolean
+  showMunicipalProposal: boolean
 }
 
-export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDesign }: MapLegendProps) {
+export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDesign, showMunicipalProposal }: MapLegendProps) {
   const { t } = useI18n()
   const bandColors = NOISE_COLOR_SCHEMES[colorScheme]
 
@@ -22,6 +23,12 @@ export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDes
         <div className="map-legend__row"><span className="legend-swatch legend-swatch--permanent-land" /> {t('legend.permanentLand')}</div>
         <div className="map-legend__row"><span className="legend-swatch legend-swatch--temporary-land" /> {t('legend.temporaryLand')}</div>
       </>}
+      {showMunicipalProposal && <div className="map-legend__row">
+        <span className="legend-swatch legend-swatch--municipal-proposal" /> {t('legend.municipalProposal')}
+      </div>}
+      {showMunicipalProposal && <div className="map-legend__row">
+        <span className="legend-swatch legend-swatch--municipal-closure" /> {t('legend.municipalClosure')}
+      </div>}
       {showScreens && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
       </div>}

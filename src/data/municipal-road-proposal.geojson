@@ -1,0 +1,132 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "publisher": "Aalborg Kommune",
+    "title": {
+      "da": "Forslag til ny udformning af Mølholmsvej og Annebergvej",
+      "en": "Proposed redesign of Mølholmsvej and Annebergvej"
+    },
+    "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+    "reviewedAt": "2026-10-07",
+    "sourceUpdatedAt": null,
+    "status": "preliminary-proposal",
+    "comparison": {
+      "road": "Hasserisvej",
+      "aadtCurrent": 10500
+    },
+    "closures": {
+      "mapped": true,
+      "reason": "Georeferenced separately in src/data/municipal-road-closures.geojson: the red bars in the published figure, positioned by an affine fit to four junctions and named from OpenStreetMap (DAWA closed on 1 October 2026). Positions are approximate."
+    },
+    "crossings": {
+      "mapped": false,
+      "reason": "The figure shows bars across the road that are consistent with the proposed safe crossings, but the caption does not define them."
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "molholmsvej-forlaengelse",
+        "kind": "segment",
+        "name": {
+          "da": "Mølholmsvejs forlængelse",
+          "en": "Mølholmsvej extension"
+        },
+        "aadtCurrent": null,
+        "aadtForecast": 6900,
+        "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+        "reviewedAt": "2026-10-07",
+        "status": "preliminary-proposal",
+        "forecastYear": 2034,
+        "confidence": "schematic",
+        "geometrySource": "Existing owner GPS trace of the Vejdirektoratet extension (src/data/local-roads.geojson, molholmsvej-forlaengelse); the extension is a new road with no current traffic count."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            9.8543035,
+            57.0393516
+          ],
+          [
+            9.8557051,
+            57.0411662
+          ],
+          [
+            9.8567157,
+            57.0423974
+          ],
+          [
+            9.8577635,
+            57.0430812
+          ],
+          [
+            9.8588906,
+            57.0433322
+          ],
+          [
+            9.8600371,
+            57.0434407
+          ],
+          [
+            9.8618275,
+            57.0436761
+          ],
+          [
+            9.8630024,
+            57.0439681
+          ],
+          [
+            9.8640656,
+            57.0443649
+          ],
+          [
+            9.8650081,
+            57.0449462
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "molholmsvej-svalegaardsvej-skydebanevej",
+        "kind": "segment",
+        "name": {
+          "da": "Mølholmsvej · Svalegårdsvej–Skydebanevej",
+          "en": "Mølholmsvej · Svalegårdsvej–Skydebanevej"
+        },
+        "aadtCurrent": 5900,
+        "aadtForecast": 9700,
+        "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+        "reviewedAt": "2026-10-07",
+        "status": "preliminary-proposal",
+        "forecastYear": 2034,
+        "confidence": null,
+        "geometrySource": "Not drawn: no verifiable street geometry was available when imported."
+      },
+      "geometry": null
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "annebergvej-skydebanevej-vestre-fjordvej",
+        "kind": "segment",
+        "name": {
+          "da": "Annebergvej · Skydebanevej–Vestre Fjordvej",
+          "en": "Annebergvej · Skydebanevej–Vestre Fjordvej"
+        },
+        "aadtCurrent": 4200,
+        "aadtForecast": 8200,
+        "sourceUrl": "https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/",
+        "reviewedAt": "2026-10-07",
+        "status": "preliminary-proposal",
+        "forecastYear": 2034,
+        "confidence": null,
+        "geometrySource": "Not drawn: no verifiable street geometry was available when imported."
+      },
+      "geometry": null
+    }
+  ]
+}
