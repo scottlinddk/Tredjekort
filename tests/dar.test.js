@@ -2,8 +2,8 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { createAddressesHandler } from '../server/addresses.js'
 import { utm32ToWgs84, wgs84ToUtm32 } from '../server/crs.js'
-import { darConfig, houseNumberQuery, lookupAddress, parsePointWkt, suggestAddresses } from '../server/dar.js'
-import { addressId, darFetch, env, searchHit } from './dar-fixtures.js'
+import { darConfig, lookupAddress, parseHouseNumberRecord, suggestAddresses } from '../server/dar.js'
+import { addressId, darFetch, env, lookupRecord, searchHit } from './dar-fixtures.js'
 
 // Independent reference: meridian arc length on GRS80 by numerical integration.
 function meridianArc(latitudeDegrees) {
@@ -44,14 +44,16 @@ test('UTM32 round-trips away from the central meridian within a millimetre', () 
   assert.ok(aalborg.northing > 6320000 && aalborg.northing < 6326000)
 })
 
-test('parsePointWkt reads geographic and projected points and rejects bad input', () => {
-  assert.deepEqual(parsePointWkt('POINT (9.85 57)', 'EPSG:4326'), { longitude: 9.85, latitude: 57 })
-  const { easting, northing } = wgs84ToUtm32(9.9217, 57.0488)
-  const projected = parsePointWkt(`POINT(${easting} ${northing})`, 'EPSG:25832')
-  assert.ok(Math.abs(projected.longitude - 9.9217) < 1e-6 && Math.abs(projected.latitude - 57.0488) < 1e-6)
-  for (const bad of [undefined, '', 'POINT EMPTY', 'LINESTRING (1 2, 3 4)', 'POINT (9.85 100)']) {
-    assert.equal(parsePointWkt(bad, 'EPSG:4326'), null, String(bad))
-  }
+test('id lookup parsing reads the record wherever the envelope puts it and rejects incomplete ones', () => {
+  const parsed = parseHouseNumberRecord(lookupRecord, addressId)
+  assert.equal(parsed.text, 'Nørholmsvej 180, 9000 Aalborg')
+  assert.ok(Math.abs(parsed.longitude - 9.85) < 1e-6 && Math.abs(parsed.latitude - 57) < 1e-6)
+  assert.deepEqual([parsed.municipalityCode, parsed.roadCode, parsed.houseNumber], ['0851', '6090', '180'])
+  // Bare record, upper-case keys.
+  const bare = JSON.parse(JSON.stringify(lookupRecord.husnummer).replace(/"(\w+)":/g, (_, key) => `"${key.toUpperCase()}":`))
+  assert.equal(parseHouseNumberRecord(bare, addressId)?.text, 'Nørholmsvej 180, 9000 Aalborg')
+  assert.equal(parseHouseNumberRecord({ status: 'ok' }, addressId), null)
+  assert.equal(parseHouseNumberRecord({ husnummer: { ...lookupRecord.husnummer, adgangspunkt: { koordinater: { x: 'a', y: 1 } } } }, addressId), null)
 })
 
 test('suggestions keep refinement hints, drop unusable hits and tolerate an enveloped array', async () => {
@@ -82,11 +84,9 @@ test('at most eight suggestions are returned', async () => {
   assert.equal((await suggestAddresses('vej', { env, fetchImpl: darFetch({ search: many }) })).length, 8)
 })
 
-test('the register query is injection-safe: only validated UUIDs are inlined', () => {
-  assert.match(houseNumberQuery(addressId, new Date('2026-10-09T12:00:00Z')), /virkningstid: "2026-10-09T12:00:00.000Z"/)
-  assert.deepEqual(darConfig({ ADRESSEVAELGER_TOKEN: ' a ', DATAFORDELER_API_KEY: '' }), {
-    adressevaelgerToken: 'a', graphqlKey: null, graphqlUrl: 'https://graphql.datafordeler.dk/DAR/v1',
-  })
+test('config trims the token and treats blank as missing', () => {
+  assert.deepEqual(darConfig({ ADRESSEVAELGER_TOKEN: ' a ' }), { adressevaelgerToken: 'a' })
+  assert.deepEqual(darConfig({ ADRESSEVAELGER_TOKEN: '' }), { adressevaelgerToken: null })
 })
 
 function call(handler, url, method = 'GET') {
@@ -132,10 +132,16 @@ test('/api/addresses validates input, caches successes only, and hides failures'
   assert.match(missing.body.error.message, /ADRESSEVAELGER_TOKEN/)
 })
 
-test('lookupAddress returns the position from the register and nothing else', async () => {
-  const position = await lookupAddress(addressId, { env, fetchImpl: darFetch() })
-  assert.deepEqual(position, { id: addressId, text: 'Nørholmsvej 180, 9000 Aalborg', longitude: 9.85, latitude: 57 })
-  await assert.rejects(lookupAddress(addressId, { env: { ADRESSEVAELGER_TOKEN: 'x' }, fetchImpl: darFetch() }), { code: 'address_service_not_configured' })
+test('lookupAddress calls Adressevælger by id and returns the position and nothing else', async () => {
+  const requests = []
+  const position = await lookupAddress(addressId, { env, fetchImpl: darFetch({ onRequest: (url) => requests.push(url) }) })
+  assert.equal(requests[0].pathname, `/husnumre/${addressId}`)
+  assert.equal(requests[0].searchParams.get('token'), 'search-secret')
+  assert.deepEqual(Object.keys(position), ['id', 'text', 'longitude', 'latitude'])
+  assert.ok(Math.abs(position.longitude - 9.85) < 1e-6 && Math.abs(position.latitude - 57) < 1e-6)
+  await assert.rejects(lookupAddress(addressId, { env, fetchImpl: darFetch({ lookup: { status: 'ok' } }) }), { code: 'invalid_upstream_response' })
+  await assert.rejects(lookupAddress(addressId, { env, fetchImpl: darFetch({ lookup: { status: 'ikke fundet' } }) }), { code: 'address_not_found' })
+  await assert.rejects(lookupAddress(addressId, { env: {}, fetchImpl: darFetch() }), { code: 'address_service_not_configured' })
 })
 
 test('upstream rejections name the service and status but never the URL, key or body', async () => {

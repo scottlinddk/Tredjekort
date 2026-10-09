@@ -145,7 +145,7 @@ export const DATA_SOURCES: DataSourceEntry[] = [
   {
     id: 'address-search',
     datasetKey: 'addressSearch',
-    citations: ['Danmarks Adresseregister (DAR), searched through Adressevælger (Klimadatastyrelsen) and read from Datafordeler GraphQL. Replaces DAWA, which closed on 1 October 2026'],
+    citations: ['Danmarks Adresseregister (DAR), searched and looked up through Adressevælger (Klimadatastyrelsen). Replaces DAWA, which closed on 1 October 2026'],
     url: 'https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar',
   },
   {

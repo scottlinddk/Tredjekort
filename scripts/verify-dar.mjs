@@ -1,60 +1,30 @@
-// Checks the upstream response shapes server/dar.js assumes, against the live services.
+// Checks the upstream response shapes server/dar.js assumes, against the live Adressevælger.
 //
-//   ADRESSEVAELGER_TOKEN=... DATAFORDELER_API_KEY=... node scripts/verify-dar.mjs ["Nørholmsvej 180, 9000 Aalborg"]
+//   ADRESSEVAELGER_TOKEN=... node scripts/verify-dar.mjs ["Nørholmsvej 180, 9000 Aalborg"]
 //
-// Exit code 1 if any step fails. Secrets are never printed.
-import { darConfig, fetchAccessAddress, searchAddresses } from '../server/dar.js'
+// Exit code 1 if any step fails. The token is never printed.
+import { fetchAccessAddress, searchAddresses } from '../server/dar.js'
 
 const query = process.argv[2] ?? 'Nørholmsvej 180, 9000 Aalborg'
-const { graphqlKey, graphqlUrl } = darConfig()
-const entities = ['DAR_Husnummer', 'DAR_Adressepunkt', 'DAR_NavngivenVej', 'DAR_NavngivenVejKommunedel', 'DAR_Postnummer']
-// Fields server/dar.js reads, per entity.
-const expected = {
-  DAR_Husnummer: ['id_lokalId', 'husnummertekst', 'adgangspunkt', 'navngivenVej', 'postnummer'],
-  DAR_Adressepunkt: ['id_lokalId', 'position'],
-  DAR_NavngivenVej: ['id_lokalId', 'vejnavn'],
-  DAR_NavngivenVejKommunedel: ['navngivenVej', 'kommune', 'vejkode'],
-  DAR_Postnummer: ['id_lokalId', 'postnr', 'navn'],
-}
 let failed = false
 const step = (ok, message) => {
   console.log(`${ok ? 'ok  ' : 'FAIL'} ${message}`)
   if (!ok) failed = true
 }
 
-async function introspect() {
-  if (!graphqlKey) return step(false, 'DATAFORDELER_API_KEY is not set, skipping schema check')
-  const url = new URL(graphqlUrl)
-  url.searchParams.set('apikey', graphqlKey)
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ query: '{ __schema { types { name fields { name } } } }' }),
-  })
-  step(response.ok, `GraphQL endpoint ${graphqlUrl} answered HTTP ${response.status}`)
-  if (!response.ok) return
-  const types = new Map(((await response.json()).data?.__schema?.types ?? []).map((type) => [type.name, type.fields?.map((field) => field.name) ?? []]))
-  for (const entity of entities) {
-    const fields = types.get(entity)
-    if (!fields) { step(false, `${entity}: type not found (is DAR_GRAPHQL_URL the right version?)`); continue }
-    const missing = expected[entity].filter((name) => !fields.includes(name))
-    step(missing.length === 0, `${entity}: ${missing.length ? `missing fields ${missing.join(', ')}; available: ${fields.join(', ')}` : 'all assumed fields present'}`)
-  }
-}
-
 try {
   const hits = await searchAddresses(query, { limit: 100 })
   const addresses = hits.filter((hit) => hit.type === 'husnummer')
-  step(hits.length > 0, `Adressevælger returned ${hits.length} usable hit(s) for "${query}" (${addresses.length} husnummer)`)
+  step(hits.length > 0, `search returned ${hits.length} usable hit(s) for "${query}" (${addresses.length} husnummer)`)
   console.log('     types seen:', [...new Set(hits.map((hit) => hit.type))].join(', ') || '-')
-  if (addresses[0]) console.log('     first husnummer:', JSON.stringify(addresses[0]))
-  else if (hits[0]) console.log('     first hit:', JSON.stringify(hits[0]), '(refine the query to reach a husnummer)')
-  await introspect()
   if (addresses[0]) {
+    console.log('     first husnummer:', JSON.stringify(addresses[0]))
     const record = await fetchAccessAddress(addresses[0].id)
     console.log('     resolved record:', JSON.stringify(record))
     step(Boolean(record.municipalityCode && record.roadCode), 'municipality code and road code resolved (needed for noise-receiver matching)')
     step(record.longitude > 7 && record.longitude < 16 && record.latitude > 54 && record.latitude < 58, 'position falls inside Denmark')
+  } else if (hits[0]) {
+    console.log('     first hit:', JSON.stringify(hits[0]), '(refine the query to reach a husnummer)')
   }
 } catch (error) {
   step(false, `${error.code ?? error.name}: ${error.message}`)

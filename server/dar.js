@@ -1,32 +1,28 @@
 // Danmarks Adresseregister (DAR) access, replacing DAWA which closed on 1 October 2026.
 //
-// Two services are combined, because DAR itself offers no search-as-you-type:
-//   1. Adressevælger (Klimadatastyrelsen), phonetic search of husnumre: used for the
-//      search box and for resolving typed addresses. It returns only type, id and a
-//      display text, never coordinates.
-//   2. Datafordeler GraphQL, DAR register: the authoritative record for one access
-//      address (road name, municipality and road code, house number, postcode, position).
+// Both operations go through Adressevælger (Klimadatastyrelsen), with one token:
+//   1. Phonetic search of husnumre (`/husnumre/soeg`): the search box and typed addresses.
+//      It returns only type, id and a display text, never coordinates.
+//   2. Lookup by id (`/husnumre/{id}`): the DAR record for one access address (road name,
+//      municipality and road code, house number, postcode, access-point position).
 //
 // An access address is a DAR "husnummer". Its id equals the DAWA "adgangsadresse" id,
 // so ids stored in old links and API consumers stay valid.
 //
-// IMPORTANT: every assumption about upstream response shapes lives in this file, in the
-// parse* and *Query functions. The Adressevælger part follows its published documentation
-// ("Fonetisk søgning"); the GraphQL part was written without credentials. Run `node scripts/verify-dar.mjs` with real keys to check them.
+// IMPORTANT: every assumption about upstream response shapes lives in this file. Both parts
+// follow the published documentation ("Fonetisk søgning" and "Opslag med ID"). The id-lookup
+// parser is deliberately tolerant about envelope and key casing, because no live payload has
+// been checked. Run `node scripts/verify-dar.mjs` with a real token to confirm it.
 import { ApiError } from './api-error.js'
 import { utm32ToWgs84 } from './crs.js'
 
 export const DAR_SOURCE_URL = 'https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar'
 const ADRESSEVAELGER_URL = 'https://adressevaelger.dk/husnumre/soeg'
-const DEFAULT_GRAPHQL_URL = 'https://graphql.datafordeler.dk/DAR/v1'
+const ADRESSEVAELGER_LOOKUP_URL = 'https://adressevaelger.dk/husnumre/'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export function darConfig(env = process.env) {
-  return {
-    adressevaelgerToken: env.ADRESSEVAELGER_TOKEN?.trim() || null,
-    graphqlKey: env.DATAFORDELER_API_KEY?.trim() || null,
-    graphqlUrl: env.DAR_GRAPHQL_URL?.trim() || DEFAULT_GRAPHQL_URL,
-  }
+  return { adressevaelgerToken: env.ADRESSEVAELGER_TOKEN?.trim() || null }
 }
 
 function notConfigured(variable) {
@@ -111,89 +107,77 @@ export async function suggestAddresses(query, options) {
   return searchAddresses(query, { ...options, limit: 8 })
 }
 
-// ---- Datafordeler GraphQL (authoritative record for one access address) -----------------
+// ---- Adressevælger id lookup (authoritative record for one access address) ------------------
 
-// Every entity query must carry virkningstid and registreringstid; "now" for both returns
-// the currently valid state. ids are validated UUIDs, so inlining them is injection-safe.
-const nowLiteral = (now) => JSON.stringify(now.toISOString())
-const temporal = (now) => `virkningstid: ${nowLiteral(now)}, registreringstid: ${nowLiteral(now)}`
-const byId = (id) => `where: { id_lokalId: { eq: ${JSON.stringify(id)} } }`
-
-export function houseNumberQuery(id, now = new Date()) {
-  return `{ DAR_Husnummer(first: 1, ${temporal(now)}, ${byId(id)}) { nodes { id_lokalId husnummertekst adgangspunkt navngivenVej postnummer } } }`
+// Key casing and nesting are not verified against a live payload, so keys are compared in
+// lower case and the record is found by its `adgangspunkt` member wherever the envelope puts it.
+function lowerKeys(value) {
+  if (Array.isArray(value)) return value.map(lowerKeys)
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, inner]) => [key.toLowerCase(), lowerKeys(inner)]))
+  return value
 }
 
-// DAR references are ids, not nested objects, so the related records need a second document.
-export function relatedRecordsQuery(refs, now = new Date()) {
-  return `{
-    point: DAR_Adressepunkt(first: 1, ${temporal(now)}, ${byId(refs.adgangspunkt)}) { nodes { id_lokalId position { wkt crs } } }
-    road: DAR_NavngivenVej(first: 1, ${temporal(now)}, ${byId(refs.navngivenVej)}) { nodes { id_lokalId vejnavn } }
-    roadPart: DAR_NavngivenVejKommunedel(first: 1, ${temporal(now)}, where: { navngivenVej: { eq: ${JSON.stringify(refs.navngivenVej)} } }) { nodes { kommune vejkode } }
-    postcode: DAR_Postnummer(first: 1, ${temporal(now)}, ${byId(refs.postnummer)}) { nodes { postnr navn } }
-  }`
-}
-
-async function graphql(query, { fetchImpl, timeoutMs, env }) {
-  const { graphqlKey, graphqlUrl } = darConfig(env)
-  if (!graphqlKey) throw notConfigured('DATAFORDELER_API_KEY')
-  const url = new URL(graphqlUrl)
-  url.searchParams.set('apikey', graphqlKey)
-  const { body } = await fetchJson(fetchImpl, url, {
-    method: 'POST',
-    headers: { accept: 'application/json', 'content-type': 'application/json' },
-    body: JSON.stringify({ query }),
-  }, timeoutMs, 'datafordeler-graphql')
-  if (!body || typeof body !== 'object' || body.errors?.length || !body.data) {
-    throw new ApiError(502, 'invalid_upstream_response', 'The address register returned an error or an unexpected response.')
+function findRecord(node, depth = 0) {
+  if (!node || typeof node !== 'object' || depth > 4) return null
+  if (!Array.isArray(node) && node.adgangspunkt && typeof node.adgangspunkt === 'object') return node
+  for (const inner of Object.values(node)) {
+    const found = findRecord(inner, depth + 1)
+    if (found) return found
   }
-  return body.data
+  return null
 }
 
-const firstNode = (connection) => connection?.nodes?.[0] ?? null
+const text = (value) => (typeof value === 'string' ? value.trim() : typeof value === 'number' ? String(value) : '')
+const padded = (value) => (text(value) ? text(value).padStart(4, '0') : null)
 
-// Assumed WKT: "POINT (x y)" in EPSG:25832 unless position.crs says otherwise.
-export function parsePointWkt(wkt, crs) {
-  const match = /^\s*POINT\s*(?:Z\s*)?\(\s*(-?\d+(?:\.\d+)?)\s+(-?\d+(?:\.\d+)?)/i.exec(wkt ?? '')
-  return match ? toWgs84(Number(match[1]), Number(match[2]), crs) : null
+/** Public for tests: turns one `/husnumre/{id}` answer into the record the app uses, or null. */
+export function parseHouseNumberRecord(body, id) {
+  const record = findRecord(lowerKeys(body))
+  if (!record) return null
+  const point = record.adgangspunkt
+  const coordinates = point.koordinater ?? point.position ?? point.geometri
+  const x = Number(coordinates?.x ?? coordinates?.coordinates?.[0])
+  const y = Number(coordinates?.y ?? coordinates?.coordinates?.[1])
+  const position = toWgs84(x, y, coordinates?.crs?.properties?.name ?? coordinates?.crs ?? point.crs ?? 'EPSG:25832')
+  const road = record.navngivenvej ?? {}
+  const roadPart = Array.isArray(record.navngivenvejkommunedel) ? record.navngivenvejkommunedel[0] : record.navngivenvejkommunedel ?? {}
+  const postcode = record.postnummer ?? {}
+  const roadName = text(road.vejnavn) || text(record.vejnavn)
+  const houseNumber = text(record.husnummertekst)
+  const label = roadName && houseNumber && text(postcode.postnr)
+    ? `${roadName} ${houseNumber}, ${text(postcode.postnr)} ${text(postcode.navn ?? postcode.postnrnavn)}`.trim()
+    : text(record.adgangsadressebetegnelse)
+  if (!position || !label) return null
+  return {
+    id: id.toLowerCase(),
+    text: label,
+    longitude: position.longitude,
+    latitude: position.latitude,
+    municipalityCode: padded(roadPart.kommune ?? roadPart.kommunekode),
+    roadCode: padded(roadPart.vejkode),
+    houseNumber: houseNumber || null,
+  }
 }
 
 /** Full record for one access address, or throws 404 when the id is unknown. */
-export async function fetchAccessAddress(id, { fetchImpl = fetch, timeoutMs = 8000, env, now = new Date() } = {}) {
+export async function fetchAccessAddress(id, { fetchImpl = fetch, timeoutMs = 8000, env } = {}) {
   if (!UUID.test(id)) throw new ApiError(400, 'invalid_id', 'id must be a DAR access-address UUID.')
-  const options = { fetchImpl, timeoutMs, env }
-  const house = firstNode((await graphql(houseNumberQuery(id, now), options)).DAR_Husnummer)
-  if (!house) throw new ApiError(404, 'address_not_found', 'No matching access address was found.')
-  if (String(house.id_lokalId).toLowerCase() !== id.toLowerCase()) {
-    throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected address ID.')
+  const { adressevaelgerToken } = darConfig(env)
+  if (!adressevaelgerToken) throw notConfigured('ADRESSEVAELGER_TOKEN')
+  const url = new URL(`${ADRESSEVAELGER_LOOKUP_URL}${id.toLowerCase()}`)
+  url.searchParams.set('token', adressevaelgerToken)
+  const { body } = await fetchJson(fetchImpl, url, { headers: { accept: 'application/json' } }, timeoutMs, 'adressevaelger')
+  const record = parseHouseNumberRecord(body, id)
+  if (!record) {
+    const status = lowerKeys(body)?.status
+    if (typeof status === 'string' && status.toLowerCase() !== 'ok') throw new ApiError(404, 'address_not_found', 'No matching access address was found.')
+    throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an incomplete address.')
   }
-  const refs = { adgangspunkt: house.adgangspunkt, navngivenVej: house.navngivenVej, postnummer: house.postnummer }
-  if (!Object.values(refs).every((ref) => UUID.test(ref ?? ''))) {
-    throw new ApiError(502, 'invalid_upstream_response', 'The address register returned an incomplete address.')
-  }
-  const related = await graphql(relatedRecordsQuery(refs, now), options)
-  const point = firstNode(related.point)
-  const road = firstNode(related.road)
-  const roadPart = firstNode(related.roadPart)
-  const postcode = firstNode(related.postcode)
-  const position = parsePointWkt(point?.position?.wkt, point?.position?.crs)
-  if (!position || typeof road?.vejnavn !== 'string' || !road.vejnavn || !house.husnummertekst || !postcode?.postnr) {
-    throw new ApiError(502, 'invalid_upstream_response', 'The address register returned an incomplete address.')
-  }
-  const municipalityCode = roadPart?.kommune != null ? String(roadPart.kommune).padStart(4, '0') : null
-  const roadCode = roadPart?.vejkode != null ? String(roadPart.vejkode).padStart(4, '0') : null
-  return {
-    id: id.toLowerCase(),
-    text: `${road.vejnavn} ${house.husnummertekst}, ${postcode.postnr} ${postcode.navn ?? ''}`.trim(),
-    longitude: position.longitude,
-    latitude: position.latitude,
-    municipalityCode,
-    roadCode,
-    houseNumber: String(house.husnummertekst),
-  }
+  return record
 }
 
 /** Position of one access address, in the shape the search box needs. */
 export async function lookupAddress(id, options) {
-  const { text, longitude, latitude } = await fetchAccessAddress(id, options)
-  return { id: id.toLowerCase(), text, longitude, latitude }
+  const { text: label, longitude, latitude } = await fetchAccessAddress(id, options)
+  return { id: id.toLowerCase(), text: label, longitude, latitude }
 }
