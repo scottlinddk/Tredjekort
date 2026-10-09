@@ -1,8 +1,9 @@
 // Danmarks Adresseregister (DAR) access, replacing DAWA which closed on 1 October 2026.
 //
 // Two services are combined, because DAR itself offers no search-as-you-type:
-//   1. Dataforsyningen GSearch (husnummer resource): free-text search, used for the
-//      search box and for resolving typed addresses to candidate access addresses.
+//   1. Adressevælger (Klimadatastyrelsen), phonetic search of husnumre: used for the
+//      search box and for resolving typed addresses. It returns only type, id and a
+//      display text, never coordinates.
 //   2. Datafordeler GraphQL, DAR register: the authoritative record for one access
 //      address (road name, municipality and road code, house number, postcode, position).
 //
@@ -10,19 +11,19 @@
 // so ids stored in old links and API consumers stay valid.
 //
 // IMPORTANT: every assumption about upstream response shapes lives in this file, in the
-// parse* and *Query functions. They were written from public documentation without
-// credentials. Run `node scripts/verify-dar.mjs` with real keys to check them.
+// parse* and *Query functions. The Adressevælger part follows its published documentation
+// ("Fonetisk søgning"); the GraphQL part was written without credentials. Run `node scripts/verify-dar.mjs` with real keys to check them.
 import { ApiError } from './api-error.js'
 import { utm32ToWgs84 } from './crs.js'
 
 export const DAR_SOURCE_URL = 'https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar'
-const GSEARCH_URL = 'https://api.dataforsyningen.dk/rest/gsearch/v2.0/husnummer'
+const ADRESSEVAELGER_URL = 'https://adressevaelger.dk/husnumre/soeg'
 const DEFAULT_GRAPHQL_URL = 'https://graphql.datafordeler.dk/DAR/v1'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 export function darConfig(env = process.env) {
   return {
-    gsearchToken: env.DATAFORSYNINGEN_TOKEN?.trim() || null,
+    adressevaelgerToken: env.ADRESSEVAELGER_TOKEN?.trim() || null,
     graphqlKey: env.DATAFORDELER_API_KEY?.trim() || null,
     graphqlUrl: env.DAR_GRAPHQL_URL?.trim() || DEFAULT_GRAPHQL_URL,
   }
@@ -64,37 +65,50 @@ function toWgs84(x, y, crs) {
   return Number.isFinite(position.longitude) && Number.isFinite(position.latitude) ? position : null
 }
 
-// ---- GSearch (search box and typed addresses) -----------------------------------------
+// ---- Adressevælger (search box and typed addresses) ---------------------------------------
 
-// Assumed item: { id, visningstekst, geometri: { type: 'Point', coordinates: [x, y] }, crs? }
-function parseSearchItem(item) {
-  if (!UUID.test(item?.id ?? '') || typeof item.visningstekst !== 'string' || !item.visningstekst.trim()) return null
-  const coordinates = item.geometri?.coordinates
-  const position = Array.isArray(coordinates) ? toWgs84(coordinates[0], coordinates[1], item.geometri?.crs?.properties?.name ?? item.crs) : null
-  return { id: item.id.toLowerCase(), text: item.visningstekst.trim(), position }
+// Documented output per hit: type, id, titel (plus vejnavn, husnummer, postnr, postdistrikt,
+// antal_husnumre depending on type). Only type "husnummer" carries an access-address id;
+// "vejnavn", "navngivenvejpostnummer" and "vejnavnhusnummer" mean the input was not specific
+// enough, and their text is meant to be used to refine the search.
+export const HOUSE_NUMBER_TYPE = 'husnummer'
+
+// The envelope is not documented, so accept a bare array or an object holding one array.
+function extractHits(body) {
+  if (Array.isArray(body)) return body
+  if (body && typeof body === 'object') return Object.values(body).find(Array.isArray) ?? null
+  return null
 }
 
-export async function searchAccessAddresses(query, { limit = 8, fetchImpl = fetch, timeoutMs = 8000, env } = {}) {
-  const { gsearchToken } = darConfig(env)
-  if (!gsearchToken) throw notConfigured('DATAFORSYNINGEN_TOKEN')
-  const url = new URL(GSEARCH_URL)
-  url.searchParams.set('q', query)
-  url.searchParams.set('limit', String(limit))
-  url.searchParams.set('token', gsearchToken)
-  const { body } = await fetchJson(fetchImpl, url, { headers: { accept: 'application/json' } }, timeoutMs, 'gsearch')
-  if (!Array.isArray(body)) throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected response.')
-  return body.map(parseSearchItem).filter(Boolean)
+function parseHit(hit) {
+  const type = typeof hit?.type === 'string' ? hit.type.toLowerCase() : ''
+  const text = typeof hit?.titel === 'string' ? hit.titel.trim() : ''
+  if (!type || !text) return null
+  if (type === HOUSE_NUMBER_TYPE) return UUID.test(hit.id ?? '') ? { type, id: hit.id.toLowerCase(), text } : null
+  return { type, id: null, text }
 }
 
-/** Search-box suggestions in the shape the frontend consumes. */
+/** Raw hits in the order Adressevælger ranks them, including refinement hints. */
+export async function searchAddresses(query, { limit = 8, fetchImpl = fetch, timeoutMs = 8000, env } = {}) {
+  const { adressevaelgerToken } = darConfig(env)
+  if (!adressevaelgerToken) throw notConfigured('ADRESSEVAELGER_TOKEN')
+  const url = new URL(ADRESSEVAELGER_URL)
+  url.searchParams.set('tekst', query)
+  url.searchParams.set('token', adressevaelgerToken)
+  const { body } = await fetchJson(fetchImpl, url, { headers: { accept: 'application/json' } }, timeoutMs, 'adressevaelger')
+  const hits = extractHits(body)
+  if (!hits) throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected response.')
+  return hits.map(parseHit).filter(Boolean).slice(0, limit)
+}
+
+/** Access addresses only, for resolving typed addresses. */
+export async function searchAccessAddresses(query, options) {
+  return (await searchAddresses(query, { ...options, limit: Number.MAX_SAFE_INTEGER })).filter((hit) => hit.type === HOUSE_NUMBER_TYPE).slice(0, options?.limit ?? 8)
+}
+
+/** Search-box suggestions: `{ id, text, type }`. Non-husnummer hits have no id and refine the query. */
 export async function suggestAddresses(query, options) {
-  const results = await searchAccessAddresses(query, { ...options, limit: 8 })
-  return results.filter((item) => item.position).map((item) => ({
-    id: item.id,
-    text: item.text,
-    longitude: item.position.longitude,
-    latitude: item.position.latitude,
-  }))
+  return searchAddresses(query, { ...options, limit: 8 })
 }
 
 // ---- Datafordeler GraphQL (authoritative record for one access address) -----------------
@@ -176,4 +190,10 @@ export async function fetchAccessAddress(id, { fetchImpl = fetch, timeoutMs = 80
     roadCode,
     houseNumber: String(house.husnummertekst),
   }
+}
+
+/** Position of one access address, in the shape the search box needs. */
+export async function lookupAddress(id, options) {
+  const { text, longitude, latitude } = await fetchAccessAddress(id, options)
+  return { id: id.toLowerCase(), text, longitude, latitude }
 }

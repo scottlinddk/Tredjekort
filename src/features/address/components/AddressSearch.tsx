@@ -1,12 +1,18 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import * as maplibregl from 'maplibre-gl'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMapInstance } from '../../map/components/MapInstanceContext'
 import { useRoadAlignment } from '../../map/hooks/useRoadAlignment'
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { useDebouncedValue } from '../../../shared/hooks/useDebouncedValue'
-import { searchAddresses, type AddressSuggestion } from '../api/addressSearch.api'
+import {
+  isSelectableAddress,
+  lookupAddress,
+  searchAddresses,
+  type AddressSuggestion,
+  type ResolvedAddress,
+} from '../api/addressSearch.api'
 import { assessRoadNoise, formatDistance } from '../utils/assessRoadNoise'
 import { useAddressQueryParams } from '../hooks/useAddressQueryParams'
 import { AddressReport } from './AddressReport'
@@ -20,11 +26,13 @@ export function AddressSearch() {
   const { addressQuery, setAddressQuery } = useAddressQueryParams()
 
   const [query, setQuery] = useState(() => addressQuery)
-  const [selected, setSelected] = useState<AddressSuggestion | null>(null)
+  const [selected, setSelected] = useState<ResolvedAddress | null>(null)
+  const [lookupState, setLookupState] = useState<'idle' | 'loading' | 'error'>('idle')
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
   const resultsId = useId()
+  const queryClient = useQueryClient()
 
   const debouncedQuery = useDebouncedValue(query.trim(), 250)
 
@@ -56,14 +64,34 @@ export function AddressSearch() {
     staleTime: 5 * 60 * 1000,
   })
 
+  // Search hits carry no coordinates, so a chosen address is resolved by id before it is shown.
+  // The suggestion's own text stays the display text, so it matches what the URL stores.
+  const selectAddress = useCallback(
+    async (suggestion: AddressSuggestion & { id: string }) => {
+      setLookupState('loading')
+      try {
+        const address = await queryClient.fetchQuery({
+          queryKey: ['address-lookup', suggestion.id],
+          queryFn: ({ signal }) => lookupAddress(suggestion.id, signal),
+          staleTime: 24 * 60 * 60 * 1000,
+        })
+        setSelected({ ...address, text: suggestion.text })
+        setLookupState('idle')
+      } catch {
+        setLookupState('error')
+      }
+    },
+    [queryClient],
+  )
+
   useEffect(() => {
     if (!resolvedSuggestions || selected || query !== addressQuery) return
+    const addresses = resolvedSuggestions.filter(isSelectableAddress)
     const match =
-      resolvedSuggestions.find((suggestion) => suggestion.text === addressQuery) ??
-      (resolvedSuggestions.length === 1 ? resolvedSuggestions[0] : null) ??
-      null
-    if (match) setSelected(match)
-  }, [resolvedSuggestions, selected, addressQuery, query])
+      addresses.find((suggestion) => suggestion.text === addressQuery) ??
+      (addresses.length === 1 && resolvedSuggestions.length === 1 ? addresses[0] : null)
+    if (match) void selectAddress(match)
+  }, [resolvedSuggestions, selected, addressQuery, query, selectAddress])
 
   useEffect(() => {
     if (activeIndex >= 0) document.getElementById(`${resultsId}-${activeIndex}`)?.scrollIntoView({ block: 'nearest' })
@@ -99,16 +127,24 @@ export function AddressSearch() {
   const locale = language === 'da' ? 'da-DK' : 'en-GB'
 
   const handleSelect = (suggestion: AddressSuggestion) => {
-    setSelected(suggestion)
+    setActiveIndex(-1)
+    if (!isSelectableAddress(suggestion)) {
+      // Too vague to be an address: continue typing from what the register suggests.
+      setQuery(`${suggestion.text} `)
+      setDropdownOpen(true)
+      inputRef.current?.focus()
+      return
+    }
     setQuery(suggestion.text)
     setAddressQuery(suggestion.text)
     setDropdownOpen(false)
-    setActiveIndex(-1)
+    void selectAddress(suggestion)
     if (window.matchMedia('(max-width: 760px)').matches) inputRef.current?.blur()
   }
 
   const handleClear = () => {
     setSelected(null)
+    setLookupState('idle')
     setQuery('')
     setAddressQuery(null)
     setDropdownOpen(false)
@@ -165,6 +201,7 @@ export function AddressSearch() {
             setQuery(event.target.value)
             setDropdownOpen(true)
             setActiveIndex(-1)
+            setLookupState('idle')
             if (selected) {
               setSelected(null)
             }
@@ -193,7 +230,7 @@ export function AddressSearch() {
           <ul id={resultsId} className="address-search__results" role="listbox" aria-label={t('search.label')}>
             {currentSuggestions.map((suggestion, index) => (
               <li
-                key={suggestion.id}
+                key={`${suggestion.type}-${suggestion.id ?? suggestion.text}`}
                 id={`${resultsId}-${index}`}
                 role="option"
                 aria-selected={activeIndex === index}
@@ -202,6 +239,7 @@ export function AddressSearch() {
                 onClick={() => handleSelect(suggestion)}
               >
                 {suggestion.text}
+                {!isSelectableAddress(suggestion) && ' …'}
               </li>
             ))}
           </ul>
@@ -210,7 +248,7 @@ export function AddressSearch() {
 
       {!selected && addressQuery && query === addressQuery && !showDropdown && (
         <p className="address-search__status" role="status">
-          {isResolving ? t('search.loading') : resolveError ? t('search.error') : resolvedSuggestions ? t('search.chooseExact') : ''}
+          {isResolving || lookupState === 'loading' ? t('search.loading') : resolveError || lookupState === 'error' ? t('search.error') : resolvedSuggestions ? t('search.chooseExact') : ''}
         </p>
       )}
 

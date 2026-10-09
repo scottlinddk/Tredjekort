@@ -5,7 +5,7 @@ import { addressApiPlugin } from './server/vite-api-plugin.js'
 // Server-side secrets read by server/dar.js. Vite only exposes VITE_* variables to the
 // browser, so these are copied from .env files into process.env for the dev/preview API
 // middleware only. They never reach the client bundle.
-const SERVER_ENV_KEYS = ['DATAFORSYNINGEN_TOKEN', 'DATAFORDELER_API_KEY', 'DAR_GRAPHQL_URL']
+const SERVER_ENV_KEYS = ['ADRESSEVAELGER_TOKEN', 'DATAFORDELER_API_KEY', 'DAR_GRAPHQL_URL']
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
