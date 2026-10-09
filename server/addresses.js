@@ -26,7 +26,7 @@ export function createAddressesHandler({ suggest = suggestAddresses } = {}) {
       // Addresses change rarely; let the edge cache absorb repeated queries and spare the token's quota.
       send(200, await suggest(q), 's-maxage=86400, stale-while-revalidate=604800')
     } catch (error) {
-      if (error instanceof ApiError) send(error.status, { error: { code: error.code, message: error.message } })
+      if (error instanceof ApiError) send(error.status, { error: { code: error.code, message: error.message, ...error.details } })
       else send(502, { error: { code: 'address_service_unavailable', message: 'The address service is unavailable.' } })
     }
   }

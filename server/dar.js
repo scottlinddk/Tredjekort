@@ -34,17 +34,25 @@ function notConfigured(variable) {
 
 // Keys travel in the query string because that is what both gateways document. They are
 // never logged and never interpolated into error messages.
-async function fetchJson(fetchImpl, url, init, timeoutMs) {
+//
+// A non-2xx answer is reported as `service` + `upstreamStatus` (never the URL or body), so
+// a misconfigured key (401/403), a wrong path (404) or a rejected parameter (400) can be told
+// apart without leaking anything. The first part of the body is logged server-side only.
+async function fetchJson(fetchImpl, url, init, timeoutMs, service) {
   try {
     const response = await fetchImpl(url, { ...init, signal: AbortSignal.timeout(timeoutMs) })
-    if (!response.ok) throw new ApiError(502, 'address_service_unavailable', 'The address service could not complete this request. Try again later.')
+    if (!response.ok) {
+      const snippet = await response.text?.().then((text) => text.slice(0, 200).replace(/\s+/g, ' ')).catch(() => '')
+      console.error(`[dar] ${service} answered HTTP ${response.status}${snippet ? `: ${snippet}` : ''}`)
+      throw new ApiError(502, 'address_service_unavailable', `The address service (${service}) rejected the request with HTTP ${response.status}.`, { service, upstreamStatus: response.status })
+    }
     return { body: await response.json() }
   } catch (error) {
     if (error instanceof ApiError) throw error
     if (error.name === 'TimeoutError' || error.name === 'AbortError') {
-      throw new ApiError(504, 'address_service_timeout', 'The address service timed out. Try again later.')
+      throw new ApiError(504, 'address_service_timeout', 'The address service timed out. Try again later.', { service })
     }
-    throw new ApiError(502, 'address_service_unavailable', 'The address service is unavailable or returned invalid JSON.')
+    throw new ApiError(502, 'address_service_unavailable', 'The address service is unavailable or returned invalid JSON.', { service })
   }
 }
 
@@ -73,7 +81,7 @@ export async function searchAccessAddresses(query, { limit = 8, fetchImpl = fetc
   url.searchParams.set('q', query)
   url.searchParams.set('limit', String(limit))
   url.searchParams.set('token', gsearchToken)
-  const { body } = await fetchJson(fetchImpl, url, { headers: { accept: 'application/json' } }, timeoutMs)
+  const { body } = await fetchJson(fetchImpl, url, { headers: { accept: 'application/json' } }, timeoutMs, 'gsearch')
   if (!Array.isArray(body)) throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected response.')
   return body.map(parseSearchItem).filter(Boolean)
 }
@@ -120,7 +128,7 @@ async function graphql(query, { fetchImpl, timeoutMs, env }) {
     method: 'POST',
     headers: { accept: 'application/json', 'content-type': 'application/json' },
     body: JSON.stringify({ query }),
-  }, timeoutMs)
+  }, timeoutMs, 'datafordeler-graphql')
   if (!body || typeof body !== 'object' || body.errors?.length || !body.data) {
     throw new ApiError(502, 'invalid_upstream_response', 'The address register returned an error or an unexpected response.')
   }
