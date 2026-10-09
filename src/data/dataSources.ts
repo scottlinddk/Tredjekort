@@ -145,8 +145,8 @@ export const DATA_SOURCES: DataSourceEntry[] = [
   {
     id: 'address-search',
     datasetKey: 'addressSearch',
-    citations: ['Danmarks Adressers Web API (DAWA) / Dataforsyningen, adgangsadresser/autocomplete'],
-    url: 'https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse#autocomplete',
+    citations: ['Danmarks Adresseregister (DAR), searched through Dataforsyningen GSearch and read from Datafordeler GraphQL. Replaces DAWA, which closed on 1 October 2026'],
+    url: 'https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar',
   },
   {
     id: 'basemap',

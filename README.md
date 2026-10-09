@@ -39,13 +39,27 @@ separate. See the in-app Project overview and Data sources pages.
 The [source review and import guide](docs/DATA_SOURCES.md) records source queries,
 model assumptions, geometry defects, checksums and the reproducible importer.
 
+## Address lookup configuration
+
+Address search and reports use DAR (Danmarks Adresseregister) since DAWA closed on
+1 October 2026. Two server-side credentials are required; copy `.env.example` to
+`.env.local` for development and set the same variables in the Vercel project:
+
+- `DATAFORSYNINGEN_TOKEN`: Dataforsyningen GSearch token, used for typeahead and text search.
+- `DATAFORDELER_API_KEY`: Datafordeler API key, used for the GraphQL DAR record lookup.
+- `DAR_GRAPHQL_URL` (optional): override the DAR GraphQL endpoint, default `https://graphql.datafordeler.dk/DAR/v1`.
+
+Without them `/api/addresses` and `/api/address-report` answer `503 address_service_not_configured`.
+Run `node scripts/verify-dar.mjs` with the variables set to check the upstream response
+shapes the code assumes (`server/dar.js`).
+
 ## Address report API
 
 `GET /api/address-report?address=<street, house number, postcode>&lang=da`
 
 Or use the access-address UUID returned by autocomplete or an ambiguity response:
 
-`GET /api/address-report?id=<DAWA-access-address-UUID>&lang=en`
+`GET /api/address-report?id=<DAR-access-address-UUID>&lang=en`
 
 ```sh
 curl --get 'http://localhost:5173/api/address-report' \
@@ -56,7 +70,7 @@ curl --get 'http://localhost:5173/api/address-report' \
 The response contains the resolved address and coordinates, a prose description,
 map proximity results, official historic noise-model results, sources and data
 limitations. `lang` supports `da` (default) and `en`. Access addresses do not
-distinguish apartment floors or doors. No API key is required; GET supports CORS.
+distinguish apartment floors or doors. No API key is required from callers; GET supports CORS.
 
 The additive `noise.expectedWithProject` field prioritizes verified **modeled
 dwelling/facade values** from the original proposal. `valueDb` holds a single or
@@ -65,7 +79,7 @@ matched dwelling records and is present for both `point_value_found` and
 `point_range_found`. Raw source decimals are retained; the prose and UI use one
 decimal. Floor codes are preserved without guessing their meaning.
 
-Matching requires DAWA municipality `0851`, road code and normalized house number,
+Matching requires DAR municipality `0851`, road code and normalized house number,
 then a 50-metre coordinate-consistency guard. It never transfers a nearest
 address's result. Missing/zero source values cannot create a partial receiver range.
 If a complete receiver result is unavailable, the API uses the **original** contour
@@ -93,7 +107,7 @@ not found, `405` unsupported method, `502` upstream failure and `504` timeout.
 The report uses the same implementation in Vercel, `npm run dev`, and
 `npm run preview`. A static-file-only host cannot run the API. Vercel bundles the
 source datasets through `vercel.json`; address queries and responses are not cached.
-The app's general project data are a versioned snapshot, while DAWA lookups are live.
+The app's general project data are a versioned snapshot, while DAR lookups are live.
 The full-precision snapshot is about 19.5 MB compressed; local cold-start validation
 observed roughly 625 MB peak process memory and 1.6 seconds to load/index it.
 The browser loads a separate 3.9 MB display file only when an official noise layer

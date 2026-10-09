@@ -3,18 +3,8 @@ import test from 'node:test'
 import { buildAddressReport, createAddressReportHandler, parseReportQuery, resolveAddress } from '../server/address-report.js'
 import { addressApiPlugin } from '../server/vite-api-plugin.js'
 
-const addressId = '0a3f507a-b2e6-32b8-e044-0003ba298018'
-const dawaAddress = {
-  id: addressId,
-  vejnavn: 'Nørholmsvej',
-  husnr: '180',
-  postnr: '9000',
-  postnrnavn: 'Aalborg',
-  kommunekode: '0851',
-  vejkode: '6090',
-  x: 9.85,
-  y: 57,
-}
+import { addressId, darFetch, env, house, jsonResponse, related, searchHit } from './dar-fixtures.js'
+
 const address = {
   id: addressId, text: 'Nørholmsvej 180, 9000 Aalborg', longitude: 9.85, latitude: 57,
 }
@@ -42,13 +32,11 @@ const data = {
     documents: [{ id: 'noise-map', category: 'noise', url: 'https://example.com/noise.pdf' }, { id: 'other', category: 'design' }],
   },
 }
-const jsonResponse = (body, status = 200) => ({ ok: status >= 200 && status < 300, status, json: async () => body })
-
 async function request(url, options = {}) {
   const headers = {}
   const res = { setHeader: (name, value) => { headers[name] = value }, end: (body) => { res.body = body ? JSON.parse(body) : null } }
   const handler = createAddressReportHandler({
-    fetchImpl: async () => jsonResponse([dawaAddress]), loadData: async () => data, ...options,
+    fetchImpl: darFetch(), env, loadData: async () => data, ...options,
   })
   await handler({ url, method: options.method ?? 'GET' }, res)
   return { status: res.statusCode, body: res.body, headers }
@@ -64,58 +52,90 @@ test('validates parameters before contacting upstream', async () => {
   assert.equal(parseReportQuery('/api/address-report?id=' + addressId).language, 'da')
 })
 
-test('uses non-fuzzy DAWA search and preserves Danish characters and ampersands', async () => {
-  const result = await resolveAddress({ address: 'Nørholmsvej 180 & 9000' }, { fetchImpl: async (url, init) => {
-    assert.equal(url.hostname, 'api.dataforsyningen.dk')
-    assert.equal(url.searchParams.get('q'), 'Nørholmsvej 180 & 9000')
-    assert.equal(url.searchParams.get('struktur'), 'mini')
-    assert.equal(url.searchParams.get('per_side'), '11')
-    assert.equal(url.searchParams.has('fuzzy'), false)
-    assert.ok(init.signal instanceof AbortSignal)
-    return jsonResponse([dawaAddress])
-  } })
+test('searches DAR, preserves Danish characters and ampersands, and keeps the token out of the result', async () => {
+  const requests = []
+  const result = await resolveAddress({ address: 'Nørholmsvej 180 & 9000' }, {
+    env,
+    fetchImpl: darFetch({ onRequest: (url, init) => requests.push({ url, init }) }),
+  })
+  const [search, husnummer, related] = requests
+  assert.equal(search.url.hostname, 'api.dataforsyningen.dk')
+  assert.equal(search.url.pathname, '/rest/gsearch/v2.0/husnummer')
+  assert.equal(search.url.searchParams.get('q'), 'Nørholmsvej 180 & 9000')
+  assert.equal(search.url.searchParams.get('limit'), '11')
+  assert.equal(search.url.searchParams.get('token'), 'search-secret')
+  assert.ok(search.init.signal instanceof AbortSignal)
+  assert.equal(husnummer.url.hostname, 'graphql.datafordeler.dk')
+  assert.equal(husnummer.url.searchParams.get('apikey'), 'register-secret')
+  assert.match(JSON.parse(husnummer.init.body).query, new RegExp(`id_lokalId: \\{ eq: "${addressId}" \\}`))
+  assert.match(JSON.parse(related.init.body).query, /DAR_NavngivenVejKommunedel/)
   assert.equal(result.text, 'Nørholmsvej 180, 9000 Aalborg')
   assert.equal(result.precision, 'access_address')
   assert.equal(result.longitude, 9.85)
   assert.equal(result.municipalityCode, '0851')
   assert.equal(result.roadCode, '6090')
   assert.equal(result.houseNumber, '180')
+  assert.doesNotMatch(JSON.stringify(result), /secret/)
 })
 
-test('resolves a chosen UUID with a direct DAWA lookup', async () => {
+test('resolves a chosen UUID with a direct register lookup and no search', async () => {
+  const hosts = []
   const result = await request('/api/address-report?id=' + addressId + '&lang=en', {
-    fetchImpl: async (url) => {
-      assert.equal(url.pathname, '/adgangsadresser/' + addressId)
-      assert.equal(url.searchParams.has('q'), false)
-      return jsonResponse(dawaAddress)
-    },
+    fetchImpl: darFetch({ onRequest: (url) => hosts.push(url.hostname) }),
   })
   assert.equal(result.status, 200)
+  assert.deepEqual([...new Set(hosts)], ['graphql.datafordeler.dk'])
   assert.equal(result.body.language, 'en')
   assert.equal(result.body.address.id, addressId)
+  assert.equal(result.body.provenance.addressDocumentationUrl, 'https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar')
   assert.match(result.body.description, /approximately/)
 })
 
 test('rejects ambiguous addresses and gives candidates instead of selecting one', async () => {
+  const hits = Array.from({ length: 11 }, (_, i) => ({ ...searchHit, id: `0a3f507a-b2e6-32b8-e044-0003ba2980${String(i).padStart(2, '0')}`, visningstekst: `Nørholmsvej ${i + 1}, 9000 Aalborg` }))
   const result = await request('/api/address-report?address=N%C3%B8rholmsvej', {
-    fetchImpl: async () => jsonResponse(Array.from({ length: 11 }, (_, i) => ({ ...dawaAddress, husnr: String(i + 1) }))),
+    fetchImpl: darFetch({ search: hits }),
     loadData: () => assert.fail('An ambiguous address must not generate a report'),
   })
   assert.equal(result.status, 409)
   assert.equal(result.body.error.code, 'ambiguous_address')
   assert.equal(result.body.error.candidates.length, 10)
+  assert.equal(result.body.error.candidates[0].text, 'Nørholmsvej 1, 9000 Aalborg')
   assert.equal(result.body.error.moreCandidates, true)
   assert.equal(result.body.address, undefined)
 })
 
+test('ignores loose search hits that do not contain every typed word', async () => {
+  const result = await request('/api/address-report?address=N%C3%B8rholmsvej%20181', { loadData: () => assert.fail('No report for a non-match') })
+  assert.equal(result.status, 404)
+  assert.equal(result.body.error.code, 'address_not_found')
+})
+
+test('reports a missing credential without leaking configuration', async () => {
+  for (const missing of ['DATAFORSYNINGEN_TOKEN', 'DATAFORDELER_API_KEY']) {
+    const partial = { ...env, [missing]: '' }
+    const result = await request('/api/address-report?id=' + addressId, { env: partial, fetchImpl: darFetch() })
+    if (missing === 'DATAFORDELER_API_KEY') {
+      assert.equal(result.status, 503)
+      assert.equal(result.body.error.code, 'address_service_not_configured')
+      assert.match(result.body.error.message, new RegExp(missing))
+    } else {
+      assert.equal(result.status, 200, 'an id lookup does not use the search token')
+    }
+  }
+  const search = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', { env: { ...env, DATAFORSYNINGEN_TOKEN: '' } })
+  assert.equal(search.status, 503)
+})
+
 test('distinguishes no results, malformed data, upstream failure and timeouts', async () => {
   const cases = [
-    { fetchImpl: async () => jsonResponse([]), status: 404, code: 'address_not_found' },
-    { fetchImpl: async () => jsonResponse(null, 404), status: 404, code: 'address_not_found' },
+    { fetchImpl: darFetch({ search: [] }), status: 404, code: 'address_not_found' },
+    { fetchImpl: darFetch({ husnummer: { nodes: [] } }), status: 404, code: 'address_not_found' },
     { fetchImpl: async () => jsonResponse(null, 503), status: 502, code: 'address_service_unavailable' },
     { fetchImpl: async () => jsonResponse({}), status: 502, code: 'invalid_upstream_response' },
-    { fetchImpl: async () => jsonResponse([{ ...dawaAddress, x: null }]), status: 502, code: 'invalid_upstream_response' },
-    { fetchImpl: async () => jsonResponse([{ ...dawaAddress, y: 100 }]), status: 502, code: 'invalid_upstream_response' },
+    { fetchImpl: darFetch({ relatedData: { ...related, point: { nodes: [{ position: { wkt: 'POINT EMPTY' } }] } } }), status: 502, code: 'invalid_upstream_response' },
+    { fetchImpl: darFetch({ relatedData: { ...related, point: { nodes: [{ position: { wkt: 'POINT (9.85 100)', crs: 'EPSG:4326' } }] } } }), status: 502, code: 'invalid_upstream_response' },
+    { fetchImpl: darFetch({ husnummer: { nodes: [{ ...house, postnummer: 'not-a-uuid' }] } }), status: 502, code: 'invalid_upstream_response' },
     { fetchImpl: async () => { throw new Error('private infrastructure details') }, status: 502, code: 'address_service_unavailable' },
     { fetchImpl: async () => { throw new DOMException('late', 'TimeoutError') }, status: 504, code: 'address_service_timeout' },
     { fetchImpl: async () => ({ ok: true, json: async () => { throw new SyntaxError('bad JSON') } }), status: 502, code: 'address_service_unavailable' },
@@ -124,7 +144,7 @@ test('distinguishes no results, malformed data, upstream failure and timeouts', 
     const result = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', expected)
     assert.equal(result.status, expected.status)
     assert.equal(result.body.error.code, expected.code)
-    assert.doesNotMatch(JSON.stringify(result.body), /private infrastructure/)
+    assert.doesNotMatch(JSON.stringify(result.body), /private infrastructure|secret/)
   }
 })
 
