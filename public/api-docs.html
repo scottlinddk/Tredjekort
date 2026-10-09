@@ -42,12 +42,12 @@
     </form>
     <h2>Request</h2>
     <pre>GET /api/address-report?address=N%C3%B8rholmsvej%20180%2C%209000%20Aalborg&amp;lang=da</pre>
-    <p>Send exactly one of <code>address</code> (3–200 characters) or <code>id</code> (a DAWA access-address UUID). <code>lang</code> is <code>da</code> by default; <code>en</code> is also supported. Use an access address without floor or door. The address field uses DAWA search without fuzzy matching.</p>
+    <p>Send exactly one of <code>address</code> (3–200 characters) or <code>id</code> (a DAR access-address UUID). <code>lang</code> is <code>da</code> by default; <code>en</code> is also supported. Use an access address without floor or door. The address field searches DAR and only accepts results containing every word you typed.</p>
     <p>For an address chosen on the map or returned by <code>/api/addresses?q=...</code>, use its ID:</p>
-    <pre>GET /api/address-report?id=&lt;DAWA-access-address-UUID&gt;&amp;lang=en</pre>
+    <pre>GET /api/address-report?id=&lt;DAR-access-address-UUID&gt;&amp;lang=en</pre>
     <h2>What the response contains</h2>
     <ul>
-      <li><code>address</code>: resolved name, ID, WGS84 coordinates and DAWA source URL.</li>
+      <li><code>address</code>: resolved name, ID, WGS84 coordinates and DAR source URL.</li>
       <li><code>description</code>: prose in the requested language.</li>
       <li><code>noise.expectedWithProject</code>: the original proposal's expected noise as a modeled dwelling value, a min/max across all matched dwelling records, or an official contour band. Its description leads the main report.</li>
       <li><code>proximity</code>: nearest approximate motorway segment and junction, plus local roads and noise-barrier sections within 2,000 metres. These line features retain GeoJSON geometry and source properties. <code>nearestOfficialDesign</code> separately gives distance to the official 2025 design centreline network, including ramps and local roads; its large geometry is omitted.</li>
@@ -59,7 +59,7 @@
     <p>Distances are geodesic distances to the approximate map geometry, rounded to 10 metres. Positions may differ by several hundred metres. The 2 km filter is a proximity filter, not an impact boundary. A nearby barrier does not establish noise protection. Barrier lengths may describe groups; do not sum them without checking the source.</p>
     <h2>Reading the expected with-project result</h2>
     <p>For <code>status: point_value_found</code>, <code>valueDb</code> is the source's modeled dwelling/facade value. For <code>point_range_found</code>, read <code>receiverRange.minDb</code> and <code>maxDb</code>. <code>receiverRange</code> is present for both statuses and includes <code>receiverCount</code>; a single or identical value has equal minimum and maximum. Numeric fields retain the published decimals; display one decimal place. Source precision is not measured accuracy.</p>
-    <p>Receiver matching requires DAWA municipality <code>0851</code>, road code and house number, plus a distance of no more than 50 metres between the keyed historical record and current address point. Formatting differences such as leading zeros and house-letter case are normalized. This guard never selects a nearest address. All matched dwelling rows are included; raw floor codes are preserved without interpreting their labels.</p>
+    <p>Receiver matching requires DAR municipality <code>0851</code>, road code and house number, plus a distance of no more than 50 metres between the keyed historical record and current address point. Formatting differences such as leading zeros and house-letter case are normalized. This guard never selects a nearest address. All matched dwelling rows are included; raw floor codes are preserved without interpreting their labels.</p>
     <p>Zero sentinels and missing model values are unknown. If any matched dwelling lacks an original-scenario value, the API does not present a partial min/max as complete. It falls back to the original contour if usable. <code>receiverDataStatus</code> explains the receiver lookup. The reference and variant are never substitutes for the original proposal.</p>
     <p>For <code>band_found</code>, read <code>band</code>; its midpoint is never used as a point value. Boundary, overlap, invalid-geometry and unmapped results keep the band and numeric value null. The top category remains <code>78 dB</code> with an unspecified upper bound. A missing contour does not mean below 53 dB; a safely matched receiver can have a published value below that contour threshold.</p>
     <p><code>exactDb</code> is null because an exact actual or measured sound level is unsupported. <code>motorwayOnlyDb</code> is null because this model does not isolate the motorway from selected surrounding roads. This additive result preserves the existing response <code>schemaVersion: 1.0</code> and historic scenario fields.</p>
@@ -95,6 +95,6 @@ const report = await response.json()
 if (!response.ok) throw new Error(report.error.message)
 console.log(report.description)</pre>
     <p>The endpoint runs on Vercel, in local development and in the local preview server. A static-only hosting service cannot execute the API.</p>
-    <p><a href="/openapi.json">Download the OpenAPI 3.1 specification</a> · <a href="https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse">DAWA documentation</a> · <a href="https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse">Official project</a></p>
+    <p><a href="/openapi.json">Download the OpenAPI 3.1 specification</a> · <a href="https://danmarksadresser.dk/om-adresser/danmarks-adresseregister-dar">DAR documentation</a> · <a href="https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse">Official project</a></p>
   </body>
 </html>

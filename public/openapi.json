@@ -11,10 +11,10 @@
       "get": {
         "operationId": "getAddressReport",
         "summary": "Map data and prose for a Danish access address",
-        "description": "Provide exactly one of address or id. No key is required. Text search is non-fuzzy; multiple matches return 409 with candidates. GET and OPTIONS support cross-origin requests. Responses are not cached. Dataset facts are a reviewed snapshot, while DAWA address lookup is live.",
+        "description": "Provide exactly one of address or id. No key is required. Text search only accepts results containing every typed word; multiple matches return 409 with candidates. GET and OPTIONS support cross-origin requests. Responses are not cached. Dataset facts are a reviewed snapshot, while DAR address lookup is live.",
         "parameters": [
           { "name": "address", "in": "query", "description": "Street, house number and postcode, without floor or door. Mutually exclusive with id. No control characters or wildcards.", "schema": { "type": "string", "minLength": 3, "maxLength": 200 }, "example": "Nørholmsvej 180, 9000 Aalborg" },
-          { "name": "id", "in": "query", "description": "DAWA access-address UUID, for example from /api/addresses autocomplete or a 409 response. Mutually exclusive with address.", "schema": { "type": "string", "format": "uuid" } },
+          { "name": "id", "in": "query", "description": "DAR access-address UUID, for example from /api/addresses autocomplete or a 409 response. Mutually exclusive with address.", "schema": { "type": "string", "format": "uuid" } },
           { "name": "lang", "in": "query", "description": "Language for description, noise reason and limitations. Original map properties and bilingual project data retain their source language.", "schema": { "type": "string", "enum": ["da", "en"], "default": "da" } }
         ],
         "responses": {
@@ -43,7 +43,16 @@
           "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" },
           "longitude": { "type": "number", "minimum": -180, "maximum": 180 }, "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
           "coordinateReferenceSystem": { "const": "EPSG:4326" }, "precision": { "const": "access_address" }, "sourceUrl": { "type": "string", "format": "uri" },
-          "municipalityCode": { "type": ["string", "null"], "description": "DAWA municipality code used for strict historical receiver matching." }, "roadCode": { "type": ["string", "null"] }, "houseNumber": { "type": "string" }
+          "municipalityCode": { "type": ["string", "null"], "description": "DAR municipality code used for strict historical receiver matching." }, "roadCode": { "type": ["string", "null"] }, "houseNumber": { "type": "string" }
+        }
+      },
+      "AddressCandidate": {
+        "type": "object",
+        "required": ["id", "text"],
+        "description": "A search hit. Repeat the request with id to receive the full Address.",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" },
+          "longitude": { "type": ["number", "null"] }, "latitude": { "type": ["number", "null"] }
         }
       },
       "MapFeature": {
@@ -80,7 +89,7 @@
       "ExpectedWithProject": {
         "type": "object",
         "required": ["status", "basis", "valueDb", "receiverRange", "receivers", "receiverDataStatus", "receiverCoordinateLimitMeters", "band", "exactDb", "motorwayOnlyDb", "metric", "units", "scenario", "modelYear", "forecastYear", "sourceUrl", "description"],
-        "description": "Original with-project scenario only. Exact DAWA municipality/road/house matching plus a 50m coordinate guard selects historical dwelling records; every matched row must have a usable original value. Otherwise use only the original contour, never reference or variant. Historical modeled output is not measurement accuracy or the motorway-only contribution.",
+        "description": "Original with-project scenario only. Exact DAR municipality/road/house matching plus a 50m coordinate guard selects historical dwelling records; every matched row must have a usable original value. Otherwise use only the original contour, never reference or variant. Historical modeled output is not measurement accuracy or the motorway-only contribution.",
         "properties": {
           "status": { "enum": ["point_value_found", "point_range_found", "band_found", "no_matching_contour", "boundary", "overlapping_bands", "source_geometry_invalid", "model_unavailable"] },
           "basis": { "enum": ["address_receivers", "contour_band", "unavailable"] },
@@ -131,7 +140,7 @@
       },
       "ErrorResponse": {
         "type": "object", "required": ["error"],
-        "properties": { "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" }, "candidates": { "type": "array", "maxItems": 10, "items": { "$ref": "#/components/schemas/Address" } }, "moreCandidates": { "type": "boolean" } } } }
+        "properties": { "error": { "type": "object", "required": ["code", "message"], "properties": { "code": { "type": "string" }, "message": { "type": "string" }, "candidates": { "type": "array", "maxItems": 10, "items": { "$ref": "#/components/schemas/AddressCandidate" } }, "moreCandidates": { "type": "boolean" } } } }
       }
     }
   }

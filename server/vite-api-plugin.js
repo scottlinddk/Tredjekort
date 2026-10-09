@@ -1,13 +1,20 @@
+import addresses from '../api/addresses.js'
 import addressReport from '../api/address-report.js'
+
+const routes = new Map([
+  ['/api/addresses', addresses],
+  ['/api/address-report', addressReport],
+])
 
 export function addressApiPlugin() {
   const register = (server) => {
     server.middlewares.use((req, res, next) => {
-      if (new URL(req.url, 'http://localhost').pathname !== '/api/address-report') {
+      const handler = routes.get(new URL(req.url, 'http://localhost').pathname)
+      if (!handler) {
         next()
         return
       }
-      void addressReport(req, res)
+      void handler(req, res)
     })
   }
   return {

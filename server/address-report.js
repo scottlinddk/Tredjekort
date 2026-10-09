@@ -4,22 +4,14 @@ import { gunzip } from 'node:zlib'
 import { distance, point, pointToLineDistance } from '@turf/turf'
 import { describeNoiseScenarios, expectedWithProject, lookupNoiseScenario, prepareNoiseScenarios } from './official-noise.js'
 import { lookupLandRequirements, nearestOfficialDesign } from './official-project.js'
+import { ApiError } from './api-error.js'
+import { DAR_SOURCE_URL, fetchAccessAddress, searchAccessAddresses } from './dar.js'
 
-const DAWA_URL = 'https://api.dataforsyningen.dk/adgangsadresser'
 const PROJECT_URL = 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse'
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const NEARBY_RADIUS_METERS = 2000
 const MAX_CANDIDATES = 10
 const decompress = promisify(gunzip)
-
-class ApiError extends Error {
-  constructor(status, code, message, details = {}) {
-    super(message)
-    this.status = status
-    this.code = code
-    this.details = details
-  }
-}
 
 let dataPromise
 export function loadMapData() {
@@ -78,7 +70,7 @@ export function parseReportQuery(requestUrl) {
     throw new ApiError(400, 'invalid_language', 'lang must be da or en.')
   }
   if (query.has('id') && !UUID.test(id ?? '')) {
-    throw new ApiError(400, 'invalid_id', 'id must be a DAWA access-address UUID.')
+    throw new ApiError(400, 'invalid_id', 'id must be a DAR access-address UUID.')
   }
   if (query.has('address') && (!address || address.length < 3 || address.length > 200
     || address.includes('*') || [...address].some((character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127))) {
@@ -88,69 +80,47 @@ export function parseReportQuery(requestUrl) {
 }
 
 function toAddress(record) {
-  const longitude = record?.x
-  const latitude = record?.y
-  if (!UUID.test(record?.id ?? '') || !Number.isFinite(longitude) || !Number.isFinite(latitude)
-    || Math.abs(longitude) > 180 || Math.abs(latitude) > 90
-    || typeof record.vejnavn !== 'string' || !record.vejnavn || !record.husnr || !record.postnr) {
-    throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an incomplete address.')
-  }
   return {
     id: record.id,
-    text: typeof record.betegnelse === 'string' && record.betegnelse.trim()
-      ? record.betegnelse
-      : [`${record.vejnavn} ${record.husnr}`, record.supplerendebynavn, `${record.postnr} ${record.postnrnavn ?? ''}`.trim()].filter(Boolean).join(', '),
-    longitude,
-    latitude,
+    text: record.text,
+    longitude: record.longitude,
+    latitude: record.latitude,
     coordinateReferenceSystem: 'EPSG:4326',
     precision: 'access_address',
-    municipalityCode: record.kommunekode != null ? String(record.kommunekode).padStart(4, '0') : null,
-    roadCode: record.vejkode != null ? String(record.vejkode).padStart(4, '0') : null,
-    houseNumber: String(record.husnr),
-    sourceUrl: `${DAWA_URL}/${record.id}`,
+    municipalityCode: record.municipalityCode,
+    roadCode: record.roadCode,
+    houseNumber: record.houseNumber,
+    sourceUrl: DAR_SOURCE_URL,
   }
 }
 
-export async function resolveAddress(query, { fetchImpl = fetch, timeoutMs = 8000 } = {}) {
-  const url = new URL(query.id ? `${DAWA_URL}/${query.id}` : DAWA_URL)
-  url.searchParams.set('struktur', 'mini')
-  if (!query.id) {
-    // Deliberately do not use autocomplete or fuzzy search for address reports.
-    url.searchParams.set('q', query.address)
-    url.searchParams.set('per_side', String(MAX_CANDIDATES + 1))
-  }
-  let body
-  try {
-    const response = await fetchImpl(url, {
-      headers: { accept: 'application/json' },
-      signal: AbortSignal.timeout(timeoutMs),
-    })
-    if (response.status === 404) throw new ApiError(404, 'address_not_found', 'No matching access address was found.')
-    if (!response.ok) throw new ApiError(502, 'address_service_unavailable', 'The address service could not complete this request. Try again later.')
-    body = await response.json()
-  } catch (error) {
-    if (error instanceof ApiError) throw error
-    if (error.name === 'TimeoutError' || error.name === 'AbortError') {
-      throw new ApiError(504, 'address_service_timeout', 'The address service timed out. Try again later.')
-    }
-    throw new ApiError(502, 'address_service_unavailable', 'The address service is unavailable or returned invalid JSON.')
-  }
-  if (query.id) {
-    const result = toAddress(body)
-    if (result.id.toLowerCase() !== query.id.toLowerCase()) {
-      throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected address ID.')
-    }
-    return result
-  }
-  if (!Array.isArray(body)) throw new ApiError(502, 'invalid_upstream_response', 'The address service returned an unexpected response.')
-  if (body.length === 0) throw new ApiError(404, 'address_not_found', 'No matching access address was found. Include street, house number and postcode; omit floor and door.')
-  if (body.length > 1) {
+const tokens = (text) => text.toLocaleLowerCase('da-DK').split(/[^\p{L}\p{N}]+/u).filter(Boolean)
+
+// The search service ranks loosely, so a typo or partial input could yield one plausible
+// but different address. Only accept results that contain every word the caller typed.
+function containsAllWords(candidateText, typedText) {
+  const available = new Set(tokens(candidateText))
+  return tokens(typedText).every((word) => available.has(word))
+}
+
+export async function resolveAddress(query, { fetchImpl = fetch, timeoutMs = 8000, env } = {}) {
+  const options = { fetchImpl, timeoutMs, env }
+  if (query.id) return toAddress(await fetchAccessAddress(query.id, options))
+  const found = (await searchAccessAddresses(query.address, { ...options, limit: MAX_CANDIDATES + 1 }))
+    .filter((candidate) => containsAllWords(candidate.text, query.address))
+  if (found.length === 0) throw new ApiError(404, 'address_not_found', 'No matching access address was found. Include street, house number and postcode; omit floor and door.')
+  if (found.length > 1) {
     throw new ApiError(409, 'ambiguous_address', 'Several addresses match. Repeat the request with a candidate id or a more specific address.', {
-      candidates: body.slice(0, MAX_CANDIDATES).map(toAddress),
-      moreCandidates: body.length > MAX_CANDIDATES,
+      candidates: found.slice(0, MAX_CANDIDATES).map(({ id, text, position }) => ({
+        id,
+        text,
+        longitude: position?.longitude ?? null,
+        latitude: position?.latitude ?? null,
+      })),
+      moreCandidates: found.length > MAX_CANDIDATES,
     })
   }
-  return toAddress(body[0])
+  return toAddress(await fetchAccessAddress(found[0].id, options))
 }
 
 function rankedLines(origin, collection) {
@@ -253,8 +223,8 @@ export function buildAddressReport(address, language, data) {
     projectInformation: data.projectInformation,
     provenance: {
       projectUrl: PROJECT_URL,
-      addressProvider: 'DAWA / Dataforsyningen',
-      addressDocumentationUrl: 'https://dawadocs.dataforsyningen.dk/dok/api/adgangsadresse',
+      addressProvider: 'DAR (Danmarks Adresseregister) via Datafordeler and Dataforsyningen',
+      addressDocumentationUrl: DAR_SOURCE_URL,
       datasetReviewedAt: data.projectInformation.reviewedAt,
       geometryIsOfficialSurvey: false,
       featureSources: 'Each returned feature retains its source, confidence and notes from the map dataset.',
@@ -263,7 +233,7 @@ export function buildAddressReport(address, language, data) {
   }
 }
 
-export function createAddressReportHandler({ fetchImpl = fetch, loadData = loadMapData, timeoutMs = 8000 } = {}) {
+export function createAddressReportHandler({ fetchImpl = fetch, loadData = loadMapData, timeoutMs = 8000, env } = {}) {
   return async function handler(req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8')
     res.setHeader('X-Content-Type-Options', 'nosniff')
@@ -286,7 +256,7 @@ export function createAddressReportHandler({ fetchImpl = fetch, loadData = loadM
     }
     try {
       const query = parseReportQuery(req.url)
-      const address = await resolveAddress(query, { fetchImpl, timeoutMs })
+      const address = await resolveAddress(query, { fetchImpl, timeoutMs, env })
       const data = await loadData()
       send(200, buildAddressReport(address, query.language, data))
     } catch (error) {
