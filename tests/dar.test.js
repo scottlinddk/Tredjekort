@@ -108,3 +108,24 @@ test('/api/addresses validates input, caches successes only, and hides failures'
   assert.equal(missing.status, 503)
   assert.equal(missing.body.error.code, 'address_service_not_configured')
 })
+
+test('upstream rejections name the service and status but never the URL, key or body', async () => {
+  const logged = []
+  const original = console.error
+  console.error = (...args) => logged.push(args.join(' '))
+  try {
+    const handler = createAddressesHandler({ suggest: (q) => suggestAddresses(q, {
+      env,
+      fetchImpl: async () => ({ ok: false, status: 401, text: async () => '{"message":"User not authorized"}' }),
+    }) })
+    const result = await call(handler, '/api/addresses?q=ab')
+    assert.equal(result.status, 502)
+    assert.equal(result.body.error.service, 'gsearch')
+    assert.equal(result.body.error.upstreamStatus, 401)
+    assert.doesNotMatch(JSON.stringify(result.body), /secret|token=/)
+    assert.match(logged.join('\n'), /gsearch answered HTTP 401: .*not authorized/)
+    assert.doesNotMatch(logged.join('\n'), /secret/)
+  } finally {
+    console.error = original
+  }
+})
