@@ -1,13 +1,10 @@
-// Fake Dataforsyningen GSearch + Datafordeler GraphQL, shaped as server/dar.js assumes
-// them. These mirror the assumptions, not verified upstream payloads.
+// Fake Adressevælger + Datafordeler GraphQL. The Adressevælger hit shape follows its
+// published "Fonetisk søgning" output attributes; the GraphQL part mirrors server/dar.js's
+// assumptions, not a verified payload.
 export const addressId = '0a3f507a-b2e6-32b8-e044-0003ba298018'
-export const env = { DATAFORSYNINGEN_TOKEN: 'search-secret', DATAFORDELER_API_KEY: 'register-secret' }
+export const env = { ADRESSEVAELGER_TOKEN: 'search-secret', DATAFORDELER_API_KEY: 'register-secret' }
 
-export const searchHit = {
-  id: addressId,
-  visningstekst: 'Nørholmsvej 180, 9000 Aalborg',
-  geometri: { type: 'Point', coordinates: [9.85, 57] },
-}
+export const searchHit = { type: 'husnummer', id: addressId, titel: 'Nørholmsvej 180, 9000 Aalborg' }
 
 const refs = {
   point: '11111111-1111-4111-8111-111111111111',
@@ -30,7 +27,7 @@ export const jsonResponse = (body, status = 200) => ({ ok: status >= 200 && stat
 export function darFetch({ search = [searchHit], husnummer = { nodes: [house] }, relatedData = related, onRequest } = {}) {
   return async (url, init = {}) => {
     onRequest?.(url, init)
-    if (url.hostname === 'api.dataforsyningen.dk') return jsonResponse(search)
+    if (url.hostname === 'adressevaelger.dk') return jsonResponse(search)
     if (url.hostname === 'graphql.datafordeler.dk') {
       const { query } = JSON.parse(init.body)
       return jsonResponse({ data: query.includes('DAR_Adressepunkt') ? relatedData : { DAR_Husnummer: husnummer } })

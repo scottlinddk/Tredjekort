@@ -11,6 +11,8 @@ const PROJECT_URL = 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforb
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const NEARBY_RADIUS_METERS = 2000
 const MAX_CANDIDATES = 10
+const MAX_SEARCH_HITS = 100 // Adressevælger's default page; typed words are filtered after the fetch
+const MAX_ADDRESS_LENGTH = 73 // Adressevælger's documented limit for `tekst`
 const decompress = promisify(gunzip)
 
 let dataPromise
@@ -72,9 +74,9 @@ export function parseReportQuery(requestUrl) {
   if (query.has('id') && !UUID.test(id ?? '')) {
     throw new ApiError(400, 'invalid_id', 'id must be a DAR access-address UUID.')
   }
-  if (query.has('address') && (!address || address.length < 3 || address.length > 200
+  if (query.has('address') && (!address || address.length < 3 || address.length > MAX_ADDRESS_LENGTH
     || address.includes('*') || [...address].some((character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127))) {
-    throw new ApiError(400, 'invalid_address', 'address must contain 3–200 characters, without control characters or wildcards.')
+    throw new ApiError(400, 'invalid_address', `address must contain 3–${MAX_ADDRESS_LENGTH} characters, without control characters or wildcards.`)
   }
   return { address, id, language }
 }
@@ -106,17 +108,12 @@ function containsAllWords(candidateText, typedText) {
 export async function resolveAddress(query, { fetchImpl = fetch, timeoutMs = 8000, env } = {}) {
   const options = { fetchImpl, timeoutMs, env }
   if (query.id) return toAddress(await fetchAccessAddress(query.id, options))
-  const found = (await searchAccessAddresses(query.address, { ...options, limit: MAX_CANDIDATES + 1 }))
+  const found = (await searchAccessAddresses(query.address, { ...options, limit: MAX_SEARCH_HITS }))
     .filter((candidate) => containsAllWords(candidate.text, query.address))
   if (found.length === 0) throw new ApiError(404, 'address_not_found', 'No matching access address was found. Include street, house number and postcode; omit floor and door.')
   if (found.length > 1) {
     throw new ApiError(409, 'ambiguous_address', 'Several addresses match. Repeat the request with a candidate id or a more specific address.', {
-      candidates: found.slice(0, MAX_CANDIDATES).map(({ id, text, position }) => ({
-        id,
-        text,
-        longitude: position?.longitude ?? null,
-        latitude: position?.latitude ?? null,
-      })),
+      candidates: found.slice(0, MAX_CANDIDATES).map(({ id, text }) => ({ id, text })),
       moreCandidates: found.length > MAX_CANDIDATES,
     })
   }

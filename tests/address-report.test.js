@@ -43,7 +43,7 @@ async function request(url, options = {}) {
 }
 
 test('validates parameters before contacting upstream', async () => {
-  for (const query of ['', '?address=', '?address=x', '?address=a*b', '?address=abc%00', '?id=no', '?id=', '?address=abc&id=' + addressId, '?address=abc&lang=de', '?address=abc&lang=', '?address=abc&address=def', '?address=abc&unknown=yes', '?address=' + 'a'.repeat(201)]) {
+  for (const query of ['', '?address=', '?address=x', '?address=a*b', '?address=abc%00', '?id=no', '?id=', '?address=abc&id=' + addressId, '?address=abc&lang=de', '?address=abc&lang=', '?address=abc&address=def', '?address=abc&unknown=yes', '?address=' + 'a'.repeat(74)]) {
     const result = await request('/api/address-report' + query, { fetchImpl: () => assert.fail('Invalid queries must not trigger a lookup') })
     assert.equal(result.status, 400, query)
     assert.equal(result.headers['Cache-Control'], 'no-store')
@@ -52,17 +52,16 @@ test('validates parameters before contacting upstream', async () => {
   assert.equal(parseReportQuery('/api/address-report?id=' + addressId).language, 'da')
 })
 
-test('searches DAR, preserves Danish characters and ampersands, and keeps the token out of the result', async () => {
+test('searches Adressevælger, preserves Danish characters and ampersands, and keeps the token out of the result', async () => {
   const requests = []
   const result = await resolveAddress({ address: 'Nørholmsvej 180 & 9000' }, {
     env,
     fetchImpl: darFetch({ onRequest: (url, init) => requests.push({ url, init }) }),
   })
   const [search, husnummer, related] = requests
-  assert.equal(search.url.hostname, 'api.dataforsyningen.dk')
-  assert.equal(search.url.pathname, '/rest/gsearch/v2.0/husnummer')
-  assert.equal(search.url.searchParams.get('q'), 'Nørholmsvej 180 & 9000')
-  assert.equal(search.url.searchParams.get('limit'), '11')
+  assert.equal(search.url.hostname, 'adressevaelger.dk')
+  assert.equal(search.url.pathname, '/husnumre/soeg')
+  assert.equal(search.url.searchParams.get('tekst'), 'Nørholmsvej 180 & 9000')
   assert.equal(search.url.searchParams.get('token'), 'search-secret')
   assert.ok(search.init.signal instanceof AbortSignal)
   assert.equal(husnummer.url.hostname, 'graphql.datafordeler.dk')
@@ -92,7 +91,7 @@ test('resolves a chosen UUID with a direct register lookup and no search', async
 })
 
 test('rejects ambiguous addresses and gives candidates instead of selecting one', async () => {
-  const hits = Array.from({ length: 11 }, (_, i) => ({ ...searchHit, id: `0a3f507a-b2e6-32b8-e044-0003ba2980${String(i).padStart(2, '0')}`, visningstekst: `Nørholmsvej ${i + 1}, 9000 Aalborg` }))
+  const hits = Array.from({ length: 11 }, (_, i) => ({ ...searchHit, id: `0a3f507a-b2e6-32b8-e044-0003ba2980${String(i).padStart(2, '0')}`, titel: `Nørholmsvej ${i + 1}, 9000 Aalborg` }))
   const result = await request('/api/address-report?address=N%C3%B8rholmsvej', {
     fetchImpl: darFetch({ search: hits }),
     loadData: () => assert.fail('An ambiguous address must not generate a report'),
@@ -100,9 +99,24 @@ test('rejects ambiguous addresses and gives candidates instead of selecting one'
   assert.equal(result.status, 409)
   assert.equal(result.body.error.code, 'ambiguous_address')
   assert.equal(result.body.error.candidates.length, 10)
-  assert.equal(result.body.error.candidates[0].text, 'Nørholmsvej 1, 9000 Aalborg')
+  assert.deepEqual(result.body.error.candidates[0], { id: hits[0].id, text: 'Nørholmsvej 1, 9000 Aalborg' })
   assert.equal(result.body.error.moreCandidates, true)
   assert.equal(result.body.address, undefined)
+})
+
+test('only access-address hits resolve a report; refinement hints never select an address', async () => {
+  const hints = [
+    { type: 'vejnavn', titel: 'Nørholmsvej' },
+    { type: 'navngivenvejpostnummer', id: addressId, titel: 'Nørholmsvej, 9000 Aalborg', antal_husnumre: 12 },
+    { type: 'vejnavnhusnummer', titel: 'Nørholmsvej 180' },
+  ]
+  const none = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', {
+    fetchImpl: darFetch({ search: hints }), loadData: () => assert.fail('No report from refinement hints'),
+  })
+  assert.equal(none.status, 404)
+  const one = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', { fetchImpl: darFetch({ search: [...hints, searchHit] }) })
+  assert.equal(one.status, 200)
+  assert.equal(one.body.address.id, addressId)
 })
 
 test('ignores loose search hits that do not contain every typed word', async () => {
@@ -112,7 +126,7 @@ test('ignores loose search hits that do not contain every typed word', async () 
 })
 
 test('reports a missing credential without leaking configuration', async () => {
-  for (const missing of ['DATAFORSYNINGEN_TOKEN', 'DATAFORDELER_API_KEY']) {
+  for (const missing of ['ADRESSEVAELGER_TOKEN', 'DATAFORDELER_API_KEY']) {
     const partial = { ...env, [missing]: '' }
     const result = await request('/api/address-report?id=' + addressId, { env: partial, fetchImpl: darFetch() })
     if (missing === 'DATAFORDELER_API_KEY') {
@@ -123,7 +137,7 @@ test('reports a missing credential without leaking configuration', async () => {
       assert.equal(result.status, 200, 'an id lookup does not use the search token')
     }
   }
-  const search = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', { env: { ...env, DATAFORSYNINGEN_TOKEN: '' } })
+  const search = await request('/api/address-report?address=N%C3%B8rholmsvej%20180', { env: { ...env, ADRESSEVAELGER_TOKEN: '' } })
   assert.equal(search.status, 503)
 })
 

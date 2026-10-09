@@ -42,7 +42,7 @@
     </form>
     <h2>Request</h2>
     <pre>GET /api/address-report?address=N%C3%B8rholmsvej%20180%2C%209000%20Aalborg&amp;lang=da</pre>
-    <p>Send exactly one of <code>address</code> (3–200 characters) or <code>id</code> (a DAR access-address UUID). <code>lang</code> is <code>da</code> by default; <code>en</code> is also supported. Use an access address without floor or door. The address field searches DAR and only accepts results containing every word you typed.</p>
+    <p>Send exactly one of <code>address</code> (3–73 characters) or <code>id</code> (a DAR access-address UUID). <code>lang</code> is <code>da</code> by default; <code>en</code> is also supported. Use an access address without floor or door. The address field searches DAR and only accepts results containing every word you typed.</p>
     <p>For an address chosen on the map or returned by <code>/api/addresses?q=...</code>, use its ID:</p>
     <pre>GET /api/address-report?id=&lt;DAR-access-address-UUID&gt;&amp;lang=en</pre>
     <h2>What the response contains</h2>

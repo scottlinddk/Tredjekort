@@ -13,7 +13,7 @@
         "summary": "Map data and prose for a Danish access address",
         "description": "Provide exactly one of address or id. No key is required. Text search only accepts results containing every typed word; multiple matches return 409 with candidates. GET and OPTIONS support cross-origin requests. Responses are not cached. Dataset facts are a reviewed snapshot, while DAR address lookup is live.",
         "parameters": [
-          { "name": "address", "in": "query", "description": "Street, house number and postcode, without floor or door. Mutually exclusive with id. No control characters or wildcards.", "schema": { "type": "string", "minLength": 3, "maxLength": 200 }, "example": "Nørholmsvej 180, 9000 Aalborg" },
+          { "name": "address", "in": "query", "description": "Street, house number and postcode, without floor or door. Mutually exclusive with id. No control characters or wildcards.", "schema": { "type": "string", "minLength": 3, "maxLength": 73 }, "example": "Nørholmsvej 180, 9000 Aalborg" },
           { "name": "id", "in": "query", "description": "DAR access-address UUID, for example from /api/addresses autocomplete or a 409 response. Mutually exclusive with address.", "schema": { "type": "string", "format": "uuid" } },
           { "name": "lang", "in": "query", "description": "Language for description, noise reason and limitations. Original map properties and bilingual project data retain their source language.", "schema": { "type": "string", "enum": ["da", "en"], "default": "da" } }
         ],
@@ -51,8 +51,7 @@
         "required": ["id", "text"],
         "description": "A search hit. Repeat the request with id to receive the full Address.",
         "properties": {
-          "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" },
-          "longitude": { "type": ["number", "null"] }, "latitude": { "type": ["number", "null"] }
+          "id": { "type": "string", "format": "uuid" }, "text": { "type": "string" }
         }
       },
       "MapFeature": {
