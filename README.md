@@ -45,9 +45,7 @@ Address search and reports use DAR (Danmarks Adresseregister) since DAWA closed 
 1 October 2026. Two server-side credentials are required; copy `.env.example` to
 `.env.local` for development and set the same variables in the Vercel project:
 
-- `ADRESSEVAELGER_TOKEN`: Adressevælger token (Klimadatastyrelsen), used for typeahead and text search.
-- `DATAFORDELER_API_KEY`: Datafordeler API key, used for the DAR GraphQL record lookup (coordinates, municipality and road code). Adressevælger itself returns no coordinates.
-- `DAR_GRAPHQL_URL` (optional): override the DAR GraphQL endpoint, default `https://graphql.datafordeler.dk/DAR/v1`.
+- `ADRESSEVAELGER_TOKEN`: Adressevælger token (Klimadatastyrelsen), used for typeahead, text search and the id lookup (coordinates, municipality and road code).
 
 Without them `/api/addresses` and `/api/address-report` answer `503 address_service_not_configured`.
 Run `node scripts/verify-dar.mjs` with the variables set to check the upstream response
