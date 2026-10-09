@@ -23,6 +23,22 @@ export function isSelectableAddress(suggestion: AddressSuggestion): suggestion i
   return suggestion.type === 'husnummer' && suggestion.id !== null
 }
 
+// The service covers North Jutland's project area only: postcodes 9000-9900.
+const MIN_POSTCODE = 9000
+const MAX_POSTCODE = 9900
+
+/** Postcode from a display text like "Nørholmsvej 180, 9000 Aalborg", or null when it has none. */
+function postcodeOf(text: string): number | null {
+  const match = /,\s*(\d{4})(?:\s|$)/.exec(text)
+  return match ? Number(match[1]) : null
+}
+
+/** Hits without a postcode are refinement hints (e.g. a bare road name) and stay. */
+export function isInServiceArea(suggestion: AddressSuggestion): boolean {
+  const postcode = postcodeOf(suggestion.text)
+  return postcode === null || (postcode >= MIN_POSTCODE && postcode <= MAX_POSTCODE)
+}
+
 async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(url, { signal })
   if (!response.ok) {
@@ -37,7 +53,8 @@ async function getJson<T>(url: string, signal?: AbortSignal): Promise<T> {
  * needs a token that must stay server-side. Hits carry no coordinates; use `lookupAddress`.
  */
 export function searchAddresses(query: string, signal?: AbortSignal): Promise<AddressSuggestion[]> {
-  return getJson(`${ENDPOINT}?q=${encodeURIComponent(query.slice(0, MAX_QUERY_LENGTH))}`, signal)
+  return getJson<AddressSuggestion[]>(`${ENDPOINT}?q=${encodeURIComponent(query.slice(0, MAX_QUERY_LENGTH))}`, signal)
+    .then((suggestions) => suggestions.filter(isInServiceArea))
 }
 
 /** Position of one access address, read from DAR through the same endpoint. */
