@@ -455,6 +455,52 @@ body {
   font-size: 0.72rem;
 }
 
+.junction-popup .maplibregl-popup-content {
+  padding: var(--space-3);
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+.junction-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: var(--color-paper);
+}
+
+.junction-popup.maplibregl-popup-anchor-top .maplibregl-popup-tip {
+  border-bottom-color: var(--color-paper);
+}
+
+.junction-popover {
+  max-height: 50vh;
+  overflow-y: auto;
+  padding-right: var(--space-3);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.junction-popover h2 {
+  margin: 0 0 var(--space-1);
+  font-size: 0.95rem;
+}
+
+.junction-popover h3 {
+  margin: var(--space-2) 0 var(--space-1);
+  font-size: 0.8rem;
+}
+
+.junction-popover p {
+  margin: 0 0 var(--space-2);
+}
+
+.junction-popover__status {
+  color: var(--color-graphite);
+}
+
+.junction-popover ul {
+  margin: 0;
+  padding-left: var(--space-3);
+  font-size: 0.72rem;
+}
+
 /* Column of interactive overlays in the map's top-left corner. */
 .map-overlays-left {
   position: absolute;

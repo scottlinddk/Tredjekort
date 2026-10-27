@@ -49,8 +49,8 @@
       "da": "En lokalvej og bro til øen Egholm, der kan anlægges sammen med motorvejen, hvis Aalborg Kommune vælger det, jf. anlægsloven.",
       "en": "A local road and bridge to Egholm island, to be built alongside the motorway if Aalborg Kommune opts in, per the anlægslov."
     },
-    "longitude": 9.843,
-    "latitude": 57.05,
+    "longitude": 9.8484,
+    "latitude": 57.0496,
     "status": "conditional on municipal decision",
     "sources": ["Lov om anlæg af en 3. Limfjordsforbindelse, §1 stk. 2"]
   },
