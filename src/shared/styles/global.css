@@ -1489,3 +1489,41 @@ body {
     display: none;
   }
 }
+
+.noise-context h3 {
+  margin: var(--space-3) 0 var(--space-1);
+  font: 600 0.85rem var(--font-display);
+}
+
+.noise-context__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.noise-context__table th,
+.noise-context__table td {
+  padding: var(--space-1) var(--space-2) var(--space-1) 0;
+  border-bottom: var(--border-hairline);
+  text-align: left;
+  font-weight: 400;
+}
+
+.noise-context__table thead th {
+  font-weight: 600;
+}
+
+.noise-context__delta {
+  opacity: 0.75;
+}
+
+.noise-context__flag {
+  font-weight: 600;
+}
+
+.noise-context__list {
+  margin: 0 0 var(--space-2);
+  padding-left: 1.2rem;
+  font-size: 0.8rem;
+}

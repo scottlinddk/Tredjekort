@@ -269,3 +269,38 @@ also states that access to all homes, businesses and institutions is kept.
 Tiles are cached under `tmp/municipal-closures`; rebuild offline with
 `python scripts/import-municipal-closures.py --offline`. The importer needs
 shapely 2.1.2, pyproj and mapbox-vector-tile.
+
+## Independent noise evidence (uncertainty and context)
+
+Added 2 November 2026 from a literature and hearing-material review. Shown in the address
+report under "Usikkerhed og kontekst" (`src/features/noiseContext/`). It never changes or
+replaces the official Lden value. Constants and their sources live in
+`src/features/noiseContext/data/noiseEvidence.ts`; the sensitivity maths is tested in
+`tests/noise-sensitivity.test.js`.
+
+What is shown, and why at this strength:
+
+- **Model error (E45).** Calculated Lden was 0.1 to 4.0 dB above measured at four flat-motorway
+  sites. Shown as text only, never subtracted from the address value, because it is not
+  validated for the fjord crossing, embankments or low bridges, and the authors include
+  Vejdirektoratet staff.
+- **Traffic sensitivity.** +25 %, +50 % and +100 % traffic give +1.0, +1.8 and +3.0 dB
+  (10·log10, speed and heavy-vehicle share unchanged). Illustrative, labelled as such. A
+  row is flagged when it moves the top of the range past 58 dB.
+- **Annoyance.** Two published anchor points (12 % above 53 dB, 22 % above 58 dB, motorway)
+  plus "under 10 % at 58 dB along city roads". No curve is interpolated because the
+  original curve has not been obtained.
+
+Deliberately not built yet, and why:
+
+- **"Today" baseline from the 2022 noise mapping.** The shp/tab downloads are CNOSSOS (4 m);
+  only the 1.5 m layers are Nord2000, and CNOSSOS can be up to 10 dB lower. Mixing them would
+  mislead. Needs a Nord2000 vector source from Miljøstyrelsen, and a licence check.
+- **Mastra traffic counts vs forecast.** Service verified, licence unstated, Aalborg/E45
+  stations not checked, and counts cannot show induced traffic on a new link.
+- **Per-section screen layer and ">6 dB increase" flag.** Needs digitising from project PDFs
+  and 2021 receivers predate the 2025 design.
+
+Open questions to resolve before extending: 22 % vs 24 % at 58 dB (check Rapport 551
+directly); which pavement and heavy-vehicle share the 2040 forecast assumes; licences for
+the Miljøstyrelsen and Vejdirektoratet datasets.

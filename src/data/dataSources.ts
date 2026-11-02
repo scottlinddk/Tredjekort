@@ -54,6 +54,17 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     url: 'https://www.vejdirektoratet.dk/vejprojekter/3-limfjordsforbindelse/arealbehov',
   },
   {
+    id: 'noise-evidence',
+    datasetKey: 'noiseEvidence',
+    citations: [
+      'Model error: Kragh, Backalarz & Finne, FORCE Technology TC-101703 (2021) and J. Acoust. Soc. Am. 154:547-555 (2023). Four E45 sites, calculated Lden 0.1-4.0 dB above measured. Flat motorway only; co-authors include Vejdirektoratet staff',
+      'Traffic precedent: Transportministeren, TRU Alm.del 2017-18 bilag 78 (Silkeborg motorway, traffic 40-70 % above the EIA assumption, about 2 dB more noise). Sensitivity rows use the standard 10·log10 rule and are an illustration, not a forecast',
+      'Annoyance: Vejdirektoratet Rapport 551 (2016) as quoted in TRU Alm.del 2022-23 bilag 290 (12 % above 53 dB, 22 % above 58 dB from a motorway; under 10 % at 58 dB along city roads). Anchor points only, no curve is interpolated. A regional summary gives 24 % at 58 dB; unresolved. Guideline limit 58 dB (Miljøstyrelsen); WHO 2018 recommends 53 dB',
+      'Gaps: no Danish measured validation over fjords, embankments or low bridges; screens along the E45 only (Vejdirektoratet hearing note, March 2024); Lnight and maximum levels not calculated for the project',
+    ],
+    url: 'https://www.vejdirektoratet.dk/vvm/limfjorden/miljoe/stoej',
+  },
+  {
     id: 'road-alignment',
     datasetKey: 'roadAlignment',
     citations: [

@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { OFFICIAL_NOISE_SCENARIOS, type OfficialNoiseScenario } from '../../map/constants/officialNoiseConfig'
+import { NoiseContext } from '../../noiseContext/components/NoiseContext'
 import { formatDistance } from '../utils/assessRoadNoise'
 
 interface ScenarioResult {
@@ -64,6 +65,11 @@ export function AddressReport({ addressId }: { addressId: string }) {
         ? expected.band.label.replace(/\s*dB(?:\(A\))?\s*$/i, '')
         : `${expected.band.lowerDb}–${expected.band.upperDb}`
       : null
+  const noiseRange = pointEstimate && receiverRange
+    ? { minDb: receiverRange.minDb, maxDb: receiverRange.maxDb }
+    : expected?.status === 'band_found' && expected.band
+      ? { minDb: expected.band.lowerDb, maxDb: expected.band.upperDb }
+      : null
   const scenarios = [...historicalModel?.scenarios ?? []].sort((left, right) =>
     OFFICIAL_NOISE_SCENARIOS.indexOf(left.scenario) - OFFICIAL_NOISE_SCENARIOS.indexOf(right.scenario),
   )
@@ -89,6 +95,7 @@ export function AddressReport({ addressId }: { addressId: string }) {
         <p className="address-search__disclaimer">{t('report.expectedNoiseScope')}</p>
         <p className="address-search__disclaimer">{t('report.expectedNoiseHistorical')} <Link to="/about#noise-maps">{t('report.expectedNoiseCurrent')}</Link>.</p>
       </div>
+      {noiseRange && <NoiseContext range={noiseRange} />}
       <details className="address-report__details">
         <summary>{t('report.expectedNoiseDetails')}</summary>
         <p>{t('report.expectedNoiseMetric')}</p>
