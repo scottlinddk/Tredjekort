@@ -39,6 +39,15 @@ separate. See the in-app Project overview and Data sources pages.
 The [source review and import guide](docs/DATA_SOURCES.md) records source queries,
 model assumptions, geometry defects, checksums and the reproducible importer.
 
+## Hear the difference (optional)
+
+When `VITE_HOERBAR_URL` points at a deployment of [Hørbar](https://github.com/scottlinddk/mash),
+each row of the traffic sensitivity table under an address report gets a **Hør forskellen** link.
+It opens Hørbar with the address's with-project value as A and the row's value as B, so the
+difference can be heard. Unset, the links are not rendered. Only the difference between the two
+levels is meaningful in Hørbar; absolute loudness is not calibrated. The link carries the two
+levels, their labels and a source text, and no address.
+
 ## Address lookup configuration
 
 Address search and reports use DAR (Danmarks Adresseregister) since DAWA closed on
