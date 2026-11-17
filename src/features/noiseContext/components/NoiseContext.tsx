@@ -9,7 +9,11 @@ import {
   TRAFFIC_SCENARIOS,
   WHO_RECOMMENDATION_DB,
 } from '../data/noiseEvidence'
+import { hoerbarUrl } from '../utils/hoerbarLink'
 import { trafficSensitivity, type NoiseRange } from '../utils/noiseSensitivity'
+
+/** Public address of a Hørbar deployment. The listen links are hidden when it is unset. */
+const HOERBAR_URL: string | undefined = import.meta.env.VITE_HOERBAR_URL
 
 /**
  * Puts the official figure in context: how far it could move, and how the guideline
@@ -23,6 +27,15 @@ export function NoiseContext({ range }: { range: NoiseRange }) {
     max === null ? `${fmt(min)}+` : min === max ? fmt(min) : `${fmt(min)}–${fmt(max)}`
   const rows = trafficSensitivity(range, TRAFFIC_SCENARIOS)
   const top = range.maxDb ?? range.minDb
+  // Only the difference matters for listening, so the top of the range stands in for the address.
+  const listenUrl = (row: { trafficRatio: number; deltaDb: number }) =>
+    hoerbarUrl(HOERBAR_URL, {
+      levelA: top,
+      levelB: Math.round((top + row.deltaDb) * 10) / 10,
+      labelA: t('noiseContext.traffic.forecast'),
+      labelB: t('noiseContext.traffic.plus', { pct: Math.round((row.trafficRatio - 1) * 100) }),
+      source: t('noiseContext.traffic.listenSource'),
+    })
 
   return (
     <details className="address-report__details noise-context">
@@ -54,12 +67,19 @@ export function NoiseContext({ range }: { range: NoiseRange }) {
               <td>
                 {fmtRange(row.minDb, row.maxDb)} dB <span className="noise-context__delta">(+{fmt(row.deltaDb)})</span>
                 {row.crossesGuidelineLimit && <strong className="noise-context__flag"> {t('noiseContext.traffic.crosses', { limit: GUIDELINE_LIMIT_DB })}</strong>}
+                {listenUrl(row) && <>
+                  {' '}
+                  <a className="noise-context__listen" href={listenUrl(row) ?? undefined} target="_blank" rel="noopener noreferrer">
+                    {t('noiseContext.traffic.listen')}
+                  </a>
+                </>}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
       <p className="address-search__disclaimer">{t('noiseContext.traffic.caveat')}</p>
+      {rows.some((row) => listenUrl(row)) && <p className="address-search__disclaimer">{t('noiseContext.traffic.listenNote')}</p>}
 
       <h3>{t('noiseContext.model.title')}</h3>
       <p className="address-search__disclaimer">

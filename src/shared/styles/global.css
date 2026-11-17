@@ -1522,6 +1522,10 @@ body {
   font-weight: 600;
 }
 
+.noise-context__listen {
+  white-space: nowrap;
+}
+
 .noise-context__list {
   margin: 0 0 var(--space-2);
   padding-left: 1.2rem;
