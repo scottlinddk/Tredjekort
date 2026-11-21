@@ -1,3 +1,4 @@
+import { Button, Notice } from '@scttlnd/ui'
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { useMunicipalClosures } from '../hooks/useMunicipalProposal'
 
@@ -6,7 +7,16 @@ export function MunicipalClosuresList() {
   const { t, language } = useI18n()
   const { data, isError, refetch } = useMunicipalClosures(true)
 
-  if (isError) return <button type="button" className="map-tools__close" onClick={() => { void refetch() }}>{t('municipalProposal.closuresError')}</button>
+  if (isError) {
+    return (
+      <Notice
+        tone="danger"
+        action={<Button variant="secondary" onClick={() => { void refetch() }}>{t('map.retry')}</Button>}
+      >
+        {t('municipalProposal.closuresError')}
+      </Notice>
+    )
+  }
   if (!data) return null
 
   return (

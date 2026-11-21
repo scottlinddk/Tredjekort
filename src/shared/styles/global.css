@@ -847,17 +847,6 @@ body {
   margin-top: var(--space-1);
 }
 
-.address-report__retry {
-  display: block;
-  min-height: 44px;
-  border: 0;
-  background: none;
-  color: var(--color-survey-blue);
-  text-decoration: underline;
-  font: inherit;
-  cursor: pointer;
-}
-
 .address-report__land summary {
   padding: var(--space-3) 0;
   cursor: pointer;
@@ -1184,21 +1173,6 @@ body {
 .route-error__message {
   color: var(--color-graphite);
   margin: 0 0 var(--space-4);
-}
-
-.route-error__action {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  padding: var(--space-2) var(--space-4);
-  border: var(--border-hairline);
-  border-radius: var(--radius);
-  background: var(--color-paper);
-  color: var(--color-ink);
-  cursor: pointer;
-}
-
-.route-error__action:hover {
-  border-color: var(--color-graphite);
 }
 
 /* Ændringer (changes feed) route — a scrollable changelog of scraper findings. */

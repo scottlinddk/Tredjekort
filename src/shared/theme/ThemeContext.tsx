@@ -44,6 +44,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
+    // @scttlnd/ui switches palette on data-fds-mode.
+    document.documentElement.dataset.fdsMode = theme
   }, [theme])
 
   const toggleTheme = useCallback(() => {
