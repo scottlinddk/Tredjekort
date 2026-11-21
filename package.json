@@ -14,6 +14,7 @@
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {
+    "@scttlnd/ui": "0.9.0",
     "@tanstack/react-query": "^5.101.2",
     "@turf/turf": "^7.3.5",
     "maplibre-gl": "^6.11.2",

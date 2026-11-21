@@ -1,3 +1,4 @@
+import { Button, Notice } from '@scttlnd/ui'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router'
 import { useI18n } from '../../../shared/i18n/I18nContext'
@@ -46,7 +47,16 @@ export function AddressReport({ addressId }: { addressId: string }) {
   })
 
   if (report.isPending) return <p className="address-search__disclaimer">{t('report.loading')}</p>
-  if (report.isError) return <p className="address-search__disclaimer">{t('report.error')} <button type="button" className="address-report__retry" onClick={() => { void report.refetch() }}>{t('map.retry')}</button></p>
+  if (report.isError) {
+    return (
+      <Notice
+        tone="danger"
+        action={<Button variant="secondary" onClick={() => { void report.refetch() }}>{t('map.retry')}</Button>}
+      >
+        {t('report.error')}
+      </Notice>
+    )
+  }
   const historicalModel = report.data.noise?.legacyModel
   const expected = report.data.noise?.expectedWithProject
   const officialDesign = report.data.proximity?.nearestOfficialDesign

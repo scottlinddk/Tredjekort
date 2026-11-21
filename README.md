@@ -155,3 +155,7 @@ can be misplaced by hundreds of metres. Distance zones are geometric buffers onl
 The latest 2035 PDF noise maps are linked in full; they have not been converted into
 reliable address-level contours. The separately identified 2021/2040 polygons are
 an older official model and must not be treated as updated 2035 calculations.
+
+## UI
+
+The app uses [`@scttlnd/ui`](https://www.npmjs.com/package/@scttlnd/ui) with its `tredjekort` theme (`src/main.tsx` imports the base styles and theme). `src/shared/styles/tokens.css` aliases the app's `--color-*` names to the package's `--fds-*` tokens, so the palette has one source. `ThemeProvider` sets `data-theme` and `data-fds-mode`; `index.html` stamps the latter before first paint. Prefer package primitives (`Button`, `Notice`, `Field`, …) over new hand-rolled ones.
