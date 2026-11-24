@@ -2,6 +2,8 @@ import type { CSSProperties } from 'react'
 import { useI18n } from '../../../shared/i18n/I18nContext'
 import { DISTANCE_BANDS, NOISE_COLOR_SCHEMES, type NoiseColorScheme } from '../constants/mapConfig'
 import { OFFICIAL_NOISE_BANDS, isOfficialNoiseScenario, type NoiseMapMode } from '../constants/officialNoiseConfig'
+import { CROSSING_STYLE, consolidation } from '../../alternatives/constants/alternatives'
+import type { CrossingAlternativeId } from '../../alternatives/types/alternatives.types'
 
 interface MapLegendProps {
   colorScheme: NoiseColorScheme
@@ -9,10 +11,13 @@ interface MapLegendProps {
   showScreens: boolean
   showOfficialDesign: boolean
   showMunicipalProposal: boolean
+  showAlternatives: boolean
+  crossing: CrossingAlternativeId
 }
 
-export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDesign, showMunicipalProposal }: MapLegendProps) {
-  const { t } = useI18n()
+export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDesign, showMunicipalProposal, showAlternatives, crossing }: MapLegendProps) {
+  const { t, language } = useI18n()
+  const crossingAlternative = consolidation.crossingAlternatives.find(({ id }) => id === crossing)
   const bandColors = NOISE_COLOR_SCHEMES[colorScheme]
 
   return (
@@ -32,6 +37,14 @@ export function MapLegend({ colorScheme, noiseMode, showScreens, showOfficialDes
       {showMunicipalProposal && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--cross-section" aria-hidden="true">B</span> {t('legend.municipalCrossSection')}
       </div>}
+      {showAlternatives && <>
+        <div className="map-legend__row"><span className="legend-swatch legend-swatch--alternative-alignment" /> {t('legend.alternativeAlignment')}</div>
+        <div className="map-legend__row"><span className="legend-swatch legend-swatch--pfas-deposit" /> {t('legend.pfasDeposit')}</div>
+        <div className="map-legend__row">
+          <span className="legend-swatch legend-swatch--crossing" style={{ '--swatch-color': CROSSING_STYLE[crossing].color } as CSSProperties} data-crossing={crossing} />
+          {t('legend.crossing', { name: crossingAlternative?.title[language] ?? crossing })}
+        </div>
+      </>}
       {showScreens && <div className="map-legend__row">
         <span className="legend-swatch legend-swatch--noise-screen" /> {t('legend.noiseScreen')}
       </div>}

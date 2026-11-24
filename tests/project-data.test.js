@@ -42,7 +42,7 @@ test('project facts, updates and schedule retain bilingual text and dated offici
     assert.equal(new Set(information[group].map((item) => item.id)).size, information[group].length)
     for (const item of information[group]) {
       assert.ok(item.title.da && item.title.en && item.summary.da && item.summary.en)
-      assert.ok(['www.vejdirektoratet.dk', 'geocloud.vd.dk'].includes(new URL(item.sourceUrl).hostname))
+      assert.ok(['www.vejdirektoratet.dk', 'api.vejdirektoratet.dk', 'geocloud.vd.dk'].includes(new URL(item.sourceUrl).hostname))
       assert.match(item.sourceUpdatedAt, /^\d{4}-\d{2}-\d{2}$/)
     }
   }

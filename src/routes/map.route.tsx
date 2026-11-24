@@ -17,6 +17,8 @@ import { MunicipalProposalLayer } from '../features/map/components/MunicipalProp
 import { MunicipalClosuresLayer } from '../features/map/components/MunicipalClosuresLayer'
 import { MunicipalCrossSectionMarkers } from '../features/map/components/MunicipalCrossSectionMarkers'
 import { useOfficialNoise } from '../features/map/hooks/useOfficialNoise'
+import { AlternativesLayer } from '../features/alternatives/components/AlternativesLayer'
+import { useAlternativesQueryParam } from '../features/alternatives/hooks/useAlternativesQueryParam'
 import { isOfficialNoiseScenario, type NoiseMapMode } from '../features/map/constants/officialNoiseConfig'
 
 type MapPanel = 'search' | 'layers' | 'info'
@@ -30,6 +32,8 @@ export function MapRoute() {
   const [showOfficialDesign, setShowOfficialDesign] = useState(true)
   // Opt-in: a preliminary municipal proposal, kept apart from the state project's design.
   const [showMunicipalProposal, setShowMunicipalProposal] = useState(false)
+  // Opt-in: Vejdirektoratet's preliminary November 2026 alternatives, kept in the URL.
+  const { showAlternatives, setShowAlternatives, crossing, setCrossing } = useAlternativesQueryParam()
   const officialScenario = isOfficialNoiseScenario(noiseMode) ? noiseMode : null
   const officialNoise = useOfficialNoise(officialScenario !== null)
   const [activePanel, setActivePanel] = useState<MapPanel | null>(() =>
@@ -51,6 +55,7 @@ export function MapRoute() {
       <MapCanvas>
         <OfficialDesignLayer visible={showOfficialDesign} />
         <MunicipalProposalLayer visible={showMunicipalProposal} />
+        <AlternativesLayer visible={showAlternatives} crossing={crossing} />
         <NoiseZoneLayer visible={noiseMode === 'distance'} colorScheme={colorScheme} opacity={opacity} />
         <OfficialNoiseLayer data={officialNoise.data} scenario={officialScenario} opacity={opacity} />
         <NoiseScreensLayer visible={showScreens} />
@@ -111,6 +116,10 @@ export function MapRoute() {
                 onToggleOfficialDesign={setShowOfficialDesign}
                 showMunicipalProposal={showMunicipalProposal}
                 onToggleMunicipalProposal={setShowMunicipalProposal}
+                showAlternatives={showAlternatives}
+                onToggleAlternatives={setShowAlternatives}
+                crossing={crossing}
+                onCrossingChange={setCrossing}
                 colorScheme={colorScheme}
                 onColorSchemeChange={setColorScheme}
                 opacity={opacity}
@@ -118,7 +127,7 @@ export function MapRoute() {
               />
               {officialScenario && officialNoise.isFetching && <p role="status">{t('officialNoise.loading')}</p>}
               {officialScenario && officialNoise.isError && <button type="button" className="map-tools__close" onClick={() => { void officialNoise.refetch() }}>{t('officialNoise.error')}</button>}
-              <MapLegend colorScheme={colorScheme} noiseMode={noiseMode} showScreens={showScreens} showOfficialDesign={showOfficialDesign} showMunicipalProposal={showMunicipalProposal} />
+              <MapLegend colorScheme={colorScheme} noiseMode={noiseMode} showScreens={showScreens} showOfficialDesign={showOfficialDesign} showMunicipalProposal={showMunicipalProposal} showAlternatives={showAlternatives} crossing={crossing} />
             </section>
             <section id="map-panel-info" hidden={activePanel !== 'info'} aria-label={t('map.panel.info')}>
               <p className="map-tools__intro">{t('map.approximation')}</p>

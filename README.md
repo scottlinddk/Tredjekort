@@ -26,6 +26,14 @@ React, TypeScript, Vite and MapLibre GL; Vercel functions serve the JSON APIs.
   proposed side-street closures with path access are drawn and listed, georeferenced
   from the municipality's image and named from OpenStreetMap, since DAWA has closed.
   A "B" marker on Mølholmsvej opens the municipality's cross-section visualisation.
+- Vejdirektoratet's **preliminary consolidation status of 24 November 2026**: an
+  *Alternativer* page with the ~3.5 bn cost increase (budget table and causes), schematic
+  long sections of the four Sønderdyb solutions (immersed tunnel, cut-and-cover tunnel,
+  high bridge, bascule bridge) with their published savings, and an opt-in map layer
+  (`?alternatives=1&crossing=…`) with the alignment west of the PFAS sludge deposit.
+  That line is read from a presentation image (`scripts/build-alternatives-2026-11.py`),
+  about 100–150 m uncertain, and stops where the image stops. Totals per solution are
+  computed by the app (≈12.5 bn minus the saving), not official estimates.
 - All six published **2035 noise PDFs**, paired by region and with/without project,
   plus project facts, dated updates, the published schedule, inspection documents,
   environmental material and landowner information.

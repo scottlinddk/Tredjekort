@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "publisher": "Vejdirektoratet",
+  "title": {
+    "da": "Foreløbig status for konsolidering",
+    "en": "Preliminary consolidation status"
+  },
+  "sourceDate": "2026-11-24",
+  "reviewedAt": "2026-11-24",
+  "sourceUrl": "https://api.vejdirektoratet.dk/sites/default/files/2026-11/Forel%C3%B8big%20status%20for%20konsolidering%20den%2024.%20november%20vedr.%203.%20Limfjordsforbindelse.pdf",
+  "status": "preliminary",
+  "priceLevel": "2027-pl",
+  "caveat": {
+    "da": "Alle tal er foreløbige overslag og er under konsolidering. Intet alternativ er besluttet. Resultaterne kan præsenteres for forligskredsen primo 2027.",
+    "en": "All figures are preliminary estimates under consolidation. No alternative has been decided. Results may be presented to the parties behind the political agreement in early 2027."
+  },
+  "budget": {
+    "sourcePage": 6,
+    "unit": "mio. kr.",
+    "rows": [
+      { "id": "land-works", "label": { "da": "Landanlæg", "en": "Land works" }, "original": 2575.2, "november2026": 4284, "increase": 1709 },
+      { "id": "fjord-crossing", "label": { "da": "Fjordkrydsning", "en": "Fjord crossing" }, "original": 2932.6, "november2026": 5206, "increase": 2332 },
+      { "id": "other", "label": { "da": "Øvrigt", "en": "Other" }, "original": 1358.2, "november2026": 1514, "increase": null },
+      { "id": "physical-total", "label": { "da": "Fysikoverslag i alt", "en": "Physical estimate, total" }, "original": 6866.0, "november2026": 11004, "increase": 4041, "isTotal": true },
+      { "id": "reserves", "label": { "da": "Reserver", "en": "Reserves" }, "original": 2190.5, "november2026": 1500, "november2026Approximate": true, "increase": null },
+      { "id": "total", "label": { "da": "Totaludgift i alt", "en": "Total cost" }, "original": 9056.5, "november2026": 12500, "november2026Approximate": true, "increase": 3500, "increaseApproximate": true, "isTotal": true }
+    ],
+    "reserveNote": {
+      "da": "Reserven er til uforudsete udgifter. Der er ikke gennemført en risikoanalyse; erfaringsmæssigt tillægges 10–15 %, svarende til ca. 1,5 mia. kr.",
+      "en": "The reserve covers unforeseen costs. No risk analysis has been carried out; by experience 10–15% is added, about DKK 1.5 billion."
+    }
+  },
+  "costDrivers": [
+    { "id": "environment", "sourcePage": 2, "minBn": 0.7, "maxBn": 0.7, "title": { "da": "Øgede miljøkrav", "en": "Stricter environmental requirements" }, "summary": { "da": "Store mængder PFAS på slamdeponiet ved Mølholm, krav om mere erstatningsnatur og større regnvandsbassiner.", "en": "Large amounts of PFAS at the Mølholm sludge deposit, more replacement habitat and larger stormwater basins." } },
+    { "id": "geotechnics", "sourcePage": 3, "minBn": 0.9, "maxBn": 1.3, "title": { "da": "Geotekniske udfordringer", "en": "Geotechnical challenges" }, "summary": { "da": "Dybere blødbund og dårligere bæreevne flere steder, bl.a. 20 m blød bund i Nørredyb. Kræver længere pæle, spuns og langsommere løsninger.", "en": "Deeper soft soil and poorer bearing capacity at several locations, including 20 m of soft bed in Nørredyb. Requires longer piles, sheet piling and slower methods." } },
+    { "id": "dry-dock", "sourcePage": 4, "minBn": 0.3, "maxBn": 0.3, "title": { "da": "Tørdok ikke til rådighed", "en": "Dry dock unavailable" }, "summary": { "da": "Den planlagte tørdok til sænketunnelelementer er disponeret til anden side. Rødby kan ikke frigives af Femern A/S.", "en": "The planned dry dock for immersed-tunnel elements has been allocated elsewhere. Femern A/S cannot release Rødby." } },
+    { "id": "prices", "sourcePage": 5, "minBn": 1.7, "maxBn": 1.7, "title": { "da": "Prisudvikling", "en": "Price development" }, "summary": { "da": "Ekstraordinære prisstigninger på råstoffer og betonarbejder. Tunnelen blev senest prissat i 2020.", "en": "Exceptional price increases for raw materials and concrete work. The tunnel was last priced in 2020." } }
+  ],
+  "immersedTunnelSavings": {
+    "sourcePage": 7,
+    "totalBn": 0.9,
+    "items": [
+      { "id": "narrower-tunnel", "mio": 220, "label": { "da": "Smallere tunnel og lavbro", "en": "Narrower tunnel and low bridge" } },
+      { "id": "no-hard-shoulder", "mio": 300, "label": { "da": "Motorvej uden nødspor, med nødlommer", "en": "Motorway without hard shoulder, with emergency bays" } },
+      { "id": "fewer-foundations", "mio": 100, "label": { "da": "Færre fundamenter for lavbro ved Nørredybet, mindre frihøjde under broen", "en": "Fewer low-bridge foundations at Nørredyb, less clearance under the bridge" } },
+      { "id": "teglvaerksvej", "mio": 100, "label": { "da": "Afbrydelse af Teglværksvej", "en": "Closing Teglværksvej" } },
+      { "id": "dall-mollevej", "mio": 50, "label": { "da": "Afbrydelse af Dall Møllevej", "en": "Closing Dall Møllevej" } },
+      { "id": "client-materials", "mio": 100, "label": { "da": "Bygherreleverance af råstoffer/dæmningsfyld nord for fjorden", "en": "Client-supplied raw materials/embankment fill north of the fjord" } },
+      { "id": "lower-motorway-north", "mio": 60, "label": { "da": "Sænkning af motorvej nord for Limfjorden", "en": "Lowering the motorway north of the Limfjord" } }
+    ]
+  },
+  "alignmentAlternative": {
+    "id": "west-of-deposit",
+    "sourcePage": 8,
+    "savingMinBn": 0.3,
+    "savingMaxBn": 0.3,
+    "title": { "da": "Ny linjeføring vest om slamdeponi", "en": "New alignment west of the sludge deposit" },
+    "summary": { "da": "Motorvejen og tunnelrampen flyttes mod vest, så den ikke føres gennem det PFAS-forurenede slamdeponi ved Mølholm. Tilslutningsanlægget ved Nørholmsvej omlægges tilsvarende.", "en": "The motorway and tunnel ramp move west so they do not pass through the PFAS-contaminated sludge deposit at Mølholm. The Nørholmsvej interchange is redesigned accordingly." }
+  },
+  "crossingAlternatives": [
+    {
+      "id": "immersed-tunnel",
+      "isBaseline": true,
+      "sourcePage": 7,
+      "savingMinBn": 0,
+      "savingMaxBn": 0,
+      "title": { "da": "Sænketunnel (nuværende projekt)", "en": "Immersed tunnel (current design)" },
+      "summary": { "da": "Tunnelelementer støbes i en tørdok, flydes ud og sænkes ned i en udgravet rende under sejlrenden. Tørdokken ved Mølholm er ikke længere til rådighed.", "en": "Tunnel elements are cast in a dry dock, floated out and lowered into a dredged trench under the shipping channel. The Mølholm dry dock is no longer available." },
+      "shipsPass": "always",
+      "trafficStopsForShips": false
+    },
+    {
+      "id": "cut-and-cover",
+      "sourcePage": 9,
+      "savingMinBn": 0.2,
+      "savingMaxBn": 0.2,
+      "title": { "da": "Cut and cover-tunnel", "en": "Cut-and-cover tunnel" },
+      "summary": { "da": "Stadig en tunnel, men støbt på stedet i en udgravning, der derefter dækkes til. Præsentationen beskriver ikke, hvordan fjorden holdes tør under byggeriet.", "en": "Still a tunnel, but cast in place in an excavation that is then covered. The presentation does not describe how the fjord is kept dry during construction." },
+      "shipsPass": "always",
+      "trafficStopsForShips": false
+    },
+    {
+      "id": "high-bridge",
+      "sourcePage": 9,
+      "savingMinBn": 2.5,
+      "savingMaxBn": 2.6,
+      "title": { "da": "Højbro", "en": "High bridge" },
+      "summary": { "da": "Motorvejen føres over Sønderdyb på en høj bro, så skibe kan passere under. Broen bliver et markant nyt element i landskabet vest for Aalborg.", "en": "The motorway crosses Sønderdyb on a high bridge so ships can pass beneath. The bridge becomes a prominent new landscape element west of Aalborg." },
+      "shipsPass": "always",
+      "trafficStopsForShips": false
+    },
+    {
+      "id": "bascule-bridge",
+      "sourcePage": 9,
+      "savingMinBn": 2.5,
+      "savingMaxBn": 2.7,
+      "title": { "da": "Klapbro", "en": "Bascule bridge" },
+      "summary": { "da": "En lav bro med et klap, der åbnes for skibstrafik. Motorvejstrafikken skal standses, når broen åbner – som ved Limfjordsbroen i dag.", "en": "A low bridge with a leaf that opens for shipping. Motorway traffic has to stop whenever it opens, as at the Limfjord Bridge today." },
+      "shipsPass": "when-open",
+      "trafficStopsForShips": true
+    }
+  ],
+  "nextSteps": {
+    "sourcePage": 10,
+    "da": "Konsolideringen, herunder af de mulige alternativer, færdiggøres. Resultaterne vil kunne præsenteres for forligskredsen primo 2027.",
+    "en": "Consolidation, including of the possible alternatives, will be completed. Results may be presented to the parties behind the political agreement in early 2027."
+  }
+}
