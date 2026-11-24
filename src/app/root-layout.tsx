@@ -19,6 +19,7 @@ export function RootLayout() {
               {t('nav.map')}
             </NavLink>
             <NavLink to="/about">{t('nav.about')}</NavLink>
+            <NavLink to="/alternatives">{t('nav.alternatives')}</NavLink>
             <NavLink to="/changes">{t('nav.changes')}</NavLink>
             <NavLink to="/sources">{t('nav.sources')}</NavLink>
           </nav>

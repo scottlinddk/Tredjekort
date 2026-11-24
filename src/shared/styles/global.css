@@ -1031,6 +1031,33 @@ body {
   font: 700 0.65rem var(--font-body);
 }
 
+.legend-swatch--alternative-alignment {
+  background: repeating-linear-gradient(90deg, #ea580c 0 6px, transparent 6px 9px);
+}
+
+.legend-swatch--pfas-deposit {
+  width: 14px;
+  height: 14px;
+  border: 1px dashed #a16207;
+  background: #a1620738;
+}
+
+.legend-swatch--crossing {
+  height: 5px;
+  background: var(--swatch-color);
+}
+
+/* Tunnels dashed, as on the map; the bascule bridge shows a short gap. */
+.legend-swatch--crossing[data-crossing='immersed-tunnel'] {
+  background: repeating-linear-gradient(90deg, var(--swatch-color) 0 3px, transparent 3px 7px);
+}
+.legend-swatch--crossing[data-crossing='cut-and-cover'] {
+  background: repeating-linear-gradient(90deg, var(--swatch-color) 0 8px, transparent 8px 11px);
+}
+.legend-swatch--crossing[data-crossing='bascule-bridge'] {
+  background: linear-gradient(90deg, var(--swatch-color) 0 8px, transparent 8px 11px, var(--swatch-color) 11px);
+}
+
 .legend-swatch--permanent-land,
 .legend-swatch--temporary-land {
   width: 14px;

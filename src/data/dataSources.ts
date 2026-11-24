@@ -126,6 +126,17 @@ export const DATA_SOURCES: DataSourceEntry[] = [
     url: 'https://www.aalborg.dk/om-kommunen/udvikling-og-projekter/udvikling-af-kommunen/3-limfjordsforbindelse/',
   },
   {
+    id: 'alternatives-2026-11',
+    datasetKey: 'alternatives',
+    citations: [
+      'Vejdirektoratet, 3. Limfjordsforbindelse: Foreløbig status for konsolidering, 24 November 2026 (11-page presentation). Estimates in 2027 price level; all figures preliminary and under consolidation',
+      'Cost table (page 6), cost drivers (pages 2–5), savings with the immersed tunnel (page 7), alignment west of the sludge deposit (page 8), cut-and-cover tunnel, high bridge and bascule bridge (page 9)',
+      'Alignment west of the sludge deposit and the deposit outline: read from the annotated aerial image on page 8 and drawn as an offset of the official 2025 phase 3 axis by scripts/build-alternatives-2026-11.py. Schematic, about 100–150 m uncertainty; the line stops where the image stops',
+      'Crossing profiles are schematic illustrations; the presentation publishes no lengths, depths or clearances. Shipping channel depth of about 10 m from the project page. Estimated totals per solution are computed by this app (≈12.5 bn minus the stated saving)',
+    ],
+    url: 'https://api.vejdirektoratet.dk/sites/default/files/2026-11/Forel%C3%B8big%20status%20for%20konsolidering%20den%2024.%20november%20vedr.%203.%20Limfjordsforbindelse.pdf',
+  },
+  {
     id: 'municipal-road-closures',
     datasetKey: 'municipalClosures',
     citations: [

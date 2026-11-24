@@ -5,7 +5,10 @@ import {
   NOISE_BAND_OPACITY_STEP,
   type NoiseColorScheme,
 } from '../constants/mapConfig'
+import { Link } from 'react-router'
 import { MunicipalProposalSummary } from './MunicipalProposalSummary'
+import { consolidation } from '../../alternatives/constants/alternatives'
+import type { CrossingAlternativeId } from '../../alternatives/types/alternatives.types'
 import { OFFICIAL_NOISE_SCENARIOS, isOfficialNoiseScenario, type NoiseMapMode } from '../constants/officialNoiseConfig'
 
 interface LayerToggleProps {
@@ -17,6 +20,10 @@ interface LayerToggleProps {
   onToggleOfficialDesign: (next: boolean) => void
   showMunicipalProposal: boolean
   onToggleMunicipalProposal: (next: boolean) => void
+  showAlternatives: boolean
+  onToggleAlternatives: (next: boolean) => void
+  crossing: CrossingAlternativeId
+  onCrossingChange: (next: CrossingAlternativeId) => void
   colorScheme: NoiseColorScheme
   onColorSchemeChange: (next: NoiseColorScheme) => void
   opacity: number
@@ -32,12 +39,16 @@ export function LayerToggle({
   onToggleOfficialDesign,
   showMunicipalProposal,
   onToggleMunicipalProposal,
+  showAlternatives,
+  onToggleAlternatives,
+  crossing,
+  onCrossingChange,
   colorScheme,
   onColorSchemeChange,
   opacity,
   onOpacityChange,
 }: LayerToggleProps) {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
 
   return (
     <div className="layer-toggle">
@@ -50,6 +61,22 @@ export function LayerToggle({
         {t('legend.municipalProposal')}
       </label>
       {showMunicipalProposal && <MunicipalProposalSummary />}
+      <label>
+        <input type="checkbox" checked={showAlternatives} onChange={(event) => onToggleAlternatives(event.target.checked)} />
+        {t('legend.alternatives')}
+      </label>
+      {showAlternatives && <>
+        <label className="layer-toggle__group">
+          <span className="layer-toggle__group-label">{t('layers.crossing')}</span>
+          <select value={crossing} onChange={(event) => onCrossingChange(event.target.value as CrossingAlternativeId)}>
+            {consolidation.crossingAlternatives.map((alternative) => (
+              <option key={alternative.id} value={alternative.id}>{alternative.title[language]}</option>
+            ))}
+          </select>
+        </label>
+        <p className="layer-toggle__note">{t('layers.alternativesNote')}</p>
+        <Link className="map-tools__resource" to={`/alternatives?crossing=${crossing}`}>{t('layers.alternativesCompare')} →</Link>
+      </>}
       <label className="layer-toggle__group">
         <span className="layer-toggle__group-label">{t('layers.overlay')}</span>
         <select value={noiseMode} onChange={(event) => onNoiseModeChange(event.target.value as NoiseMapMode)}>
